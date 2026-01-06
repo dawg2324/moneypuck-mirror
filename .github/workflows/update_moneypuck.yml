@@ -2,7 +2,7 @@ name: Update MoneyPuck CSVs
 
 on:
   schedule:
-    - cron: "15 15 * * *"
+    - cron: "30 13 * * *"
   workflow_dispatch:
 
 jobs:
