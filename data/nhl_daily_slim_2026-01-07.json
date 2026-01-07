@@ -1,0 +1,2964 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-01-07T22:11:53+00:00",
+  "data_date_et": "2026-01-07",
+  "source_status": {
+    "odds_current": {
+      "ok": true
+    },
+    "odds_open": {
+      "ok": false,
+      "error": "401 Client Error: Unauthorized for url: https://api.the-odds-api.com/v4/historical/sports/icehockey_nhl/odds?apiKey=651eddc24dd189e57c96cd985a9a4eb4&regions=us&markets=h2h%2Ctotals&oddsFormat=american&dateFormat=iso&date=2026-01-07T12%3A00%3A00Z",
+      "snapshot_requested": "2026-01-07T12:00:00Z"
+    },
+    "teams": {
+      "ok": true,
+      "url": "https://raw.githubusercontent.com/dawg2324/moneypuck-mirror/main/data/teams.csv"
+    },
+    "goalies": {
+      "ok": true,
+      "url": "https://raw.githubusercontent.com/dawg2324/moneypuck-mirror/main/data/goalies.csv"
+    }
+  },
+  "validations": {
+    "teams_count": 32,
+    "goalies_count": 427,
+    "odds_games_count": 17
+  },
+  "inputs_hash": {
+    "odds_current_sha256": "56f92bec7f1721cc6292da045d259cd16b3af0de060ec3a2054c09eb0cfe5fc3",
+    "teams_sha256": "6c32a45cca8c7a9a26218168ee975d98f63f2dc8b6cfbf7d4dcace2a85196c71",
+    "goalies_sha256": "b71ffbf87d5ca71c2195097aae12d208b768629118991e1ae8217a9fe306865b"
+  },
+  "slim": {
+    "league_avg_lambda": 3.1020087382720325,
+    "teams": [
+      {
+        "team": "TOR",
+        "games_played": 42,
+        "xGF_pg": 2.9688095238095236,
+        "xGA_pg": 3.045952380952381
+      },
+      {
+        "team": "SJS",
+        "games_played": 42,
+        "xGF_pg": 2.927142857142857,
+        "xGA_pg": 3.2597619047619046
+      },
+      {
+        "team": "CHI",
+        "games_played": 42,
+        "xGF_pg": 2.6997619047619046,
+        "xGA_pg": 3.2564285714285717
+      },
+      {
+        "team": "UTA",
+        "games_played": 43,
+        "xGF_pg": 3.03093023255814,
+        "xGA_pg": 2.932325581395349
+      },
+      {
+        "team": "STL",
+        "games_played": 43,
+        "xGF_pg": 2.536046511627907,
+        "xGA_pg": 2.8965116279069765
+      },
+      {
+        "team": "BUF",
+        "games_played": 41,
+        "xGF_pg": 3.15390243902439,
+        "xGA_pg": 3.128536585365854
+      },
+      {
+        "team": "WSH",
+        "games_played": 43,
+        "xGF_pg": 3.384186046511628,
+        "xGA_pg": 3.1251162790697675
+      },
+      {
+        "team": "BOS",
+        "games_played": 43,
+        "xGF_pg": 2.9483720930232558,
+        "xGA_pg": 3.375348837209302
+      },
+      {
+        "team": "TBL",
+        "games_played": 42,
+        "xGF_pg": 3.621904761904762,
+        "xGA_pg": 2.9535714285714283
+      },
+      {
+        "team": "SEA",
+        "games_played": 41,
+        "xGF_pg": 2.8146341463414637,
+        "xGA_pg": 3.2112195121951217
+      },
+      {
+        "team": "MIN",
+        "games_played": 44,
+        "xGF_pg": 3.0527272727272727,
+        "xGA_pg": 2.9718181818181817
+      },
+      {
+        "team": "ANA",
+        "games_played": 43,
+        "xGF_pg": 3.24046511627907,
+        "xGA_pg": 3.334883720930233
+      },
+      {
+        "team": "NYI",
+        "games_played": 43,
+        "xGF_pg": 3.0044186046511627,
+        "xGA_pg": 3.3672093023255814
+      },
+      {
+        "team": "PIT",
+        "games_played": 41,
+        "xGF_pg": 3.253414634146341,
+        "xGA_pg": 3.091707317073171
+      },
+      {
+        "team": "WPG",
+        "games_played": 41,
+        "xGF_pg": 2.9204878048780487,
+        "xGA_pg": 3.211951219512195
+      },
+      {
+        "team": "VAN",
+        "games_played": 42,
+        "xGF_pg": 3.007857142857143,
+        "xGA_pg": 3.5311904761904764
+      },
+      {
+        "team": "DAL",
+        "games_played": 43,
+        "xGF_pg": 3.1909302325581397,
+        "xGA_pg": 3.090232558139535
+      },
+      {
+        "team": "NYR",
+        "games_played": 44,
+        "xGF_pg": 2.829090909090909,
+        "xGA_pg": 3.2345454545454544
+      },
+      {
+        "team": "CBJ",
+        "games_played": 42,
+        "xGF_pg": 3.1469047619047616,
+        "xGA_pg": 3.401666666666667
+      },
+      {
+        "team": "LAK",
+        "games_played": 41,
+        "xGF_pg": 3.0421951219512198,
+        "xGA_pg": 2.941951219512195
+      },
+      {
+        "team": "DET",
+        "games_played": 44,
+        "xGF_pg": 3.175,
+        "xGA_pg": 3.0518181818181818
+      },
+      {
+        "team": "NSH",
+        "games_played": 42,
+        "xGF_pg": 2.9914285714285715,
+        "xGA_pg": 3.265238095238095
+      },
+      {
+        "team": "OTT",
+        "games_played": 41,
+        "xGF_pg": 3.0534146341463413,
+        "xGA_pg": 2.7009756097560973
+      },
+      {
+        "team": "COL",
+        "games_played": 42,
+        "xGF_pg": 3.897857142857143,
+        "xGA_pg": 2.633095238095238
+      },
+      {
+        "team": "CGY",
+        "games_played": 42,
+        "xGF_pg": 2.943095238095238,
+        "xGA_pg": 3.072857142857143
+      },
+      {
+        "team": "PHI",
+        "games_played": 41,
+        "xGF_pg": 2.8902439024390243,
+        "xGA_pg": 2.8756097560975613
+      },
+      {
+        "team": "EDM",
+        "games_played": 43,
+        "xGF_pg": 3.2983720930232563,
+        "xGA_pg": 3.257906976744186
+      },
+      {
+        "team": "VGK",
+        "games_played": 41,
+        "xGF_pg": 3.2643902439024393,
+        "xGA_pg": 2.723414634146341
+      },
+      {
+        "team": "CAR",
+        "games_played": 43,
+        "xGF_pg": 3.622093023255814,
+        "xGA_pg": 2.9030232558139533
+      },
+      {
+        "team": "MTL",
+        "games_played": 42,
+        "xGF_pg": 3.107142857142857,
+        "xGA_pg": 3.174285714285714
+      },
+      {
+        "team": "NJD",
+        "games_played": 43,
+        "xGF_pg": 3.0134883720930237,
+        "xGA_pg": 3.0500000000000003
+      },
+      {
+        "team": "FLA",
+        "games_played": 42,
+        "xGF_pg": 3.2335714285714285,
+        "xGA_pg": 3.170952380952381
+      }
+    ],
+    "goalies": [
+      {
+        "name": "Igor Shesterkin",
+        "team": "NYR",
+        "gsa_x60": 2.107317073170732
+      },
+      {
+        "name": "Igor Shesterkin",
+        "team": "NYR",
+        "gsa_x60": 0.46360917248255235
+      },
+      {
+        "name": "Igor Shesterkin",
+        "team": "NYR",
+        "gsa_x60": 0.5174881943550701
+      },
+      {
+        "name": "Igor Shesterkin",
+        "team": "NYR",
+        "gsa_x60": 0.7502380196762929
+      },
+      {
+        "name": "Igor Shesterkin",
+        "team": "NYR",
+        "gsa_x60": -0.6662526394236742
+      },
+      {
+        "name": "Karel Vejmelka",
+        "team": "UTA",
+        "gsa_x60": 0.17193240264511375
+      },
+      {
+        "name": "Karel Vejmelka",
+        "team": "UTA",
+        "gsa_x60": -0.006104581113282746
+      },
+      {
+        "name": "Karel Vejmelka",
+        "team": "UTA",
+        "gsa_x60": -0.2311951856180169
+      },
+      {
+        "name": "Karel Vejmelka",
+        "team": "UTA",
+        "gsa_x60": 1.6515957446808514
+      },
+      {
+        "name": "Karel Vejmelka",
+        "team": "UTA",
+        "gsa_x60": 0.5518188057652711
+      },
+      {
+        "name": "Jake Oettinger",
+        "team": "DAL",
+        "gsa_x60": 1.5918367346938775
+      },
+      {
+        "name": "Jake Oettinger",
+        "team": "DAL",
+        "gsa_x60": 0.10268919082369063
+      },
+      {
+        "name": "Jake Oettinger",
+        "team": "DAL",
+        "gsa_x60": 0.03709109641967904
+      },
+      {
+        "name": "Jake Oettinger",
+        "team": "DAL",
+        "gsa_x60": 0.8269141531322508
+      },
+      {
+        "name": "Jake Oettinger",
+        "team": "DAL",
+        "gsa_x60": -0.820742065265981
+      },
+      {
+        "name": "Hunter Shepard",
+        "team": "OTT",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Hunter Shepard",
+        "team": "OTT",
+        "gsa_x60": -2.112715416860736
+      },
+      {
+        "name": "Hunter Shepard",
+        "team": "OTT",
+        "gsa_x60": -0.9898697539797395
+      },
+      {
+        "name": "Hunter Shepard",
+        "team": "OTT",
+        "gsa_x60": 0.32
+      },
+      {
+        "name": "Hunter Shepard",
+        "team": "OTT",
+        "gsa_x60": -11.494736842105263
+      },
+      {
+        "name": "Alex Nedeljkovic",
+        "team": "SJS",
+        "gsa_x60": 3.5503711558854723
+      },
+      {
+        "name": "Alex Nedeljkovic",
+        "team": "SJS",
+        "gsa_x60": -0.23125620655412119
+      },
+      {
+        "name": "Alex Nedeljkovic",
+        "team": "SJS",
+        "gsa_x60": -0.20980132450331115
+      },
+      {
+        "name": "Alex Nedeljkovic",
+        "team": "SJS",
+        "gsa_x60": -1.9731127197518101
+      },
+      {
+        "name": "Alex Nedeljkovic",
+        "team": "SJS",
+        "gsa_x60": 0.402061855670103
+      },
+      {
+        "name": "Thatcher Demko",
+        "team": "VAN",
+        "gsa_x60": -0.1456016177957534
+      },
+      {
+        "name": "Thatcher Demko",
+        "team": "VAN",
+        "gsa_x60": 0.2430952670641196
+      },
+      {
+        "name": "Thatcher Demko",
+        "team": "VAN",
+        "gsa_x60": 0.1762190547636909
+      },
+      {
+        "name": "Thatcher Demko",
+        "team": "VAN",
+        "gsa_x60": 1.6894553881807644
+      },
+      {
+        "name": "Thatcher Demko",
+        "team": "VAN",
+        "gsa_x60": -0.4230477634571646
+      },
+      {
+        "name": "Linus Ullmark",
+        "team": "OTT",
+        "gsa_x60": -0.7817445712182552
+      },
+      {
+        "name": "Linus Ullmark",
+        "team": "OTT",
+        "gsa_x60": -0.6580424407959902
+      },
+      {
+        "name": "Linus Ullmark",
+        "team": "OTT",
+        "gsa_x60": -0.4494786402741145
+      },
+      {
+        "name": "Linus Ullmark",
+        "team": "OTT",
+        "gsa_x60": -4.227810248742695
+      },
+      {
+        "name": "Linus Ullmark",
+        "team": "OTT",
+        "gsa_x60": 0.5394029509321743
+      },
+      {
+        "name": "Ilya Sorokin",
+        "team": "NYI",
+        "gsa_x60": 1.0757575757575757
+      },
+      {
+        "name": "Ilya Sorokin",
+        "team": "NYI",
+        "gsa_x60": 0.7192542848551668
+      },
+      {
+        "name": "Ilya Sorokin",
+        "team": "NYI",
+        "gsa_x60": 0.6545544296507562
+      },
+      {
+        "name": "Ilya Sorokin",
+        "team": "NYI",
+        "gsa_x60": 2.0207253886010363
+      },
+      {
+        "name": "Ilya Sorokin",
+        "team": "NYI",
+        "gsa_x60": -0.11458885941644563
+      },
+      {
+        "name": "Jeremy Swayman",
+        "team": "BOS",
+        "gsa_x60": 4.13937282229965
+      },
+      {
+        "name": "Jeremy Swayman",
+        "team": "BOS",
+        "gsa_x60": 0.3041318582072704
+      },
+      {
+        "name": "Jeremy Swayman",
+        "team": "BOS",
+        "gsa_x60": 0.47439482495829466
+      },
+      {
+        "name": "Jeremy Swayman",
+        "team": "BOS",
+        "gsa_x60": -1.1564428312159707
+      },
+      {
+        "name": "Jeremy Swayman",
+        "team": "BOS",
+        "gsa_x60": -1.1471661396253954
+      },
+      {
+        "name": "Connor Hellebuyck",
+        "team": "WPG",
+        "gsa_x60": -4.532374100719425
+      },
+      {
+        "name": "Connor Hellebuyck",
+        "team": "WPG",
+        "gsa_x60": 0.3063242942050519
+      },
+      {
+        "name": "Connor Hellebuyck",
+        "team": "WPG",
+        "gsa_x60": 0.25737081414967544
+      },
+      {
+        "name": "Connor Hellebuyck",
+        "team": "WPG",
+        "gsa_x60": 1.892295800051533
+      },
+      {
+        "name": "Connor Hellebuyck",
+        "team": "WPG",
+        "gsa_x60": 0.9085872576177285
+      },
+      {
+        "name": "Trent Miner",
+        "team": "COL",
+        "gsa_x60": -13.25274725274725
+      },
+      {
+        "name": "Trent Miner",
+        "team": "COL",
+        "gsa_x60": 0.3656705432062419
+      },
+      {
+        "name": "Trent Miner",
+        "team": "COL",
+        "gsa_x60": -0.2658892128279883
+      },
+      {
+        "name": "Trent Miner",
+        "team": "COL",
+        "gsa_x60": 9.534246575342467
+      },
+      {
+        "name": "Trent Miner",
+        "team": "COL",
+        "gsa_x60": 0.04449938195302843
+      },
+      {
+        "name": "Scott Wedgewood",
+        "team": "COL",
+        "gsa_x60": 1.2457852706299908
+      },
+      {
+        "name": "Scott Wedgewood",
+        "team": "COL",
+        "gsa_x60": 0.3189736548528278
+      },
+      {
+        "name": "Scott Wedgewood",
+        "team": "COL",
+        "gsa_x60": 0.3719087892088641
+      },
+      {
+        "name": "Scott Wedgewood",
+        "team": "COL",
+        "gsa_x60": 0.9127632144391918
+      },
+      {
+        "name": "Scott Wedgewood",
+        "team": "COL",
+        "gsa_x60": -0.41982507288629745
+      },
+      {
+        "name": "Sergei Murashov",
+        "team": "PIT",
+        "gsa_x60": -25.938864628820962
+      },
+      {
+        "name": "Sergei Murashov",
+        "team": "PIT",
+        "gsa_x60": -0.750844344374
+      },
+      {
+        "name": "Sergei Murashov",
+        "team": "PIT",
+        "gsa_x60": -0.3212666426772221
+      },
+      {
+        "name": "Sergei Murashov",
+        "team": "PIT",
+        "gsa_x60": -1.8201058201058204
+      },
+      {
+        "name": "Sergei Murashov",
+        "team": "PIT",
+        "gsa_x60": 0.7870722433460076
+      },
+      {
+        "name": "Sergei Bobrovsky",
+        "team": "FLA",
+        "gsa_x60": 3.2415812591508053
+      },
+      {
+        "name": "Sergei Bobrovsky",
+        "team": "FLA",
+        "gsa_x60": -0.11946434864325152
+      },
+      {
+        "name": "Sergei Bobrovsky",
+        "team": "FLA",
+        "gsa_x60": -0.37494879275029486
+      },
+      {
+        "name": "Sergei Bobrovsky",
+        "team": "FLA",
+        "gsa_x60": 0.8828337874659402
+      },
+      {
+        "name": "Sergei Bobrovsky",
+        "team": "FLA",
+        "gsa_x60": 0.13597057946526186
+      },
+      {
+        "name": "Lukas Dostal",
+        "team": "ANA",
+        "gsa_x60": 3.773755656108597
+      },
+      {
+        "name": "Lukas Dostal",
+        "team": "ANA",
+        "gsa_x60": -0.1684246342293299
+      },
+      {
+        "name": "Lukas Dostal",
+        "team": "ANA",
+        "gsa_x60": -0.3162574089754446
+      },
+      {
+        "name": "Lukas Dostal",
+        "team": "ANA",
+        "gsa_x60": -0.5729089563286451
+      },
+      {
+        "name": "Lukas Dostal",
+        "team": "ANA",
+        "gsa_x60": 0.40643654295354276
+      },
+      {
+        "name": "Ukko-Pekka Luukkonen",
+        "team": "BUF",
+        "gsa_x60": 9.682403433476395
+      },
+      {
+        "name": "Ukko-Pekka Luukkonen",
+        "team": "BUF",
+        "gsa_x60": 0.14603488992153593
+      },
+      {
+        "name": "Ukko-Pekka Luukkonen",
+        "team": "BUF",
+        "gsa_x60": -0.24404528580322363
+      },
+      {
+        "name": "Ukko-Pekka Luukkonen",
+        "team": "BUF",
+        "gsa_x60": 2.7129551227773074
+      },
+      {
+        "name": "Ukko-Pekka Luukkonen",
+        "team": "BUF",
+        "gsa_x60": -0.4116245831348261
+      },
+      {
+        "name": "Petr Mrazek",
+        "team": "ANA",
+        "gsa_x60": -11.358778625954198
+      },
+      {
+        "name": "Petr Mrazek",
+        "team": "ANA",
+        "gsa_x60": -0.9269537686169352
+      },
+      {
+        "name": "Petr Mrazek",
+        "team": "ANA",
+        "gsa_x60": -0.9188102893890677
+      },
+      {
+        "name": "Petr Mrazek",
+        "team": "ANA",
+        "gsa_x60": -1.1966410076976897
+      },
+      {
+        "name": "Petr Mrazek",
+        "team": "ANA",
+        "gsa_x60": 0.7143869596031185
+      },
+      {
+        "name": "Anthony Stolarz",
+        "team": "TOR",
+        "gsa_x60": 2.7217459080280593
+      },
+      {
+        "name": "Anthony Stolarz",
+        "team": "TOR",
+        "gsa_x60": -0.7076272193568325
+      },
+      {
+        "name": "Anthony Stolarz",
+        "team": "TOR",
+        "gsa_x60": -0.5437625025367467
+      },
+      {
+        "name": "Anthony Stolarz",
+        "team": "TOR",
+        "gsa_x60": -2.3958691910499144
+      },
+      {
+        "name": "Anthony Stolarz",
+        "team": "TOR",
+        "gsa_x60": -1.3831376734258272
+      },
+      {
+        "name": "Devin Cooley",
+        "team": "CGY",
+        "gsa_x60": 9.847953216374268
+      },
+      {
+        "name": "Devin Cooley",
+        "team": "CGY",
+        "gsa_x60": 0.7572718393405911
+      },
+      {
+        "name": "Devin Cooley",
+        "team": "CGY",
+        "gsa_x60": 0.08206686930091198
+      },
+      {
+        "name": "Devin Cooley",
+        "team": "CGY",
+        "gsa_x60": 3.9160104986876645
+      },
+      {
+        "name": "Devin Cooley",
+        "team": "CGY",
+        "gsa_x60": 0.15467239527389917
+      },
+      {
+        "name": "Dennis Hildeby",
+        "team": "TOR",
+        "gsa_x60": 7.297297297297297
+      },
+      {
+        "name": "Dennis Hildeby",
+        "team": "TOR",
+        "gsa_x60": 0.36625449992174025
+      },
+      {
+        "name": "Dennis Hildeby",
+        "team": "TOR",
+        "gsa_x60": 0.15885381200119858
+      },
+      {
+        "name": "Dennis Hildeby",
+        "team": "TOR",
+        "gsa_x60": 2.1743388834476
+      },
+      {
+        "name": "Dennis Hildeby",
+        "team": "TOR",
+        "gsa_x60": 0.5254104769351056
+      },
+      {
+        "name": "Logan Thompson",
+        "team": "WSH",
+        "gsa_x60": 4.438983050847457
+      },
+      {
+        "name": "Logan Thompson",
+        "team": "WSH",
+        "gsa_x60": 0.5393982200875829
+      },
+      {
+        "name": "Logan Thompson",
+        "team": "WSH",
+        "gsa_x60": 0.5658707476721674
+      },
+      {
+        "name": "Logan Thompson",
+        "team": "WSH",
+        "gsa_x60": 0.28822417435783343
+      },
+      {
+        "name": "Logan Thompson",
+        "team": "WSH",
+        "gsa_x60": -0.6658391261171798
+      },
+      {
+        "name": "Pyotr Kochetkov",
+        "team": "CAR",
+        "gsa_x60": 5.812844036697248
+      },
+      {
+        "name": "Pyotr Kochetkov",
+        "team": "CAR",
+        "gsa_x60": -0.0036723452004489812
+      },
+      {
+        "name": "Pyotr Kochetkov",
+        "team": "CAR",
+        "gsa_x60": -0.3188417519310874
+      },
+      {
+        "name": "Pyotr Kochetkov",
+        "team": "CAR",
+        "gsa_x60": 1.9524793388429749
+      },
+      {
+        "name": "Pyotr Kochetkov",
+        "team": "CAR",
+        "gsa_x60": 0.06542480690595188
+      },
+      {
+        "name": "Eric Comrie",
+        "team": "WPG",
+        "gsa_x60": 8.81524926686217
+      },
+      {
+        "name": "Eric Comrie",
+        "team": "WPG",
+        "gsa_x60": -0.2992638246875533
+      },
+      {
+        "name": "Eric Comrie",
+        "team": "WPG",
+        "gsa_x60": 0.008354994430003832
+      },
+      {
+        "name": "Eric Comrie",
+        "team": "WPG",
+        "gsa_x60": -6.922291548496879
+      },
+      {
+        "name": "Eric Comrie",
+        "team": "WPG",
+        "gsa_x60": -0.8076671749074276
+      },
+      {
+        "name": "Marcus Hogberg",
+        "team": "NYI",
+        "gsa_x60": -7.253399258343634
+      },
+      {
+        "name": "Marcus Hogberg",
+        "team": "NYI",
+        "gsa_x60": -9.607717041800644
+      },
+      {
+        "name": "Marcus Hogberg",
+        "team": "NYI",
+        "gsa_x60": 0.9
+      },
+      {
+        "name": "Marcus Hogberg",
+        "team": "NYI",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Joonas Korpisalo",
+        "team": "BOS",
+        "gsa_x60": -1.1578947368421055
+      },
+      {
+        "name": "Joonas Korpisalo",
+        "team": "BOS",
+        "gsa_x60": -0.5774969425193638
+      },
+      {
+        "name": "Joonas Korpisalo",
+        "team": "BOS",
+        "gsa_x60": -0.568402118517038
+      },
+      {
+        "name": "Joonas Korpisalo",
+        "team": "BOS",
+        "gsa_x60": -1.9247675401521556
+      },
+      {
+        "name": "Joonas Korpisalo",
+        "team": "BOS",
+        "gsa_x60": 1.4294441050702504
+      },
+      {
+        "name": "Dustin Wolf",
+        "team": "CGY",
+        "gsa_x60": 2.5764023210831724
+      },
+      {
+        "name": "Dustin Wolf",
+        "team": "CGY",
+        "gsa_x60": -0.13560626890294197
+      },
+      {
+        "name": "Dustin Wolf",
+        "team": "CGY",
+        "gsa_x60": -0.20527470518328922
+      },
+      {
+        "name": "Dustin Wolf",
+        "team": "CGY",
+        "gsa_x60": -2.0291630927582407
+      },
+      {
+        "name": "Dustin Wolf",
+        "team": "CGY",
+        "gsa_x60": 0.6563454878794052
+      },
+      {
+        "name": "Jacob Fowler",
+        "team": "MTL",
+        "gsa_x60": 1.9488188976377947
+      },
+      {
+        "name": "Jacob Fowler",
+        "team": "MTL",
+        "gsa_x60": 0.5207879196226861
+      },
+      {
+        "name": "Jacob Fowler",
+        "team": "MTL",
+        "gsa_x60": 0.05761152230446094
+      },
+      {
+        "name": "Jacob Fowler",
+        "team": "MTL",
+        "gsa_x60": 4.661069376933273
+      },
+      {
+        "name": "Jacob Fowler",
+        "team": "MTL",
+        "gsa_x60": -0.8650306748466258
+      },
+      {
+        "name": "Jonas Johansson",
+        "team": "TBL",
+        "gsa_x60": -4.258780036968576
+      },
+      {
+        "name": "Jonas Johansson",
+        "team": "TBL",
+        "gsa_x60": 0.00924087891026071
+      },
+      {
+        "name": "Jonas Johansson",
+        "team": "TBL",
+        "gsa_x60": -0.038111369892017785
+      },
+      {
+        "name": "Jonas Johansson",
+        "team": "TBL",
+        "gsa_x60": 1.803258901629451
+      },
+      {
+        "name": "Jonas Johansson",
+        "team": "TBL",
+        "gsa_x60": 0.07025151777970517
+      },
+      {
+        "name": "Jacob Markstrom",
+        "team": "NJD",
+        "gsa_x60": 6.642607683352736
+      },
+      {
+        "name": "Jacob Markstrom",
+        "team": "NJD",
+        "gsa_x60": -0.5677784890293232
+      },
+      {
+        "name": "Jacob Markstrom",
+        "team": "NJD",
+        "gsa_x60": -0.4609475032010243
+      },
+      {
+        "name": "Jacob Markstrom",
+        "team": "NJD",
+        "gsa_x60": -5.33128565160158
+      },
+      {
+        "name": "Jacob Markstrom",
+        "team": "NJD",
+        "gsa_x60": 0.4889867841409692
+      },
+      {
+        "name": "Arturs Silovs",
+        "team": "PIT",
+        "gsa_x60": -11.154440154440154
+      },
+      {
+        "name": "Arturs Silovs",
+        "team": "PIT",
+        "gsa_x60": -0.21073813226013008
+      },
+      {
+        "name": "Arturs Silovs",
+        "team": "PIT",
+        "gsa_x60": -0.20025787437833875
+      },
+      {
+        "name": "Arturs Silovs",
+        "team": "PIT",
+        "gsa_x60": 0.7377049180327874
+      },
+      {
+        "name": "Arturs Silovs",
+        "team": "PIT",
+        "gsa_x60": 0.8111888111888114
+      },
+      {
+        "name": "Connor Ingram",
+        "team": "EDM",
+        "gsa_x60": 3.860869565217391
+      },
+      {
+        "name": "Connor Ingram",
+        "team": "EDM",
+        "gsa_x60": -0.3927272727272726
+      },
+      {
+        "name": "Connor Ingram",
+        "team": "EDM",
+        "gsa_x60": -0.7596330275229358
+      },
+      {
+        "name": "Connor Ingram",
+        "team": "EDM",
+        "gsa_x60": -0.049046321525885596
+      },
+      {
+        "name": "Connor Ingram",
+        "team": "EDM",
+        "gsa_x60": 0.7446670976082741
+      },
+      {
+        "name": "Vyacheslav Buteyets",
+        "team": "ANA",
+        "gsa_x60": -4.17
+      },
+      {
+        "name": "Vyacheslav Buteyets",
+        "team": "ANA",
+        "gsa_x60": -3.8648111332007957
+      },
+      {
+        "name": "Vyacheslav Buteyets",
+        "team": "ANA",
+        "gsa_x60": -15.081081081081084
+      },
+      {
+        "name": "Vyacheslav Buteyets",
+        "team": "ANA",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Cam Talbot",
+        "team": "DET",
+        "gsa_x60": -2.625
+      },
+      {
+        "name": "Cam Talbot",
+        "team": "DET",
+        "gsa_x60": -0.2784469733723299
+      },
+      {
+        "name": "Cam Talbot",
+        "team": "DET",
+        "gsa_x60": -0.13894650933451239
+      },
+      {
+        "name": "Cam Talbot",
+        "team": "DET",
+        "gsa_x60": -2.31236251649802
+      },
+      {
+        "name": "Cam Talbot",
+        "team": "DET",
+        "gsa_x60": 0.37246730852133925
+      },
+      {
+        "name": "Akira Schmid",
+        "team": "VGK",
+        "gsa_x60": -4.6491228070175445
+      },
+      {
+        "name": "Akira Schmid",
+        "team": "VGK",
+        "gsa_x60": -0.09092656142759112
+      },
+      {
+        "name": "Akira Schmid",
+        "team": "VGK",
+        "gsa_x60": 0.09455559518791126
+      },
+      {
+        "name": "Akira Schmid",
+        "team": "VGK",
+        "gsa_x60": 0.09118121114437051
+      },
+      {
+        "name": "Akira Schmid",
+        "team": "VGK",
+        "gsa_x60": -0.09043332635545322
+      },
+      {
+        "name": "Thomas Milic",
+        "team": "WPG",
+        "gsa_x60": 12.0
+      },
+      {
+        "name": "Thomas Milic",
+        "team": "WPG",
+        "gsa_x60": -0.792017311853811
+      },
+      {
+        "name": "Thomas Milic",
+        "team": "WPG",
+        "gsa_x60": -1.471761730823265
+      },
+      {
+        "name": "Thomas Milic",
+        "team": "WPG",
+        "gsa_x60": 2.7500000000000004
+      },
+      {
+        "name": "Thomas Milic",
+        "team": "WPG",
+        "gsa_x60": 1.3
+      },
+      {
+        "name": "Cayden Primeau",
+        "team": "TOR",
+        "gsa_x60": 5.4869888475836435
+      },
+      {
+        "name": "Cayden Primeau",
+        "team": "TOR",
+        "gsa_x60": -2.443423952975753
+      },
+      {
+        "name": "Cayden Primeau",
+        "team": "TOR",
+        "gsa_x60": -3.079155672823219
+      },
+      {
+        "name": "Cayden Primeau",
+        "team": "TOR",
+        "gsa_x60": -0.3682864450127875
+      },
+      {
+        "name": "Cayden Primeau",
+        "team": "TOR",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Samuel Montembeault",
+        "team": "MTL",
+        "gsa_x60": 1.0402476780185759
+      },
+      {
+        "name": "Samuel Montembeault",
+        "team": "MTL",
+        "gsa_x60": -0.5930457179652285
+      },
+      {
+        "name": "Samuel Montembeault",
+        "team": "MTL",
+        "gsa_x60": -0.995659386859987
+      },
+      {
+        "name": "Samuel Montembeault",
+        "team": "MTL",
+        "gsa_x60": 1.5103364410214837
+      },
+      {
+        "name": "Samuel Montembeault",
+        "team": "MTL",
+        "gsa_x60": 0.2360421219948341
+      },
+      {
+        "name": "Andrei Vasilevskiy",
+        "team": "TBL",
+        "gsa_x60": 4.631400761743547
+      },
+      {
+        "name": "Andrei Vasilevskiy",
+        "team": "TBL",
+        "gsa_x60": 0.49106523247744616
+      },
+      {
+        "name": "Andrei Vasilevskiy",
+        "team": "TBL",
+        "gsa_x60": 0.2940822905852138
+      },
+      {
+        "name": "Andrei Vasilevskiy",
+        "team": "TBL",
+        "gsa_x60": 1.6094849944423857
+      },
+      {
+        "name": "Andrei Vasilevskiy",
+        "team": "TBL",
+        "gsa_x60": -0.05467289719626164
+      },
+      {
+        "name": "David Rittich",
+        "team": "NYI",
+        "gsa_x60": -0.21492537313432789
+      },
+      {
+        "name": "David Rittich",
+        "team": "NYI",
+        "gsa_x60": 0.6074017316680713
+      },
+      {
+        "name": "David Rittich",
+        "team": "NYI",
+        "gsa_x60": 0.6110202260559192
+      },
+      {
+        "name": "David Rittich",
+        "team": "NYI",
+        "gsa_x60": 1.7692307692307694
+      },
+      {
+        "name": "David Rittich",
+        "team": "NYI",
+        "gsa_x60": -0.11006930289441494
+      },
+      {
+        "name": "Aleksei Kolosov",
+        "team": "PHI",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Aleksei Kolosov",
+        "team": "PHI",
+        "gsa_x60": -0.5034965034965035
+      },
+      {
+        "name": "Aleksei Kolosov",
+        "team": "PHI",
+        "gsa_x60": -0.7952004363239705
+      },
+      {
+        "name": "Aleksei Kolosov",
+        "team": "PHI",
+        "gsa_x60": 1.281899109792285
+      },
+      {
+        "name": "Aleksei Kolosov",
+        "team": "PHI",
+        "gsa_x60": 0.6885245901639345
+      },
+      {
+        "name": "Brandon Bussi",
+        "team": "CAR",
+        "gsa_x60": -0.5749049429657794
+      },
+      {
+        "name": "Brandon Bussi",
+        "team": "CAR",
+        "gsa_x60": 0.37484654208157125
+      },
+      {
+        "name": "Brandon Bussi",
+        "team": "CAR",
+        "gsa_x60": 0.439188180868527
+      },
+      {
+        "name": "Brandon Bussi",
+        "team": "CAR",
+        "gsa_x60": -0.9467184998856623
+      },
+      {
+        "name": "Brandon Bussi",
+        "team": "CAR",
+        "gsa_x60": 0.8919523099850969
+      },
+      {
+        "name": "Yaroslav Askarov",
+        "team": "SJS",
+        "gsa_x60": -1.2039015327450064
+      },
+      {
+        "name": "Yaroslav Askarov",
+        "team": "SJS",
+        "gsa_x60": -0.2238662391204767
+      },
+      {
+        "name": "Yaroslav Askarov",
+        "team": "SJS",
+        "gsa_x60": -0.2657114381869917
+      },
+      {
+        "name": "Yaroslav Askarov",
+        "team": "SJS",
+        "gsa_x60": 0.9896020078881321
+      },
+      {
+        "name": "Yaroslav Askarov",
+        "team": "SJS",
+        "gsa_x60": -1.0038324302894146
+      },
+      {
+        "name": "Pheonix Copley",
+        "team": "LAK",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Pheonix Copley",
+        "team": "LAK",
+        "gsa_x60": -0.8195788275469549
+      },
+      {
+        "name": "Pheonix Copley",
+        "team": "LAK",
+        "gsa_x60": -0.6774513040607462
+      },
+      {
+        "name": "Pheonix Copley",
+        "team": "LAK",
+        "gsa_x60": -6.623999999999999
+      },
+      {
+        "name": "Pheonix Copley",
+        "team": "LAK",
+        "gsa_x60": 0.13688212927756654
+      },
+      {
+        "name": "Vitek Vanecek",
+        "team": "UTA",
+        "gsa_x60": 4.532561505065123
+      },
+      {
+        "name": "Vitek Vanecek",
+        "team": "UTA",
+        "gsa_x60": -0.286089301481994
+      },
+      {
+        "name": "Vitek Vanecek",
+        "team": "UTA",
+        "gsa_x60": -0.4566241927037877
+      },
+      {
+        "name": "Vitek Vanecek",
+        "team": "UTA",
+        "gsa_x60": -0.14652473387601742
+      },
+      {
+        "name": "Vitek Vanecek",
+        "team": "UTA",
+        "gsa_x60": 1.1262349066959385
+      },
+      {
+        "name": "John Gibson",
+        "team": "DET",
+        "gsa_x60": 0.3801980198019805
+      },
+      {
+        "name": "John Gibson",
+        "team": "DET",
+        "gsa_x60": -0.010340548738453054
+      },
+      {
+        "name": "John Gibson",
+        "team": "DET",
+        "gsa_x60": -0.08570228259347444
+      },
+      {
+        "name": "John Gibson",
+        "team": "DET",
+        "gsa_x60": 0.7176813372182185
+      },
+      {
+        "name": "John Gibson",
+        "team": "DET",
+        "gsa_x60": -0.20740740740740746
+      },
+      {
+        "name": "Daniil Tarasov",
+        "team": "FLA",
+        "gsa_x60": -1.5186721991701242
+      },
+      {
+        "name": "Daniil Tarasov",
+        "team": "FLA",
+        "gsa_x60": 0.021465581051073213
+      },
+      {
+        "name": "Daniil Tarasov",
+        "team": "FLA",
+        "gsa_x60": -0.028194752643258127
+      },
+      {
+        "name": "Daniil Tarasov",
+        "team": "FLA",
+        "gsa_x60": 0.8641425389755009
+      },
+      {
+        "name": "Daniil Tarasov",
+        "team": "FLA",
+        "gsa_x60": 0.1709331131296449
+      },
+      {
+        "name": "Jiri Patera",
+        "team": "VAN",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Jiri Patera",
+        "team": "VAN",
+        "gsa_x60": -3.822821941918451
+      },
+      {
+        "name": "Jiri Patera",
+        "team": "VAN",
+        "gsa_x60": -4.143338954468803
+      },
+      {
+        "name": "Jiri Patera",
+        "team": "VAN",
+        "gsa_x60": -5.857404021937842
+      },
+      {
+        "name": "Jiri Patera",
+        "team": "VAN",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Stuart Skinner",
+        "team": "PIT",
+        "gsa_x60": 4.670270270270271
+      },
+      {
+        "name": "Stuart Skinner",
+        "team": "PIT",
+        "gsa_x60": 0.03915881073241469
+      },
+      {
+        "name": "Stuart Skinner",
+        "team": "PIT",
+        "gsa_x60": -0.005644743031516593
+      },
+      {
+        "name": "Stuart Skinner",
+        "team": "PIT",
+        "gsa_x60": 0.16173044925124766
+      },
+      {
+        "name": "Stuart Skinner",
+        "team": "PIT",
+        "gsa_x60": -0.5124110397500434
+      },
+      {
+        "name": "Jet Greaves",
+        "team": "CBJ",
+        "gsa_x60": 4.863060278207109
+      },
+      {
+        "name": "Jet Greaves",
+        "team": "CBJ",
+        "gsa_x60": 0.39384744967791974
+      },
+      {
+        "name": "Jet Greaves",
+        "team": "CBJ",
+        "gsa_x60": 0.11833470294795094
+      },
+      {
+        "name": "Jet Greaves",
+        "team": "CBJ",
+        "gsa_x60": 1.6378192908882951
+      },
+      {
+        "name": "Jet Greaves",
+        "team": "CBJ",
+        "gsa_x60": 0.19099512474906802
+      },
+      {
+        "name": "Colten Ellis",
+        "team": "BUF",
+        "gsa_x60": 9.45945945945946
+      },
+      {
+        "name": "Colten Ellis",
+        "team": "BUF",
+        "gsa_x60": -0.36993262317913206
+      },
+      {
+        "name": "Colten Ellis",
+        "team": "BUF",
+        "gsa_x60": -0.8038786070579459
+      },
+      {
+        "name": "Colten Ellis",
+        "team": "BUF",
+        "gsa_x60": 0.4523129640205601
+      },
+      {
+        "name": "Colten Ellis",
+        "team": "BUF",
+        "gsa_x60": 0.10670618747684328
+      },
+      {
+        "name": "Dan Vladar",
+        "team": "PHI",
+        "gsa_x60": 5.249011857707511
+      },
+      {
+        "name": "Dan Vladar",
+        "team": "PHI",
+        "gsa_x60": 0.3696304811222839
+      },
+      {
+        "name": "Dan Vladar",
+        "team": "PHI",
+        "gsa_x60": 0.38911168488710635
+      },
+      {
+        "name": "Dan Vladar",
+        "team": "PHI",
+        "gsa_x60": -0.9556221072692618
+      },
+      {
+        "name": "Dan Vladar",
+        "team": "PHI",
+        "gsa_x60": 0.5825892857142858
+      },
+      {
+        "name": "Jonathan Quick",
+        "team": "NYR",
+        "gsa_x60": 1.808071748878924
+      },
+      {
+        "name": "Jonathan Quick",
+        "team": "NYR",
+        "gsa_x60": 0.5482895043053294
+      },
+      {
+        "name": "Jonathan Quick",
+        "team": "NYR",
+        "gsa_x60": 0.3212087297146056
+      },
+      {
+        "name": "Jonathan Quick",
+        "team": "NYR",
+        "gsa_x60": 2.653846153846154
+      },
+      {
+        "name": "Jonathan Quick",
+        "team": "NYR",
+        "gsa_x60": 0.5433436532507739
+      },
+      {
+        "name": "Kevin Lankinen",
+        "team": "VAN",
+        "gsa_x60": 0.9529411764705891
+      },
+      {
+        "name": "Kevin Lankinen",
+        "team": "VAN",
+        "gsa_x60": -0.12372188139059312
+      },
+      {
+        "name": "Kevin Lankinen",
+        "team": "VAN",
+        "gsa_x60": 0.1179330678115139
+      },
+      {
+        "name": "Kevin Lankinen",
+        "team": "VAN",
+        "gsa_x60": -2.3056567593480346
+      },
+      {
+        "name": "Kevin Lankinen",
+        "team": "VAN",
+        "gsa_x60": 0.08627182471756242
+      },
+      {
+        "name": "Carl Lindbom",
+        "team": "VGK",
+        "gsa_x60": -8.517560073937153
+      },
+      {
+        "name": "Carl Lindbom",
+        "team": "VGK",
+        "gsa_x60": -0.6160915897476529
+      },
+      {
+        "name": "Carl Lindbom",
+        "team": "VGK",
+        "gsa_x60": -0.6586972432300561
+      },
+      {
+        "name": "Carl Lindbom",
+        "team": "VGK",
+        "gsa_x60": 0.4304932735426013
+      },
+      {
+        "name": "Carl Lindbom",
+        "team": "VGK",
+        "gsa_x60": 0.769090909090909
+      },
+      {
+        "name": "Artur Akhtyamov",
+        "team": "TOR",
+        "gsa_x60": 1.6518987341772151
+      },
+      {
+        "name": "Artur Akhtyamov",
+        "team": "TOR",
+        "gsa_x60": 1.6518987341772151
+      },
+      {
+        "name": "Spencer Knight",
+        "team": "CHI",
+        "gsa_x60": -4.581818181818181
+      },
+      {
+        "name": "Spencer Knight",
+        "team": "CHI",
+        "gsa_x60": 0.3110623049358455
+      },
+      {
+        "name": "Spencer Knight",
+        "team": "CHI",
+        "gsa_x60": 0.29987400251994967
+      },
+      {
+        "name": "Spencer Knight",
+        "team": "CHI",
+        "gsa_x60": 1.4077497333807325
+      },
+      {
+        "name": "Spencer Knight",
+        "team": "CHI",
+        "gsa_x60": 0.9462798046538351
+      },
+      {
+        "name": "Jordan Binnington",
+        "team": "STL",
+        "gsa_x60": 6.24056603773585
+      },
+      {
+        "name": "Jordan Binnington",
+        "team": "STL",
+        "gsa_x60": -0.6491180727620637
+      },
+      {
+        "name": "Jordan Binnington",
+        "team": "STL",
+        "gsa_x60": -0.6080181082139904
+      },
+      {
+        "name": "Jordan Binnington",
+        "team": "STL",
+        "gsa_x60": -3.527101656780527
+      },
+      {
+        "name": "Jordan Binnington",
+        "team": "STL",
+        "gsa_x60": 0.3228163400863501
+      },
+      {
+        "name": "Nikita Tolopilo",
+        "team": "VAN",
+        "gsa_x60": -4.363636363636363
+      },
+      {
+        "name": "Nikita Tolopilo",
+        "team": "VAN",
+        "gsa_x60": 0.673837553993394
+      },
+      {
+        "name": "Nikita Tolopilo",
+        "team": "VAN",
+        "gsa_x60": 1.4128797083839613
+      },
+      {
+        "name": "Nikita Tolopilo",
+        "team": "VAN",
+        "gsa_x60": 0.24526873580620703
+      },
+      {
+        "name": "Nikita Tolopilo",
+        "team": "VAN",
+        "gsa_x60": 0.8253968253968254
+      },
+      {
+        "name": "Juuse Saros",
+        "team": "NSH",
+        "gsa_x60": -4.096711798839459
+      },
+      {
+        "name": "Juuse Saros",
+        "team": "NSH",
+        "gsa_x60": -0.15460563416940692
+      },
+      {
+        "name": "Juuse Saros",
+        "team": "NSH",
+        "gsa_x60": -0.2318467235549831
+      },
+      {
+        "name": "Juuse Saros",
+        "team": "NSH",
+        "gsa_x60": 0.5063938618925832
+      },
+      {
+        "name": "Juuse Saros",
+        "team": "NSH",
+        "gsa_x60": 1.1687825182101976
+      },
+      {
+        "name": "Alex Lyon",
+        "team": "BUF",
+        "gsa_x60": -0.8928255093002658
+      },
+      {
+        "name": "Alex Lyon",
+        "team": "BUF",
+        "gsa_x60": 0.08366499143014852
+      },
+      {
+        "name": "Alex Lyon",
+        "team": "BUF",
+        "gsa_x60": 0.018699958802772695
+      },
+      {
+        "name": "Alex Lyon",
+        "team": "BUF",
+        "gsa_x60": 1.5768279759802193
+      },
+      {
+        "name": "Alex Lyon",
+        "team": "BUF",
+        "gsa_x60": 0.607416127133608
+      },
+      {
+        "name": "Tristan Jarry",
+        "team": "EDM",
+        "gsa_x60": 6.269662921348316
+      },
+      {
+        "name": "Tristan Jarry",
+        "team": "EDM",
+        "gsa_x60": 0.3543649151841126
+      },
+      {
+        "name": "Tristan Jarry",
+        "team": "EDM",
+        "gsa_x60": 0.2488496378680644
+      },
+      {
+        "name": "Tristan Jarry",
+        "team": "EDM",
+        "gsa_x60": -0.22570532915360553
+      },
+      {
+        "name": "Tristan Jarry",
+        "team": "EDM",
+        "gsa_x60": 0.1942446043165467
+      },
+      {
+        "name": "Matt Murray",
+        "team": "SEA",
+        "gsa_x60": -4.312499999999999
+      },
+      {
+        "name": "Matt Murray",
+        "team": "SEA",
+        "gsa_x60": 0.7690770767693843
+      },
+      {
+        "name": "Matt Murray",
+        "team": "SEA",
+        "gsa_x60": 1.1966850828729283
+      },
+      {
+        "name": "Matt Murray",
+        "team": "SEA",
+        "gsa_x60": -2.9599177800616645
+      },
+      {
+        "name": "Matt Murray",
+        "team": "SEA",
+        "gsa_x60": 0.728744939271255
+      },
+      {
+        "name": "Ville Husso",
+        "team": "ANA",
+        "gsa_x60": 11.091891891891892
+      },
+      {
+        "name": "Ville Husso",
+        "team": "ANA",
+        "gsa_x60": -0.4057146820167834
+      },
+      {
+        "name": "Ville Husso",
+        "team": "ANA",
+        "gsa_x60": -0.6022528160200252
+      },
+      {
+        "name": "Ville Husso",
+        "team": "ANA",
+        "gsa_x60": -0.8682745825602969
+      },
+      {
+        "name": "Ville Husso",
+        "team": "ANA",
+        "gsa_x60": 0.23057216054654142
+      },
+      {
+        "name": "Charlie Lindgren",
+        "team": "WSH",
+        "gsa_x60": 4.117808219178082
+      },
+      {
+        "name": "Charlie Lindgren",
+        "team": "WSH",
+        "gsa_x60": -0.01020366846175653
+      },
+      {
+        "name": "Charlie Lindgren",
+        "team": "WSH",
+        "gsa_x60": 0.09368726299353118
+      },
+      {
+        "name": "Charlie Lindgren",
+        "team": "WSH",
+        "gsa_x60": -2.437864077669902
+      },
+      {
+        "name": "Charlie Lindgren",
+        "team": "WSH",
+        "gsa_x60": 0.3218921257571388
+      },
+      {
+        "name": "Carter Hart",
+        "team": "VGK",
+        "gsa_x60": 5.993158494868871
+      },
+      {
+        "name": "Carter Hart",
+        "team": "VGK",
+        "gsa_x60": -0.7955139038254724
+      },
+      {
+        "name": "Carter Hart",
+        "team": "VGK",
+        "gsa_x60": -1.1438532110091744
+      },
+      {
+        "name": "Carter Hart",
+        "team": "VGK",
+        "gsa_x60": -0.5915831663326655
+      },
+      {
+        "name": "Carter Hart",
+        "team": "VGK",
+        "gsa_x60": 0.8450704225352113
+      },
+      {
+        "name": "Joseph Woll",
+        "team": "TOR",
+        "gsa_x60": 5.0637362637362635
+      },
+      {
+        "name": "Joseph Woll",
+        "team": "TOR",
+        "gsa_x60": 0.0552157566915437
+      },
+      {
+        "name": "Joseph Woll",
+        "team": "TOR",
+        "gsa_x60": -0.3370078740157481
+      },
+      {
+        "name": "Joseph Woll",
+        "team": "TOR",
+        "gsa_x60": 4.530218978102189
+      },
+      {
+        "name": "Joseph Woll",
+        "team": "TOR",
+        "gsa_x60": -1.4751100575685743
+      },
+      {
+        "name": "Brandon Halverson",
+        "team": "TBL",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Brandon Halverson",
+        "team": "TBL",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Arvid Soderblom",
+        "team": "CHI",
+        "gsa_x60": -0.731494920174165
+      },
+      {
+        "name": "Arvid Soderblom",
+        "team": "CHI",
+        "gsa_x60": -0.3673317635394719
+      },
+      {
+        "name": "Arvid Soderblom",
+        "team": "CHI",
+        "gsa_x60": -0.732058504054361
+      },
+      {
+        "name": "Arvid Soderblom",
+        "team": "CHI",
+        "gsa_x60": 2.7791452226448867
+      },
+      {
+        "name": "Arvid Soderblom",
+        "team": "CHI",
+        "gsa_x60": -0.2060506950122649
+      },
+      {
+        "name": "Filip Gustavsson",
+        "team": "MIN",
+        "gsa_x60": -6.954545454545454
+      },
+      {
+        "name": "Filip Gustavsson",
+        "team": "MIN",
+        "gsa_x60": 0.3506409532704523
+      },
+      {
+        "name": "Filip Gustavsson",
+        "team": "MIN",
+        "gsa_x60": 0.5251941844254132
+      },
+      {
+        "name": "Filip Gustavsson",
+        "team": "MIN",
+        "gsa_x60": 0.3119915104350903
+      },
+      {
+        "name": "Filip Gustavsson",
+        "team": "MIN",
+        "gsa_x60": 0.1879029782007983
+      },
+      {
+        "name": "Calvin Pickard",
+        "team": "EDM",
+        "gsa_x60": 2.8076256499133443
+      },
+      {
+        "name": "Calvin Pickard",
+        "team": "EDM",
+        "gsa_x60": -0.1723594760404578
+      },
+      {
+        "name": "Calvin Pickard",
+        "team": "EDM",
+        "gsa_x60": -0.4768861267239459
+      },
+      {
+        "name": "Calvin Pickard",
+        "team": "EDM",
+        "gsa_x60": 5.058394160583941
+      },
+      {
+        "name": "Calvin Pickard",
+        "team": "EDM",
+        "gsa_x60": -0.8949985375840891
+      },
+      {
+        "name": "Jesper Wallstedt",
+        "team": "MIN",
+        "gsa_x60": 5.480597014925373
+      },
+      {
+        "name": "Jesper Wallstedt",
+        "team": "MIN",
+        "gsa_x60": 0.3876038338658148
+      },
+      {
+        "name": "Jesper Wallstedt",
+        "team": "MIN",
+        "gsa_x60": 0.3808024572854673
+      },
+      {
+        "name": "Jesper Wallstedt",
+        "team": "MIN",
+        "gsa_x60": -0.8670253651037658
+      },
+      {
+        "name": "Jesper Wallstedt",
+        "team": "MIN",
+        "gsa_x60": 0.9051094890510949
+      },
+      {
+        "name": "Nico Daws",
+        "team": "NJD",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Nico Daws",
+        "team": "NJD",
+        "gsa_x60": 2.06
+      },
+      {
+        "name": "Nico Daws",
+        "team": "NJD",
+        "gsa_x60": 2.287196110210697
+      },
+      {
+        "name": "Nico Daws",
+        "team": "NJD",
+        "gsa_x60": 1.0
+      },
+      {
+        "name": "Nico Daws",
+        "team": "NJD",
+        "gsa_x60": 0.0
+      },
+      {
+        "name": "Anton Forsberg",
+        "team": "LAK",
+        "gsa_x60": -1.1812802582033348
+      },
+      {
+        "name": "Anton Forsberg",
+        "team": "LAK",
+        "gsa_x60": 0.18968329864431582
+      },
+      {
+        "name": "Anton Forsberg",
+        "team": "LAK",
+        "gsa_x60": 0.21169058452922643
+      },
+      {
+        "name": "Anton Forsberg",
+        "team": "LAK",
+        "gsa_x60": 0.9383145091225016
+      },
+      {
+        "name": "Anton Forsberg",
+        "team": "LAK",
+        "gsa_x60": -0.34986294542736096
+      },
+      {
+        "name": "Justus Annunen",
+        "team": "NSH",
+        "gsa_x60": -4.6443686006825935
+      },
+      {
+        "name": "Justus Annunen",
+        "team": "NSH",
+        "gsa_x60": -0.5251764705882352
+      },
+      {
+        "name": "Justus Annunen",
+        "team": "NSH",
+        "gsa_x60": -0.39366798583628393
+      },
+      {
+        "name": "Justus Annunen",
+        "team": "NSH",
+        "gsa_x60": -0.6408137317228222
+      },
+      {
+        "name": "Justus Annunen",
+        "team": "NSH",
+        "gsa_x60": 0.43870014771048743
+      },
+      {
+        "name": "Elvis Merzlikins",
+        "team": "CBJ",
+        "gsa_x60": -2.5866441251056638
+      },
+      {
+        "name": "Elvis Merzlikins",
+        "team": "CBJ",
+        "gsa_x60": -0.5499833942211889
+      },
+      {
+        "name": "Elvis Merzlikins",
+        "team": "CBJ",
+        "gsa_x60": -0.19298376841947776
+      },
+      {
+        "name": "Elvis Merzlikins",
+        "team": "CBJ",
+        "gsa_x60": -4.206185567010309
+      },
+      {
+        "name": "Elvis Merzlikins",
+        "team": "CBJ",
+        "gsa_x60": 0.7077022236545278
+      },
+      {
+        "name": "Jake Allen",
+        "team": "NJD",
+        "gsa_x60": 1.8736059479553901
+      },
+      {
+        "name": "Jake Allen",
+        "team": "NJD",
+        "gsa_x60": 0.2706976025545285
+      },
+      {
+        "name": "Jake Allen",
+        "team": "NJD",
+        "gsa_x60": 0.029103111653447287
+      },
+      {
+        "name": "Jake Allen",
+        "team": "NJD",
+        "gsa_x60": 1.788202828561573
+      },
+      {
+        "name": "Jake Allen",
+        "team": "NJD",
+        "gsa_x60": 1.058372390285471
+      },
+      {
+        "name": "Samuel Ersson",
+        "team": "PHI",
+        "gsa_x60": -5.895953757225435
+      },
+      {
+        "name": "Samuel Ersson",
+        "team": "PHI",
+        "gsa_x60": -0.32203814362901206
+      },
+      {
+        "name": "Samuel Ersson",
+        "team": "PHI",
+        "gsa_x60": -0.6001804666351568
+      },
+      {
+        "name": "Samuel Ersson",
+        "team": "PHI",
+        "gsa_x60": 3.0257953568357694
+      },
+      {
+        "name": "Samuel Ersson",
+        "team": "PHI",
+        "gsa_x60": -0.3149261891744122
+      },
+      {
+        "name": "Frederik Andersen",
+        "team": "CAR",
+        "gsa_x60": 0.2166809974204645
+      },
+      {
+        "name": "Frederik Andersen",
+        "team": "CAR",
+        "gsa_x60": -0.5646410290064314
+      },
+      {
+        "name": "Frederik Andersen",
+        "team": "CAR",
+        "gsa_x60": -0.5770528683914509
+      },
+      {
+        "name": "Frederik Andersen",
+        "team": "CAR",
+        "gsa_x60": -1.1035864556201156
+      },
+      {
+        "name": "Frederik Andersen",
+        "team": "CAR",
+        "gsa_x60": 0.4954128440366973
+      },
+      {
+        "name": "Philipp Grubauer",
+        "team": "SEA",
+        "gsa_x60": 1.1049250535331911
+      },
+      {
+        "name": "Philipp Grubauer",
+        "team": "SEA",
+        "gsa_x60": 0.866126161755982
+      },
+      {
+        "name": "Philipp Grubauer",
+        "team": "SEA",
+        "gsa_x60": 1.0855846348670326
+      },
+      {
+        "name": "Philipp Grubauer",
+        "team": "SEA",
+        "gsa_x60": -1.5214285714285714
+      },
+      {
+        "name": "Philipp Grubauer",
+        "team": "SEA",
+        "gsa_x60": 0.6446629213483146
+      },
+      {
+        "name": "Leevi Merilinen",
+        "team": "OTT",
+        "gsa_x60": 5.306493506493506
+      },
+      {
+        "name": "Leevi Merilinen",
+        "team": "OTT",
+        "gsa_x60": -0.9341475782093964
+      },
+      {
+        "name": "Leevi Merilinen",
+        "team": "OTT",
+        "gsa_x60": -0.9472375003454852
+      },
+      {
+        "name": "Leevi Merilinen",
+        "team": "OTT",
+        "gsa_x60": -3.6604679064187158
+      },
+      {
+        "name": "Leevi Merilinen",
+        "team": "OTT",
+        "gsa_x60": -0.9451672862453531
+      },
+      {
+        "name": "Adin Hill",
+        "team": "VGK",
+        "gsa_x60": 3.453488372093023
+      },
+      {
+        "name": "Adin Hill",
+        "team": "VGK",
+        "gsa_x60": -0.2758516045823533
+      },
+      {
+        "name": "Adin Hill",
+        "team": "VGK",
+        "gsa_x60": 0.11846207135434704
+      },
+      {
+        "name": "Adin Hill",
+        "team": "VGK",
+        "gsa_x60": -5.46031746031746
+      },
+      {
+        "name": "Adin Hill",
+        "team": "VGK",
+        "gsa_x60": -3.889196675900277
+      },
+      {
+        "name": "Darcy Kuemper",
+        "team": "LAK",
+        "gsa_x60": 4.285196374622356
+      },
+      {
+        "name": "Darcy Kuemper",
+        "team": "LAK",
+        "gsa_x60": 0.39787468496677814
+      },
+      {
+        "name": "Darcy Kuemper",
+        "team": "LAK",
+        "gsa_x60": 0.4377410872786001
+      },
+      {
+        "name": "Darcy Kuemper",
+        "team": "LAK",
+        "gsa_x60": -0.4283544303797474
+      },
+      {
+        "name": "Darcy Kuemper",
+        "team": "LAK",
+        "gsa_x60": -0.08021166968388799
+      },
+      {
+        "name": "Mackenzie Blackwood",
+        "team": "COL",
+        "gsa_x60": 2.222637979420018
+      },
+      {
+        "name": "Mackenzie Blackwood",
+        "team": "COL",
+        "gsa_x60": 0.686778141699707
+      },
+      {
+        "name": "Mackenzie Blackwood",
+        "team": "COL",
+        "gsa_x60": 0.6888328581190942
+      },
+      {
+        "name": "Mackenzie Blackwood",
+        "team": "COL",
+        "gsa_x60": 2.5747928477976445
+      },
+      {
+        "name": "Mackenzie Blackwood",
+        "team": "COL",
+        "gsa_x60": -1.1280058294874908
+      },
+      {
+        "name": "Jakub Dobes",
+        "team": "MTL",
+        "gsa_x60": -1.5746388443017654
+      },
+      {
+        "name": "Jakub Dobes",
+        "team": "MTL",
+        "gsa_x60": -0.03460043738073006
+      },
+      {
+        "name": "Jakub Dobes",
+        "team": "MTL",
+        "gsa_x60": 0.2206185221773854
+      },
+      {
+        "name": "Jakub Dobes",
+        "team": "MTL",
+        "gsa_x60": -1.9468500278758596
+      },
+      {
+        "name": "Jakub Dobes",
+        "team": "MTL",
+        "gsa_x60": -0.5663885578069129
+      },
+      {
+        "name": "Joel Hofer",
+        "team": "STL",
+        "gsa_x60": -4.06484069312465
+      },
+      {
+        "name": "Joel Hofer",
+        "team": "STL",
+        "gsa_x60": -0.1871877158061504
+      },
+      {
+        "name": "Joel Hofer",
+        "team": "STL",
+        "gsa_x60": -0.1540664658535382
+      },
+      {
+        "name": "Joel Hofer",
+        "team": "STL",
+        "gsa_x60": 0.3885328836424961
+      },
+      {
+        "name": "Joel Hofer",
+        "team": "STL",
+        "gsa_x60": 0.0936977133296151
+      },
+      {
+        "name": "Joey Daccord",
+        "team": "SEA",
+        "gsa_x60": 2.2658450704225355
+      },
+      {
+        "name": "Joey Daccord",
+        "team": "SEA",
+        "gsa_x60": 0.06557449439194582
+      },
+      {
+        "name": "Joey Daccord",
+        "team": "SEA",
+        "gsa_x60": 0.31531245031006516
+      },
+      {
+        "name": "Joey Daccord",
+        "team": "SEA",
+        "gsa_x60": -3.5962861072902337
+      },
+      {
+        "name": "Joey Daccord",
+        "team": "SEA",
+        "gsa_x60": -0.8093340922026181
+      },
+      {
+        "name": "Casey DeSmith",
+        "team": "DAL",
+        "gsa_x60": -3.5565610859728505
+      },
+      {
+        "name": "Casey DeSmith",
+        "team": "DAL",
+        "gsa_x60": 0.6653133991139039
+      },
+      {
+        "name": "Casey DeSmith",
+        "team": "DAL",
+        "gsa_x60": 0.4415005246589716
+      },
+      {
+        "name": "Casey DeSmith",
+        "team": "DAL",
+        "gsa_x60": 3.2493041749502973
+      },
+      {
+        "name": "Casey DeSmith",
+        "team": "DAL",
+        "gsa_x60": 0.8539424555238305
+      }
+    ],
+    "odds_current": [
+      {
+        "id": "79dd62e85608c8557db500d44734d6c6",
+        "commence_time": "2026-01-08T00:00:00Z",
+        "home_team": "Washington Capitals",
+        "away_team": "Dallas Stars",
+        "h2h": {
+          "home": -107,
+          "away": 105,
+          "home_book": {
+            "key": "betonlineag",
+            "title": "BetOnline.ag"
+          },
+          "away_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "novig": {
+            "away": 0.48551659434736716,
+            "home": 0.5144834056526327
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -116,
+          "under_price": 100,
+          "over_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "under_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          }
+        }
+      },
+      {
+        "id": "d720a786b51d77dd38012f084c848aa9",
+        "commence_time": "2026-01-08T00:30:00Z",
+        "home_team": "Montréal Canadiens",
+        "away_team": "Calgary Flames",
+        "h2h": {
+          "home": -143,
+          "away": 130,
+          "home_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "away_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "novig": {
+            "away": 0.4248994579471935,
+            "home": 0.5751005420528064
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -115,
+          "under_price": 100,
+          "over_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "under_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          }
+        }
+      },
+      {
+        "id": "5cd0e4dacb2f05115d7144461a570490",
+        "commence_time": "2026-01-08T02:30:00Z",
+        "home_team": "Chicago Blackhawks",
+        "away_team": "St Louis Blues",
+        "h2h": {
+          "home": 102,
+          "away": -112,
+          "home_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "away_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "novig": {
+            "away": 0.5162468054034319,
+            "home": 0.4837531945965681
+          }
+        },
+        "totals": {
+          "total": 5.5,
+          "over_price": 102,
+          "under_price": -115,
+          "over_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "under_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          }
+        }
+      },
+      {
+        "id": "e60af7584911d69bc9de3a99b56a3078",
+        "commence_time": "2026-01-08T02:30:00Z",
+        "home_team": "Utah Mammoth",
+        "away_team": "Ottawa Senators",
+        "h2h": {
+          "home": -120,
+          "away": 107,
+          "home_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "away_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "novig": {
+            "away": 0.4696840307429548,
+            "home": 0.5303159692570453
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -111,
+          "under_price": 100,
+          "over_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "under_book": {
+            "key": "betus",
+            "title": "BetUS"
+          }
+        }
+      },
+      {
+        "id": "a8d17b431b860fbb9760173f712f3607",
+        "commence_time": "2026-01-08T03:30:00Z",
+        "home_team": "Los Angeles Kings",
+        "away_team": "San Jose Sharks",
+        "h2h": {
+          "home": -245,
+          "away": 220,
+          "home_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "away_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "novig": {
+            "away": 0.30558015943312666,
+            "home": 0.6944198405668733
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -114,
+          "under_price": 102,
+          "over_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "under_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          }
+        }
+      },
+      {
+        "id": "46af46fa0ce956e4f76ff29deb8bff89",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "Carolina Hurricanes",
+        "away_team": "Anaheim Ducks",
+        "h2h": {
+          "home": -205,
+          "away": 184,
+          "home_book": {
+            "key": "betonlineag",
+            "title": "BetOnline.ag"
+          },
+          "away_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "novig": {
+            "away": 0.3437781785392245,
+            "home": 0.6562218214607755
+          }
+        },
+        "totals": {
+          "total": 6.5,
+          "over_price": -115,
+          "under_price": 102,
+          "over_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "under_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          }
+        }
+      },
+      {
+        "id": "082b0969993641a76923d3ad2648c949",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "Boston Bruins",
+        "away_team": "Calgary Flames",
+        "h2h": {
+          "home": -150,
+          "away": 130,
+          "home_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "away_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "novig": {
+            "away": 0.42016806722689076,
+            "home": 0.5798319327731092
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": 100,
+          "under_price": -115,
+          "over_book": {
+            "key": "betmgm",
+            "title": "BetMGM"
+          },
+          "under_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          }
+        }
+      },
+      {
+        "id": "88f4c358fa20165a5d25a63b04309ff9",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "New York Rangers",
+        "away_team": "Buffalo Sabres",
+        "h2h": {
+          "home": -103,
+          "away": -109,
+          "home_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "away_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "novig": {
+            "away": 0.506872222476749,
+            "home": 0.4931277775232511
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -105,
+          "under_price": -102,
+          "over_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "under_book": {
+            "key": "betmgm",
+            "title": "BetMGM"
+          }
+        }
+      },
+      {
+        "id": "d5c91096592f801eb40f2536fff0f101",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "Detroit Red Wings",
+        "away_team": "Vancouver Canucks",
+        "h2h": {
+          "home": -160,
+          "away": 146,
+          "home_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "away_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "novig": {
+            "away": 0.397796817625459,
+            "home": 0.6022031823745411
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -110,
+          "under_price": -106,
+          "over_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "under_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          }
+        }
+      },
+      {
+        "id": "4e28782e70d282e34b3756d7197f712a",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "Montréal Canadiens",
+        "away_team": "Florida Panthers",
+        "h2h": {
+          "home": 120,
+          "away": -134,
+          "home_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "away_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "novig": {
+            "away": 0.5574886535552194,
+            "home": 0.44251134644478063
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -105,
+          "under_price": -110,
+          "over_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "under_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          }
+        }
+      },
+      {
+        "id": "6aa6a6e075e0fd2c438fe0ad78953d8e",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "Pittsburgh Penguins",
+        "away_team": "New Jersey Devils",
+        "h2h": {
+          "home": -108,
+          "away": -104,
+          "home_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "away_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "novig": {
+            "away": 0.49541956760718214,
+            "home": 0.504580432392818
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -110,
+          "under_price": 100,
+          "over_book": {
+            "key": "betmgm",
+            "title": "BetMGM"
+          },
+          "under_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          }
+        }
+      },
+      {
+        "id": "41cebc6b3e9fdcf2e7251717e10809d4",
+        "commence_time": "2026-01-09T00:00:00Z",
+        "home_team": "Philadelphia Flyers",
+        "away_team": "Toronto Maple Leafs",
+        "h2h": {
+          "home": -125,
+          "away": 110,
+          "home_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "away_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "novig": {
+            "away": 0.46153846153846156,
+            "home": 0.5384615384615385
+          }
+        },
+        "totals": {
+          "total": 6.0,
+          "over_price": -105,
+          "under_price": 100,
+          "over_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "under_book": {
+            "key": "betmgm",
+            "title": "BetMGM"
+          }
+        }
+      },
+      {
+        "id": "6a06febab4e709e4882d5a9f8d02ea4d",
+        "commence_time": "2026-01-09T01:00:00Z",
+        "home_team": "Winnipeg Jets",
+        "away_team": "Edmonton Oilers",
+        "h2h": {
+          "home": 100,
+          "away": -113,
+          "home_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "away_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "novig": {
+            "away": 0.5148063781321185,
+            "home": 0.4851936218678816
+          }
+        },
+        "totals": {
+          "total": 6.5,
+          "over_price": 110,
+          "under_price": -130,
+          "over_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "under_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          }
+        }
+      },
+      {
+        "id": "e0b20e31a52b7816d9199c2161ac1a98",
+        "commence_time": "2026-01-09T01:00:00Z",
+        "home_team": "Nashville Predators",
+        "away_team": "New York Islanders",
+        "h2h": {
+          "home": -115,
+          "away": 104,
+          "home_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "away_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "novig": {
+            "away": 0.478202846975089,
+            "home": 0.521797153024911
+          }
+        },
+        "totals": {
+          "total": 5.5,
+          "over_price": -118,
+          "under_price": 104,
+          "over_book": {
+            "key": "betmgm",
+            "title": "BetMGM"
+          },
+          "under_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          }
+        }
+      },
+      {
+        "id": "ad6065256ccfca46199224b6510ddd37",
+        "commence_time": "2026-01-09T02:00:00Z",
+        "home_team": "Colorado Avalanche",
+        "away_team": "Ottawa Senators",
+        "h2h": {
+          "home": -250,
+          "away": 220,
+          "home_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "away_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          },
+          "novig": {
+            "away": 0.3043478260869565,
+            "home": 0.6956521739130435
+          }
+        },
+        "totals": {
+          "total": 6.5,
+          "over_price": 114,
+          "under_price": -130,
+          "over_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "under_book": {
+            "key": "fanduel",
+            "title": "FanDuel"
+          }
+        }
+      },
+      {
+        "id": "1eda87eed2c146edcc377c6dff7ffdb8",
+        "commence_time": "2026-01-09T03:00:00Z",
+        "home_team": "Vegas Golden Knights",
+        "away_team": "Columbus Blue Jackets",
+        "h2h": {
+          "home": -180,
+          "away": 160,
+          "home_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "away_book": {
+            "key": "betrivers",
+            "title": "BetRivers"
+          },
+          "novig": {
+            "away": 0.37433155080213903,
+            "home": 0.6256684491978609
+          }
+        },
+        "totals": {
+          "total": 6.5,
+          "over_price": -105,
+          "under_price": -110,
+          "over_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          },
+          "under_book": {
+            "key": "betonlineag",
+            "title": "BetOnline.ag"
+          }
+        }
+      },
+      {
+        "id": "473ff8ec7a99ef15b99f5ce41e595046",
+        "commence_time": "2026-01-09T03:00:00Z",
+        "home_team": "Seattle Kraken",
+        "away_team": "Minnesota Wild",
+        "h2h": {
+          "home": 135,
+          "away": -150,
+          "home_book": {
+            "key": "bovada",
+            "title": "Bovada"
+          },
+          "away_book": {
+            "key": "betus",
+            "title": "BetUS"
+          },
+          "novig": {
+            "away": 0.5850622406639003,
+            "home": 0.41493775933609955
+          }
+        },
+        "totals": {
+          "total": 5.5,
+          "over_price": -130,
+          "under_price": 114,
+          "over_book": {
+            "key": "lowvig",
+            "title": "LowVig.ag"
+          },
+          "under_book": {
+            "key": "draftkings",
+            "title": "DraftKings"
+          }
+        }
+      }
+    ]
+  }
+}
