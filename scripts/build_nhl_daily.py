@@ -2,6 +2,7 @@ import os
 import json
 import hashlib
 from datetime import datetime, timezone
+
 import requests
 import pandas as pd
 from dateutil import tz
@@ -12,18 +13,33 @@ TEAMS_URL = f"{REPO_RAW_BASE}/data/teams.csv"
 GOALIES_URL = f"{REPO_RAW_BASE}/data/goalies.csv"
 
 ODDS_CURRENT_URL = "https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds"
-ODDS_HIST_URL = "https://api.the-odds-api.com/v4/historical/sports/icehockey_nhl/odds"
 
 DATA_DIR = "data"
-SCHEMA_VERSION = "1.0.0"
-OPENING_SNAPSHOT_TIME_Z = "T12:00:00Z"
+SCHEMA_VERSION = "1.0.1"  # bumped because we removed odds_open
 
 
-def sha256_bytes(b):
+def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
-def safe_get(url, params=None, timeout=30):
+def ensure_dir(path: str) -> None:
+    os.makedirs(path, exist_ok=True)
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def et_now():
+    et = tz.gettz("America/New_York")
+    return datetime.now(timezone.utc).astimezone(et)
+
+
+def et_today_date_str() -> str:
+    return et_now().date().isoformat()
+
+
+def safe_get(url: str, params=None, timeout: int = 30) -> requests.Response:
     r = requests.get(
         url,
         params=params,
@@ -32,34 +48,6 @@ def safe_get(url, params=None, timeout=30):
     )
     r.raise_for_status()
     return r
-
-
-def utc_now_iso():
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-
-
-def et_today_date_str():
-    et = tz.gettz("America/New_York")
-    return datetime.now(timezone.utc).astimezone(et).date().isoformat()
-
-
-def american_to_prob(odds):
-    if odds < 0:
-        return (-odds) / ((-odds) + 100.0)
-    return 100.0 / (odds + 100.0)
-
-
-def novig_from_two_sides(away_odds, home_odds):
-    pa = american_to_prob(int(away_odds))
-    ph = american_to_prob(int(home_odds))
-    s = pa + ph
-    if s <= 0:
-        return None
-    return {"away": pa / s, "home": ph / s}
-
-
-def ensure_dir(path):
-    os.makedirs(path, exist_ok=True)
 
 
 def main():
@@ -71,14 +59,33 @@ def main():
 
     generated_at_utc = utc_now_iso()
     data_date_et = et_today_date_str()
-    snapshot_iso_z = data_date_et + OPENING_SNAPSHOT_TIME_Z
 
-    source_status = {}
-    validations = {}
+    source_status = {
+        "odds_current": {"ok": False},
+        "odds_open": {
+            "ok": False,
+            "reason": "Historical odds not available on current Odds API plan",
+        },
+        "teams": {"ok": False, "url": TEAMS_URL},
+        "goalies": {"ok": False, "url": GOALIES_URL},
+    }
+    validations = {
+        "teams_count": 0,
+        "goalies_count": 0,
+        "odds_games_count": 0,
+    }
     inputs_hash = {}
 
-    # Odds current
-    odds_current = []
+    slim = {
+        "league_avg_lambda": None,
+        "teams": [],
+        "goalies": [],
+        "odds_current": [],
+    }
+
+    # -------------------------
+    # ODDS CURRENT (required)
+    # -------------------------
     try:
         params = {
             "apiKey": odds_key,
@@ -87,72 +94,88 @@ def main():
             "oddsFormat": "american",
             "dateFormat": "iso",
         }
-        r = safe_get(ODDS_CURRENT_URL, params)
+        r = safe_get(ODDS_CURRENT_URL, params=params)
         inputs_hash["odds_current_sha256"] = sha256_bytes(r.content)
-        odds_current = r.json()
+        odds_current = r.json() if r.content else []
+        slim["odds_current"] = odds_current
+        validations["odds_games_count"] = len(odds_current)
         source_status["odds_current"] = {"ok": True}
     except Exception as e:
         source_status["odds_current"] = {"ok": False, "error": str(e)}
 
-    # Odds opening
-    try:
-        params = {
-            "apiKey": odds_key,
-            "regions": "us",
-            "markets": "h2h,totals",
-            "oddsFormat": "american",
-            "dateFormat": "iso",
-            "date": snapshot_iso_z,
-        }
-        r = safe_get(ODDS_HIST_URL, params)
-        inputs_hash["odds_open_sha256"] = sha256_bytes(r.content)
-        source_status["odds_open"] = {"ok": True, "snapshot_requested": snapshot_iso_z}
-    except Exception as e:
-        source_status["odds_open"] = {"ok": False, "error": str(e)}
-
-    # Teams
-    teams = []
-    league_avg_lambda = None
+    # -------------------------
+    # TEAMS (required)
+    # -------------------------
     try:
         r = safe_get(TEAMS_URL)
         inputs_hash["teams_sha256"] = sha256_bytes(r.content)
         df = pd.read_csv(pd.io.common.BytesIO(r.content))
 
         if "situation" in df.columns:
-            df = df[df["situation"].str.lower() == "all"]
+            df = df[df["situation"].astype(str).str.lower() == "all"]
         if "position" in df.columns:
-            df = df[df["position"].str.lower() == "team level"]
+            df = df[df["position"].astype(str).str.lower() == "team level"]
 
+        req = {"team", "games_played", "scoreVenueAdjustedxGoalsFor", "scoreVenueAdjustedxGoalsAgainst"}
+        missing = [c for c in req if c not in df.columns]
+        if missing:
+            raise RuntimeError(f"Teams CSV missing columns: {missing}")
+
+        df = df[df["games_played"] > 0].copy()
         df["xGF_pg"] = df["scoreVenueAdjustedxGoalsFor"] / df["games_played"]
         df["xGA_pg"] = df["scoreVenueAdjustedxGoalsAgainst"] / df["games_played"]
 
         league_avg_lambda = float(df["xGF_pg"].mean())
-        teams = df[["team", "games_played", "xGF_pg", "xGA_pg"]].to_dict("records")
-        validations["teams_count"] = len(teams)
-        source_status["teams"] = {"ok": True}
-    except Exception as e:
-        source_status["teams"] = {"ok": False, "error": str(e)}
+        slim["league_avg_lambda"] = league_avg_lambda
 
-    # Goalies
-    goalies = []
+        teams = df[["team", "games_played", "xGF_pg", "xGA_pg"]].copy()
+        teams = teams.sort_values("team")
+        slim["teams"] = teams.to_dict("records")
+
+        validations["teams_count"] = len(slim["teams"])
+        source_status["teams"] = {"ok": True, "url": TEAMS_URL}
+    except Exception as e:
+        source_status["teams"] = {"ok": False, "url": TEAMS_URL, "error": str(e)}
+
+    # -------------------------
+    # GOALIES (optional but preferred)
+    # Dedup to one row per (name, team)
+    # -------------------------
     try:
         r = safe_get(GOALIES_URL)
         inputs_hash["goalies_sha256"] = sha256_bytes(r.content)
         df = pd.read_csv(pd.io.common.BytesIO(r.content))
 
-        if "goalsSavedAboveExpected" in df.columns and "icetime" in df.columns:
-            df["gsa_x60"] = df["goalsSavedAboveExpected"] * 3600 / df["icetime"]
+        if "gsa_x60" not in df.columns:
+            if "goalsSavedAboveExpected" in df.columns and "icetime" in df.columns:
+                df = df[df["icetime"] > 0].copy()
+                df["gsa_x60"] = df["goalsSavedAboveExpected"] * 3600.0 / df["icetime"]
+            else:
+                raise RuntimeError("Goalies CSV missing gsa_x60 and cannot derive from goalsSavedAboveExpected/icetime.")
 
-        df = df.dropna(subset=["gsa_x60", "name", "team"])
-        df = df.drop_duplicates(subset=["name", "team"])
+        for c in ["name", "team"]:
+            if c not in df.columns:
+                raise RuntimeError(f"Goalies CSV missing column: {c}")
 
-        goalies = df[["name", "team", "gsa_x60"]].to_dict("records")
-        validations["goalies_count"] = len(goalies)
-        source_status["goalies"] = {"ok": True}
+        df = df.dropna(subset=["name", "team", "gsa_x60"]).copy()
+
+        sort_cols = []
+        for c in ["icetime", "games_played", "games"]:
+            if c in df.columns:
+                sort_cols.append(c)
+        if sort_cols:
+            df = df.sort_values(sort_cols, ascending=False)
+
+        df = df.drop_duplicates(subset=["name", "team"], keep="first").copy()
+
+        goalies = df[["name", "team", "gsa_x60"]].copy()
+        goalies = goalies.sort_values(["team", "name"])
+        slim["goalies"] = goalies.to_dict("records")
+
+        validations["goalies_count"] = len(slim["goalies"])
+        source_status["goalies"] = {"ok": True, "url": GOALIES_URL}
     except Exception as e:
-        source_status["goalies"] = {"ok": False, "error": str(e)}
-
-    validations["odds_games_count"] = len(odds_current)
+        source_status["goalies"] = {"ok": False, "url": GOALIES_URL, "error": str(e)}
 
     output = {
         "schema_version": SCHEMA_VERSION,
@@ -161,16 +184,17 @@ def main():
         "source_status": source_status,
         "validations": validations,
         "inputs_hash": inputs_hash,
-        "slim": {
-            "league_avg_lambda": league_avg_lambda,
-            "teams": teams,
-            "goalies": goalies,
-            "odds_current": odds_current,
-        },
+        "slim": slim,
     }
 
-    with open(f"{DATA_DIR}/nhl_daily_slim.json", "w") as f:
-        json.dump(output, f, indent=2)
+    dated_path = f"{DATA_DIR}/nhl_daily_slim_{data_date_et}.json"
+    latest_path = f"{DATA_DIR}/nhl_daily_slim.json"
+
+    with open(dated_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, sort_keys=False)
+
+    with open(latest_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, sort_keys=False)
 
 
 if __name__ == "__main__":
