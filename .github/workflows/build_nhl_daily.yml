@@ -1,0 +1,42 @@
+name: Build NHL Daily JSON
+
+on:
+  schedule:
+    # Runs daily at 11:30 UTC.
+    # Winter: 6:30am ET. Summer: 7:30am ET.
+    - cron: "30 11 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas requests python-dateutil
+
+      - name: Build nhl_daily.json
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          python scripts/build_nhl_daily.py
+
+      - name: Commit outputs
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/nhl_daily.json data/nhl_daily_*.json data/health.json || true
+          git commit -m "Update NHL daily artifact" || echo "No changes"
+          git push
