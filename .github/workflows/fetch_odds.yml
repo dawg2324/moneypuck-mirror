@@ -1,0 +1,30 @@
+name: Fetch NHL Odds
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # runs daily at 9:00 UTC (~4–5am ET)
+  workflow_dispatch:     # allows manual runs
+
+jobs:
+  fetch-odds:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch NHL odds from The Odds API
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          curl -s \
+            "https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds?regions=us&markets=h2h,totals&oddsFormat=american&dateFormat=iso&apiKey=$ODDS_API_KEY" \
+            > data/odds_current.json
+
+      - name: Commit odds file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/odds_current.json
+          git commit -m "Update NHL odds" || echo "No changes"
+          git push
