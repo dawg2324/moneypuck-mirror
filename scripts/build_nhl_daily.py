@@ -7,9 +7,6 @@ import requests
 import pandas as pd
 
 
-# -----------------------------
-# CONFIG
-# -----------------------------
 REPO_RAW_BASE = "https://raw.githubusercontent.com/dawg2324/moneypuck-mirror/main"
 TEAMS_URL = f"{REPO_RAW_BASE}/data/teams.csv"
 GOALIES_URL = f"{REPO_RAW_BASE}/data/goalies.csv"
@@ -19,19 +16,14 @@ ODDS_HIST_URL = "https://api.the-odds-api.com/v4/historical/sports/icehockey_nhl
 
 DATA_DIR = "data"
 SCHEMA_VERSION = "1.0.0"
-
-# "Opening" snapshot time, fixed at 12:00:00Z, per your spec.
 OPENING_SNAPSHOT_TIME_Z = "T12:00:00Z"
 
 
-# -----------------------------
-# HELPERS
-# -----------------------------
 def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
-def safe_get(url: str, params: dict | None = None, timeout: int = 25) -> requests.Response:
+def safe_get(url: str, params: dict | None = None, timeout: int = 30) -> requests.Response:
     r = requests.get(
         url,
         params=params,
@@ -175,9 +167,6 @@ def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-# -----------------------------
-# MAIN
-# -----------------------------
 def main() -> None:
     odds_key = os.environ.get("ODDS_API_KEY", "").strip()
     if not odds_key:
@@ -193,7 +182,7 @@ def main() -> None:
     validations = {}
     inputs_hash = {}
 
-    # 1) Odds current
+    # 1) Odds current (ALWAYS uses secret ODDS_API_KEY)
     odds_current = None
     try:
         params = {
@@ -210,7 +199,7 @@ def main() -> None:
     except Exception as e:
         source_status["odds_current"] = {"ok": False, "error": str(e)}
 
-    # 2) Odds opening snapshot
+    # 2) Odds opening snapshot (ALWAYS uses secret ODDS_API_KEY)
     odds_open = None
     try:
         params = {
@@ -262,12 +251,22 @@ def main() -> None:
     except Exception as e:
         source_status["teams"] = {"ok": False, "error": str(e), "url": TEAMS_URL}
 
-    # 4) Goalies
+    # 4) Goalies (filter + dedupe to one row per (name, team))
     goalies_slim = []
     try:
         r = safe_get(GOALIES_URL)
         inputs_hash["goalies_sha256"] = sha256_bytes(r.content)
         df = pd.read_csv(pd.io.common.BytesIO(r.content))
+
+        # Normalize possible split columns and filter to overall rows if they exist
+        for col in ["situation", "split", "strength", "gameState"]:
+            if col in df.columns:
+                df[col] = df[col].astype(str).str.lower()
+
+        if "situation" in df.columns:
+            df = df[df["situation"] == "all"]
+        if "split" in df.columns:
+            df = df[df["split"].isin(["all", "overall"])]
 
         cols = set(df.columns)
         if {"xGoals", "goals", "icetime"}.issubset(cols):
@@ -281,6 +280,10 @@ def main() -> None:
             raise RuntimeError("goalies.csv missing name/team")
 
         slim = df[["name", "team", "gsa_x60"]].dropna(subset=["gsa_x60"]).copy()
+
+        # Dedupe to one row per (name, team)
+        slim = slim.sort_values(by=["name", "team"]).drop_duplicates(subset=["name", "team"], keep="first")
+
         goalies_slim = slim.to_dict(orient="records")
 
         source_status["goalies"] = {"ok": True, "url": GOALIES_URL}
@@ -358,3 +361,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+```0
