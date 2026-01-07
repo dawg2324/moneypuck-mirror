@@ -1,0 +1,27 @@
+{
+  "generated_at_utc": "2026-01-07T21:19:14+00:00",
+  "data_date_et": "2026-01-07",
+  "ok": false,
+  "source_status": {
+    "odds_current": {
+      "ok": true
+    },
+    "odds_open": {
+      "ok": false,
+      "error": "401 Client Error: Unauthorized for url: https://api.the-odds-api.com/v4/historical/sports/icehockey_nhl/odds?apiKey=651eddc24dd189e57c96cd985a9a4eb4&regions=us&markets=h2h%2Ctotals&oddsFormat=american&dateFormat=iso&date=2026-01-07T12%3A00%3A00Z"
+    },
+    "teams": {
+      "ok": true,
+      "url": "https://raw.githubusercontent.com/dawg2324/moneypuck-mirror/main/data/teams.csv"
+    },
+    "goalies": {
+      "ok": true,
+      "url": "https://raw.githubusercontent.com/dawg2324/moneypuck-mirror/main/data/goalies.csv"
+    }
+  },
+  "validations": {
+    "teams_count": 32,
+    "goalies_count": 0,
+    "odds_games_count": 17
+  }
+}
