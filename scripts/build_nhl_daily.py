@@ -20,6 +20,7 @@ Optional env:
 - MP_SEASON (default: 2025)
 - OUT_JSON (default: data/nhl_daily_slim.json)
 - OUT_YML  (default: data/nhl_daily_slim.yml)
+- GOALIES_MIN_ICETIME_MIN (default: 200)
 """
 
 from __future__ import annotations
@@ -47,10 +48,6 @@ def utc_now_iso() -> str:
 
 
 def et_today_date_str() -> str:
-    # America/New_York without external deps: approximate with US/Eastern rules is messy.
-    # For the use here (daily stamp), a fixed ET conversion is acceptable via system TZ if set.
-    # Prefer explicit TZ offset if present; otherwise fallback to UTC date.
-    tz_name = os.environ.get("TZ", "")
     try:
         from zoneinfo import ZoneInfo  # py3.9+
         et = dt.datetime.now(ZoneInfo("America/New_York"))
@@ -87,11 +84,6 @@ def fetch_csv(url: str) -> Tuple[pd.DataFrame, str]:
 # --------------------------- parsing: teams ----------------------------------
 
 def parse_moneypuck_teams_csv(teams_df: pd.DataFrame) -> List[Dict[str, Any]]:
-    """
-    Use Team Level + situation=all rows to compute xGF_pg and xGA_pg.
-    Expected columns (from your header dump):
-      team, situation, position, games_played, xGoalsFor, xGoalsAgainst
-    """
     required = ["team", "situation", "position", "games_played", "xGoalsFor", "xGoalsAgainst"]
     missing = [c for c in required if c not in teams_df.columns]
     if missing:
@@ -123,15 +115,11 @@ def parse_moneypuck_teams_csv(teams_df: pd.DataFrame) -> List[Dict[str, Any]]:
             }
         )
 
-    # deterministic order
     out.sort(key=lambda x: x["team"])
     return out
 
 
 def league_avg_lambda_from_teams(teams_slim: List[Dict[str, Any]]) -> float:
-    """
-    League average goals per team per game proxy from xGF_pg across teams.
-    """
     if not teams_slim:
         return 0.0
     vals = [t["xGF_pg"] for t in teams_slim if isinstance(t.get("xGF_pg"), (int, float))]
@@ -146,12 +134,6 @@ def parse_moneypuck_goalies_csv(
     situation: str = "all",
     min_icetime_minutes: float = 200.0,
 ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    """
-    MoneyPuck goalies.csv columns visible in your sample:
-      playerId, name, team, situation, icetime, xGoals, goals
-    We derive:
-      xGA_per60, GA_per60, GSAx_per60 (=(xGoals-goals) per 60)
-    """
     required = ["playerId", "name", "team", "situation", "icetime", "xGoals", "goals"]
     missing = [c for c in required if c not in goalies_df.columns]
     if missing:
@@ -160,7 +142,6 @@ def parse_moneypuck_goalies_csv(
     df = goalies_df.copy()
     df["situation"] = df["situation"].astype(str)
 
-    # numeric coercion
     df["playerId"] = pd.to_numeric(df["playerId"], errors="coerce").astype("Int64")
     df["icetime"] = pd.to_numeric(df["icetime"], errors="coerce")
     df["xGoals"] = pd.to_numeric(df["xGoals"], errors="coerce")
@@ -170,19 +151,17 @@ def parse_moneypuck_goalies_csv(
     df = df.dropna(subset=["playerId", "team", "icetime", "xGoals", "goals"]).copy()
     df = df[df["icetime"] > 0].copy()
 
-    # MoneyPuck seasonSummary is seconds
+    # MoneyPuck seasonSummary icetime is seconds
     df["icetime_sec"] = df["icetime"]
     df["icetime_min"] = df["icetime_sec"] / 60.0
 
     if min_icetime_minutes and min_icetime_minutes > 0:
         df = df[df["icetime_min"] >= float(min_icetime_minutes)].copy()
 
-    # per-60
     df["xGA_per60"] = (df["xGoals"] / df["icetime_sec"]) * 3600.0
     df["GA_per60"] = (df["goals"] / df["icetime_sec"]) * 3600.0
     df["GSAx_per60"] = ((df["xGoals"] - df["goals"]) / df["icetime_sec"]) * 3600.0
 
-    # one row per goalie
     df = df.sort_values(["playerId", "icetime_sec"], ascending=[True, False]).drop_duplicates("playerId", keep="first")
 
     records: List[Dict[str, Any]] = []
@@ -270,10 +249,6 @@ def write_json(path: str, obj: Any) -> None:
 
 
 def write_yaml(path: str, obj: Any) -> Tuple[bool, Optional[str]]:
-    """
-    Writes YAML to a separate file path.
-    If PyYAML is not installed, returns (False, reason) but does not crash.
-    """
     try:
         import yaml  # type: ignore
     except Exception:
@@ -302,7 +277,6 @@ def main() -> int:
     source_status: Dict[str, Any] = {}
     validations: Dict[str, Any] = {}
     inputs_hash: Dict[str, Any] = {}
-
     slim: Dict[str, Any] = {}
 
     # Odds current
@@ -318,12 +292,67 @@ def main() -> int:
         slim["odds_current"] = []
         validations["odds_games_count"] = 0
 
-    # Odds open placeholder (you already determined plan limitation)
+    # Odds open placeholder
     source_status["odds_open"] = {"ok": False, "reason": "Historical odds not available on current Odds API plan"}
 
     # Teams
     try:
         teams_df, teams_sha = fetch_csv(teams_url)
         inputs_hash["teams_sha256"] = teams_sha
+
         teams_slim = parse_moneypuck_teams_csv(teams_df)
-        slim["teams"] =
+        slim["teams"] = teams_slim
+
+        validations["teams_count"] = len(teams_slim)
+        source_status["teams"] = {"ok": True, "url": teams_url}
+    except Exception as e:
+        slim["teams"] = []
+        validations["teams_count"] = 0
+        source_status["teams"] = {"ok": False, "url": teams_url, "error": str(e)}
+
+    # Goalies
+    try:
+        goalies_df, goalies_sha = fetch_csv(goalies_url)
+        inputs_hash["goalies_sha256"] = goalies_sha
+
+        min_icetime_minutes = float(os.environ.get("GOALIES_MIN_ICETIME_MIN", "200").strip())
+        goalies_slim, meta = parse_moneypuck_goalies_csv(
+            goalies_df,
+            situation="all",
+            min_icetime_minutes=min_icetime_minutes,
+        )
+        slim["goalies"] = goalies_slim
+        validations["goalies_count"] = len(goalies_slim)
+        source_status["goalies"] = {"ok": True, "url": goalies_url, "meta": meta}
+    except Exception as e:
+        slim["goalies"] = []
+        validations["goalies_count"] = 0
+        source_status["goalies"] = {"ok": False, "url": goalies_url, "error": str(e)}
+
+    # League avg lambda proxy (based on teams xGF_pg)
+    try:
+        slim["league_avg_lambda"] = league_avg_lambda_from_teams(slim.get("teams", []))
+    except Exception:
+        slim["league_avg_lambda"] = 0.0
+
+    out_obj: Dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at_utc": generated_at,
+        "data_date_et": data_date,
+        "source_status": source_status,
+        "validations": validations,
+        "inputs_hash": inputs_hash,
+        "slim": slim,
+    }
+
+    write_json(out_json, out_obj)
+
+    ok_yml, yml_reason = write_yaml(out_yml, out_obj)
+    if not ok_yml:
+        sys.stderr.write(f"[warn] YAML not written: {yml_reason}\n")
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
