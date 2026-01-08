@@ -34,11 +34,6 @@ def now_et() -> datetime:
     return now_utc().astimezone(ET_TZ)
 
 
-def gate_to_10am_et() -> None:
-    t = now_et()
-    if (t.hour, t.minute) < (10, 0):
-        raise SystemExit(0)
-
 
 def sha256_text(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
