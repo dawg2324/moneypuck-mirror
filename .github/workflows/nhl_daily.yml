@@ -41,7 +41,7 @@ jobs:
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
-          python scripts/build_nhl_daily.py
+          python -m scripts.build_nhl_daily
 
       - name: Commit output if changed
         run: |
