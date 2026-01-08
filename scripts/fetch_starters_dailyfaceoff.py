@@ -1,101 +1,154 @@
 # scripts/fetch_starters_dailyfaceoff.py
 from __future__ import annotations
 
-import argparse
+import datetime as dt
 import json
 import re
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from typing import Any, Iterable, Optional, Tuple
+from html.parser import HTMLParser
+from typing import Any, Dict, List, Optional, Tuple
+from urllib.request import Request, urlopen
 
-import requests
-from bs4 import BeautifulSoup
-
-from scripts.team_map import team_abbr_from_any_label, normalize_team_name
+from scripts.team_map import normalize_team_name, team_abbr_from_any_label
 
 
 DFO_BASE = "https://www.dailyfaceoff.com"
 DFO_PATH_PATTERN = "/starting-goalies/{date_yyyy_mm_dd}"
-DEFAULT_TIMEOUT = 25
 
 
-@dataclass(frozen=True)
-class StarterSide:
-    team: str  # abbreviation
-    goalie: str
-    status: str  # confirmed | projected
+class _TextExtractor(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self._chunks: List[str] = []
+
+    def handle_data(self, data: str) -> None:
+        if data:
+            self._chunks.append(data)
+
+    def text(self) -> str:
+        return "\n".join(self._chunks)
 
 
-def _utc_iso(dt: datetime) -> str:
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+def http_get_text(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> str:
+    req = Request(url, headers=headers or {})
+    with urlopen(req, timeout=timeout) as resp:
+        raw = resp.read()
+    return raw.decode("utf-8", errors="replace")
 
 
-def _parse_iso_z(s: str) -> Optional[datetime]:
+def _utc_iso(dt_obj: dt.datetime) -> str:
+    if dt_obj.tzinfo is None:
+        dt_obj = dt_obj.replace(tzinfo=dt.timezone.utc)
+    return dt_obj.astimezone(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _parse_iso_z(s: str) -> Optional[dt.datetime]:
     s = (s or "").strip()
     if not s:
         return None
-    # Handles: 2025-10-22T15:59:03.447Z and 2025-10-22T23:00:00.000Z
     try:
         if s.endswith("Z"):
-            return datetime.fromisoformat(s.replace("Z", "+00:00"))
-        return datetime.fromisoformat(s)
-    except ValueError:
+            return dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+        return dt.datetime.fromisoformat(s)
+    except Exception:
         return None
 
 
-def _normalize_status(raw_status: str) -> str:
-    rs = (raw_status or "").strip().lower()
-    if "confirmed" in rs:
+def _normalize_status(raw: str) -> str:
+    t = (raw or "").strip().lower()
+    if "confirmed" in t:
         return "confirmed"
     return "projected"
 
 
-def _clean_lines(lines: Iterable[str]) -> list[str]:
-    out: list[str] = []
-    for x in lines:
-        t = (x or "").strip()
-        if not t:
-            continue
-        out.append(t)
-    return out
+def _extract_lines_from_html(html: str) -> List[str]:
+    parser = _TextExtractor()
+    parser.feed(html)
+    text = parser.text()
+
+    # Normalize whitespace and split
+    lines = [ln.strip() for ln in text.split("\n")]
+    lines = [ln for ln in lines if ln]
+
+    return lines
 
 
 _GAME_RE = re.compile(r"^(?P<away>.+?)\s+at\s+(?P<home>.+?)$")
+_NAME_RE = re.compile(r"^[A-Za-z .'\-]+$")
 
 
-def _extract_text_lines(html: str) -> list[str]:
-    soup = BeautifulSoup(html, "html.parser")
-
-    # Remove scripts/styles so text extraction is stable
-    for tag in soup(["script", "style", "noscript"]):
-        tag.decompose()
-
-    text = soup.get_text("\n")
-    lines = text.split("\n")
-    return _clean_lines(lines)
-
-
-def _parse_games_from_lines(lines: list[str], date_et: str, source_url: str) -> list[dict[str, Any]]:
+def _scan_goalie_block(lines: List[str], start_idx: int) -> Tuple[Optional[str], Optional[str], Optional[dt.datetime], int]:
     """
-    DailyFaceoff page (server-rendered) commonly contains blocks like:
-      "Minnesota Wild at New Jersey Devils"
-      "2025-10-22T23:00:00.000Z"
-      "Filip Gustavsson"
-      "Confirmed"
-      "2025-10-22T15:59:03.447Z"
-      ...
-      "Nico Daws"
-      "Confirmed"
-      "2025-10-20T16:32:31.647Z"
-    (then next matchup) :contentReference[oaicite:0]{index=0}
+    Scans forward for:
+      goalie name (2+ words)
+      status (Confirmed/Expected/Likely/Unconfirmed/Projected)
+      last updated iso timestamp (optional)
+    Returns (name, status_raw, updated_dt, next_index).
     """
-    starters: list[dict[str, Any]] = []
+    n = len(lines)
+    j = start_idx
+
+    name: Optional[str] = None
+    while j < n:
+        s = lines[j]
+        if _NAME_RE.match(s) and len(s.split()) >= 2:
+            name = s
+            j += 1
+            break
+        # stop early if a new matchup begins
+        if _GAME_RE.match(s):
+            return None, None, None, j
+        j += 1
+
+    if name is None:
+        return None, None, None, j
+
+    status_raw: Optional[str] = None
+    while j < n:
+        s = lines[j].strip()
+        sl = s.lower()
+        if sl in {"confirmed", "expected", "likely", "unconfirmed", "projected"}:
+            status_raw = s
+            j += 1
+            break
+        # If we hit an ISO timestamp immediately, status is missing
+        if _parse_iso_z(s) is not None:
+            status_raw = ""
+            break
+        if _GAME_RE.match(s):
+            break
+        j += 1
+
+    updated: Optional[dt.datetime] = None
+    while j < n:
+        maybe = _parse_iso_z(lines[j])
+        if maybe is not None:
+            updated = maybe
+            j += 1
+            break
+        if _GAME_RE.match(lines[j]):
+            break
+        j += 1
+
+    return name, status_raw, updated, j
+
+
+def fetch_dailyfaceoff_starters(date_et: str) -> List[Dict[str, Any]]:
+    """
+    date_et: YYYY-MM-DD
+    returns slim["starters"] list with strict schema.
+    """
+    url = DFO_BASE + DFO_PATH_PATTERN.format(date_yyyy_mm_dd=date_et)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; moneypuck-mirror/nhl_daily_slim; +https://github.com/dawg2324/moneypuck-mirror)"
+    }
+
+    html = http_get_text(url, headers=headers, timeout=30)
+    lines = _extract_lines_from_html(html)
+
+    starters: List[Dict[str, Any]] = []
 
     i = 0
     n = len(lines)
-
     while i < n:
         m = _GAME_RE.match(lines[i])
         if not m:
@@ -105,137 +158,56 @@ def _parse_games_from_lines(lines: list[str], date_et: str, source_url: str) -> 
         away_full = normalize_team_name(m.group("away"))
         home_full = normalize_team_name(m.group("home"))
 
-        # Next non-empty line should be game time in ISO (Z)
-        if i + 1 >= n:
-            break
-        game_time_utc = _parse_iso_z(lines[i + 1])
+        # The next line is often a game time ISO Z, but treat it as optional
+        game_time = _parse_iso_z(lines[i + 1]) if (i + 1) < n else None
 
-        # Heuristic: after game time, we expect away goalie name, status, updated time,
-        # then home goalie name, status, updated time.
-        # Because page includes lots of other text, we scan forward carefully.
+        # Scan for away and home goalie blocks after matchup header
+        j0 = i + 1
+        away_goalie, away_status_raw, away_updated, j1 = _scan_goalie_block(lines, j0)
+        home_goalie, home_status_raw, home_updated, j2 = _scan_goalie_block(lines, j1)
 
-        def scan_goalie_block(start_idx: int) -> Tuple[Optional[str], Optional[str], Optional[datetime], int]:
-            j = start_idx
-            # find a plausible goalie name line (letters/spaces, at least 2 words)
-            name = None
-            while j < n:
-                s = lines[j]
-                if re.match(r"^[A-Za-z .'-]+$", s) and len(s.split()) >= 2:
-                    name = s
-                    j += 1
-                    break
-                j += 1
-            if name is None or j >= n:
-                return None, None, None, j
-
-            status = None
-            while j < n:
-                s = lines[j].strip()
-                if s.lower() in {"confirmed", "expected", "likely", "unconfirmed", "projected"}:
-                    status = s
-                    j += 1
-                    break
-                # Sometimes "Confirmed" is present, sometimes other label.
-                # If we hit an ISO timestamp before status, treat as missing status.
-                if _parse_iso_z(s) is not None:
-                    status = ""
-                    break
-                j += 1
-
-            updated = None
-            while j < n:
-                dt = _parse_iso_z(lines[j])
-                if dt is not None:
-                    updated = dt
-                    j += 1
-                    break
-                # stop if another matchup starts
-                if _GAME_RE.match(lines[j]):
-                    break
-                j += 1
-
-            return name, status, updated, j
-
-        # Start scanning after the game time line
-        j0 = i + 2
-        away_goalie_name, away_status_raw, away_updated, j1 = scan_goalie_block(j0)
-        home_goalie_name, home_status_raw, home_updated, j2 = scan_goalie_block(j1)
-
-        # If we failed, skip this matchup and keep searching
-        if not away_goalie_name or not home_goalie_name:
+        # If either goalie missing, skip this matchup
+        if not away_goalie or not home_goalie:
             i += 1
             continue
 
-        away_abbr = team_abbr_from_any_label(away_full)
-        home_abbr = team_abbr_from_any_label(home_full)
+        try:
+            away_abbr = team_abbr_from_any_label(away_full)
+            home_abbr = team_abbr_from_any_label(home_full)
+        except KeyError:
+            # Team label unknown, skip
+            i = max(i + 1, j2)
+            continue
 
-        last_updated = None
-        if away_updated and home_updated:
-            last_updated = max(away_updated, home_updated)
-        else:
-            last_updated = away_updated or home_updated or game_time_utc
-
-        game_key = f"{away_abbr}_vs_{home_abbr}_{date_et}"
+        last_updated = away_updated or home_updated or game_time or dt.datetime.now(dt.timezone.utc)
 
         starters.append(
             {
-                "game_key": game_key,
+                "game_key": f"{away_abbr}_vs_{home_abbr}_{date_et}",
                 "date_et": date_et,
-                "away": {
-                    "team": away_abbr,
-                    "goalie": away_goalie_name,
-                    "status": _normalize_status(away_status_raw or ""),
-                },
-                "home": {
-                    "team": home_abbr,
-                    "goalie": home_goalie_name,
-                    "status": _normalize_status(home_status_raw or ""),
-                },
-                "source": {
-                    "site": "dailyfaceoff",
-                    "url": source_url,
-                    "last_updated_utc": _utc_iso(last_updated) if last_updated else None,
-                },
+                "away": {"team": away_abbr, "goalie": away_goalie, "status": _normalize_status(away_status_raw or "")},
+                "home": {"team": home_abbr, "goalie": home_goalie, "status": _normalize_status(home_status_raw or "")},
+                "source": {"site": "dailyfaceoff", "url": url, "last_updated_utc": _utc_iso(last_updated)},
             }
         )
 
-        # Continue scanning from where we ended to avoid O(n^2)
         i = max(i + 1, j2)
 
+    starters.sort(key=lambda x: x["game_key"])
     return starters
 
 
-def fetch_dailyfaceoff_starters(date_et: str, session: Optional[requests.Session] = None) -> list[dict[str, Any]]:
-    """
-    Fetch starters for date_et (YYYY-MM-DD) from DailyFaceoff and return slim.starters list.
-    """
-    url = DFO_BASE + DFO_PATH_PATTERN.format(date_yyyy_mm_dd=date_et)
+def main() -> int:
+    import argparse
 
-    sess = session or requests.Session()
-    headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; nhl_daily_slim/1.0; +https://github.com/dawg2324/moneypuck-mirror)"
-    }
-
-    resp = sess.get(url, headers=headers, timeout=DEFAULT_TIMEOUT)
-    resp.raise_for_status()
-
-    lines = _extract_text_lines(resp.text)
-    starters = _parse_games_from_lines(lines, date_et=date_et, source_url=url)
-
-    # Stable sort for diffs
-    starters.sort(key=lambda x: x.get("game_key", ""))
-
-    return starters
-
-
-def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--date-et", required=True, help="Slate date in ET, YYYY-MM-DD")
+    ap.add_argument("--date-et", required=True)
     args = ap.parse_args()
 
     starters = fetch_dailyfaceoff_starters(args.date_et)
     print(json.dumps({"date_et": args.date_et, "starters": starters}, indent=2))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
