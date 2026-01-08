@@ -1,24 +1,27 @@
-name: nhl-daily
+name: Build NHL Daily Slim
 
 on:
-  workflow_dispatch:
   schedule:
-    # Runs twice to cover DST. Script only writes if it's 10:00 AM America/New_York.
     - cron: "5 14 * * *"
     - cron: "5 15 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: nhl-daily-slim
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -33,13 +36,14 @@ jobs:
         run: |
           python scripts/build_nhl_daily.py
 
-      - name: Commit outputs
+      - name: Commit if changed
         run: |
-          git config user.name "nhl-daily-bot"
-          git config user.email "nhl-daily-bot@users.noreply.github.com"
-
-          git add data/nhl_daily_slim.json
-          git diff --cached --quiet && echo "No changes" && exit 0
-
-          git commit -m "Update nhl_daily_slim.json"
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/nhl_daily_slim.json
+            git commit -m "Update nhl_daily_slim.json"
+            git push
+          else
+            echo "No changes to commit."
+          fi
