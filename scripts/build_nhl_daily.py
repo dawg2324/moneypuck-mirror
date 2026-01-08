@@ -34,7 +34,6 @@ def now_et() -> datetime:
     return now_utc().astimezone(ET_TZ)
 
 
-
 def sha256_text(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
 
@@ -87,29 +86,24 @@ def fetch_odds_current() -> tuple[list, dict, str]:
 
 def build_teams_slim(teams_csv_text: str) -> tuple[list[dict], float]:
     """
-    Uses your actual MoneyPuck headers:
+    Uses MoneyPuck headers:
       - situation: filter to 'all'
       - games_played, xGoalsFor, xGoalsAgainst
       - team abbreviation column: use 'team.1' if pandas created it, else 'team'
     """
     df = pd.read_csv(StringIO(teams_csv_text))
 
-    # Required columns based on your header
     required = ["situation", "games_played", "xGoalsFor", "xGoalsAgainst"]
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise ValueError(f"teams.csv missing columns: {missing}. Columns present: {list(df.columns)}")
 
-    # Handle duplicate 'team' header.
-    # Pandas commonly mangles duplicate headers into 'team' and 'team.1'.
     team_abbrev_col = "team.1" if "team.1" in df.columns else "team"
     if team_abbrev_col not in df.columns:
         raise ValueError(f"Could not find team abbreviation column. Columns: {list(df.columns)}")
 
-    # Filter to overall row only
     df = df[df["situation"].astype(str).str.lower().eq("all")].copy()
 
-    # Convert numeric fields
     df["games_played"] = pd.to_numeric(df["games_played"], errors="coerce")
     df["xGoalsFor"] = pd.to_numeric(df["xGoalsFor"], errors="coerce")
     df["xGoalsAgainst"] = pd.to_numeric(df["xGoalsAgainst"], errors="coerce")
@@ -117,11 +111,9 @@ def build_teams_slim(teams_csv_text: str) -> tuple[list[dict], float]:
     df = df.dropna(subset=[team_abbrev_col, "games_played", "xGoalsFor", "xGoalsAgainst"]).copy()
     df = df[df["games_played"] > 0].copy()
 
-    # Per-game rates
     df["xGF_pg"] = df["xGoalsFor"] / df["games_played"]
     df["xGA_pg"] = df["xGoalsAgainst"] / df["games_played"]
 
-    # Enforce one row per team
     df[team_abbrev_col] = df[team_abbrev_col].astype(str)
     df = (
         df.sort_values([team_abbrev_col, "games_played"], ascending=[True, False])
@@ -139,10 +131,8 @@ def build_teams_slim(teams_csv_text: str) -> tuple[list[dict], float]:
         for _, r in df.iterrows()
     ]
 
-    # league_avg_lambda = average expected goals per team per game
     league_avg_lambda = float(pd.Series([t["xGF_pg"] for t in teams]).mean())
 
-    # Validate uniqueness
     names = [t["team"] for t in teams]
     if len(names) != len(set(names)):
         raise ValueError("Duplicate teams present after filtering. Output invalid.")
@@ -151,8 +141,6 @@ def build_teams_slim(teams_csv_text: str) -> tuple[list[dict], float]:
 
 
 def main() -> None:
-    gate_to_10am_et()
-
     generated_at = now_utc().replace(microsecond=0)
     data_date_et = (now_et().date() - timedelta(days=1)).isoformat()
 
@@ -170,44 +158,11 @@ def main() -> None:
         "generated_at_utc": generated_at.isoformat(),
         "data_date_et": data_date_et,
         "source_status": {
-            "odds_current": {
-                "ok": True,
-                "meta": odds_meta,
-            },
-            "teams": {
-                "ok": True,
-                "url": MONEYPuck_TEAMS_CSV,
-            },
+            "odds_current": {"ok": True, "meta": odds_meta},
+            "teams": {"ok": True, "url": MONEYPuck_TEAMS_CSV},
             "goalies": {
                 "ok": False,
                 "url": MONEYPuck_GOALIES_CSV,
                 "error": "Goalies CSV missing gsa_x60 and cannot derive from goalsSavedAboveExpected/icetime.",
             },
-            "odds_open": {
-                "ok": False,
-                "reason": "Historical odds not available on current Odds API plan",
-            },
-        },
-        "validations": {
-            "odds_games_count": int(len(odds_data)) if isinstance(odds_data, list) else 0,
-            "teams_count": int(len(teams_list)),
-            "goalies_count": 0,
-        },
-        "inputs_hash": {
-            "odds_current_sha256": odds_sha,
-            "teams_sha256": teams_sha,
-            "goalies_sha256": goalies_sha,
-        },
-        "slim": {
-            "odds_current": odds_data,
-            "league_avg_lambda": league_avg_lambda,
-            "teams": teams_list,
-            "goalies": [],
-        },
-    }
-
-    atomic_write_json(OUTPUT_PATH, payload)
-
-
-if __name__ == "__main__":
-    main()
+            "odds_open": {"_
