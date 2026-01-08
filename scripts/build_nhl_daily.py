@@ -12,7 +12,6 @@ from dateutil import tz
 SCHEMA_VERSION = "1.0.3"
 
 ET_TZ = tz.gettz("America/New_York")
-
 OUTPUT_PATH = os.path.join("data", "nhl_daily_slim.json")
 
 ODDS_SPORT = "icehockey_nhl"
@@ -52,7 +51,7 @@ def fetch_text(url: str, timeout: int = 45) -> str:
     return r.text
 
 
-def fetch_odds_current() -> tuple[list, dict, str]:
+def fetch_odds_current():
     api_key = os.getenv("ODDS_API_KEY", "").strip()
     url = ODDS_ENDPOINT.format(sport=ODDS_SPORT)
 
@@ -84,74 +83,60 @@ def fetch_odds_current() -> tuple[list, dict, str]:
     return data, meta, sha256_text(odds_hash_basis)
 
 
-def build_teams_slim(teams_csv_text: str) -> tuple[list[dict], float]:
-    """
-    Uses MoneyPuck headers:
-      - situation: filter to 'all'
-      - games_played, xGoalsFor, xGoalsAgainst
-      - team abbreviation column: use 'team.1' if pandas created it, else 'team'
-    """
-    df = pd.read_csv(StringIO(teams_csv_text))
+def build_teams_slim(csv_text: str):
+    df = pd.read_csv(StringIO(csv_text))
 
     required = ["situation", "games_played", "xGoalsFor", "xGoalsAgainst"]
-    missing = [c for c in required if c not in df.columns]
-    if missing:
-        raise ValueError(f"teams.csv missing columns: {missing}. Columns present: {list(df.columns)}")
+    for c in required:
+        if c not in df.columns:
+            raise ValueError(f"teams.csv missing column: {c}")
 
-    team_abbrev_col = "team.1" if "team.1" in df.columns else "team"
-    if team_abbrev_col not in df.columns:
-        raise ValueError(f"Could not find team abbreviation column. Columns: {list(df.columns)}")
+    team_col = "team.1" if "team.1" in df.columns else "team"
 
-    df = df[df["situation"].astype(str).str.lower().eq("all")].copy()
+    df = df[df["situation"].str.lower() == "all"].copy()
 
     df["games_played"] = pd.to_numeric(df["games_played"], errors="coerce")
     df["xGoalsFor"] = pd.to_numeric(df["xGoalsFor"], errors="coerce")
     df["xGoalsAgainst"] = pd.to_numeric(df["xGoalsAgainst"], errors="coerce")
 
-    df = df.dropna(subset=[team_abbrev_col, "games_played", "xGoalsFor", "xGoalsAgainst"]).copy()
-    df = df[df["games_played"] > 0].copy()
+    df = df.dropna(subset=[team_col, "games_played", "xGoalsFor", "xGoalsAgainst"])
+    df = df[df["games_played"] > 0]
 
     df["xGF_pg"] = df["xGoalsFor"] / df["games_played"]
     df["xGA_pg"] = df["xGoalsAgainst"] / df["games_played"]
 
-    df[team_abbrev_col] = df[team_abbrev_col].astype(str)
     df = (
-        df.sort_values([team_abbrev_col, "games_played"], ascending=[True, False])
-        .drop_duplicates(subset=[team_abbrev_col], keep="first")
+        df.sort_values([team_col, "games_played"], ascending=[True, False])
+        .drop_duplicates(subset=[team_col], keep="first")
         .reset_index(drop=True)
     )
 
-    teams = [
-        {
-            "team": r[team_abbrev_col],
+    teams = []
+    for _, r in df.iterrows():
+        teams.append({
+            "team": r[team_col],
             "games_played": int(r["games_played"]),
             "xGF_pg": float(r["xGF_pg"]),
             "xGA_pg": float(r["xGA_pg"]),
-        }
-        for _, r in df.iterrows()
-    ]
+        })
 
     league_avg_lambda = float(pd.Series([t["xGF_pg"] for t in teams]).mean())
-
-    names = [t["team"] for t in teams]
-    if len(names) != len(set(names)):
-        raise ValueError("Duplicate teams present after filtering. Output invalid.")
 
     return teams, league_avg_lambda
 
 
-def main() -> None:
+def main():
     generated_at = now_utc().replace(microsecond=0)
     data_date_et = (now_et().date() - timedelta(days=1)).isoformat()
 
     odds_data, odds_meta, odds_sha = fetch_odds_current()
 
-    teams_csv_text = fetch_text(MONEYPuck_TEAMS_CSV, timeout=45)
-    teams_sha = sha256_text(teams_csv_text)
-    teams_list, league_avg_lambda = build_teams_slim(teams_csv_text)
+    teams_csv = fetch_text(MONEYPuck_TEAMS_CSV)
+    teams_sha = sha256_text(teams_csv)
+    teams, league_avg_lambda = build_teams_slim(teams_csv)
 
-    goalies_csv_text = fetch_text(MONEYPuck_GOALIES_CSV, timeout=45)
-    goalies_sha = sha256_text(goalies_csv_text)
+    goalies_csv = fetch_text(MONEYPuck_GOALIES_CSV)
+    goalies_sha = sha256_text(goalies_csv)
 
     payload = {
         "schema_version": SCHEMA_VERSION,
@@ -163,6 +148,33 @@ def main() -> None:
             "goalies": {
                 "ok": False,
                 "url": MONEYPuck_GOALIES_CSV,
-                "error": "Goalies CSV missing gsa_x60 and cannot derive from goalsSavedAboveExpected/icetime.",
+                "error": "Goalies CSV missing gsa_x60 and cannot derive from goalsSavedAboveExpected/icetime."
             },
-            "odds_open": {"_
+            "odds_open": {
+                "ok": False,
+                "reason": "Historical odds not available on current Odds API plan"
+            }
+        },
+        "validations": {
+            "odds_games_count": len(odds_data),
+            "teams_count": len(teams),
+            "goalies_count": 0
+        },
+        "inputs_hash": {
+            "odds_current_sha256": odds_sha,
+            "teams_sha256": teams_sha,
+            "goalies_sha256": goalies_sha
+        },
+        "slim": {
+            "odds_current": odds_data,
+            "league_avg_lambda": league_avg_lambda,
+            "teams": teams,
+            "goalies": []
+        }
+    }
+
+    atomic_write_json(OUTPUT_PATH, payload)
+
+
+if __name__ == "__main__":
+    main()
