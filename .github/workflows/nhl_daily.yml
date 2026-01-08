@@ -3,7 +3,7 @@ name: nhl-daily
 on:
   workflow_dispatch:
   schedule:
-    # DST-proof: run twice, script will only build at 10:00 AM America/New_York
+    # Runs twice to cover DST. Script only writes if it's 10:00 AM America/New_York.
     - cron: "5 14 * * *"
     - cron: "5 15 * * *"
 
@@ -13,7 +13,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,9 +35,11 @@ jobs:
 
       - name: Commit outputs
         run: |
-          git config user.name "moneypuck-mirror-bot"
-          git config user.email "moneypuck-mirror-bot@users.noreply.github.com"
-          git add data/*.json
+          git config user.name "nhl-daily-bot"
+          git config user.email "nhl-daily-bot@users.noreply.github.com"
+
+          git add data/nhl_daily_slim.json
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Daily NHL slim artifact"
+
+          git commit -m "Update nhl_daily_slim.json"
           git push
