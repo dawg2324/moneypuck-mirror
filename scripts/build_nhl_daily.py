@@ -1,180 +1,329 @@
-import os
-import json
+#!/usr/bin/env python3
+"""
+build_nhl_daily.py
+
+Creates a daily slim artifact combining:
+- Current odds from The Odds API (h2h + totals)
+- Team season summary from MoneyPuck (teams.csv)
+- Goalie season summary from MoneyPuck (goalies.csv) with robust parsing
+
+Outputs:
+- data/nhl_daily_slim.json
+- data/nhl_daily_slim.yml   (separate file; will not overwrite json)
+
+Required env:
+- ODDS_API_KEY (for odds_current)
+
+Optional env:
+- ODDS_API_REGIONS (default: us)
+- ODDS_API_MARKETS (default: h2h,totals)
+- MP_SEASON (default: 2025)
+- OUT_JSON (default: data/nhl_daily_slim.json)
+- OUT_YML  (default: data/nhl_daily_slim.yml)
+"""
+
+from __future__ import annotations
+
+import datetime as dt
 import hashlib
-from datetime import datetime, timedelta, timezone
-from io import StringIO
+import json
+import os
+import sys
+from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 import pandas as pd
-import requests
-from dateutil import tz
 
 
 SCHEMA_VERSION = "1.0.3"
-
-ET_TZ = tz.gettz("America/New_York")
-OUTPUT_PATH = os.path.join("data", "nhl_daily_slim.json")
-
-ODDS_SPORT = "icehockey_nhl"
-ODDS_ENDPOINT = "https://api.the-odds-api.com/v4/sports/{sport}/odds"
-ODDS_REGIONS = "us"
-ODDS_MARKETS = ["h2h", "totals"]
-ODDS_ODDS_FORMAT = "american"
-ODDS_DATE_FORMAT = "iso"
-
-MONEYPuck_TEAMS_CSV = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/teams.csv"
-MONEYPuck_GOALIES_CSV = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/goalies.csv"
+SPORT_KEY = "icehockey_nhl"
 
 
-def now_utc() -> datetime:
-    return datetime.now(timezone.utc)
+# --------------------------- time helpers ------------------------------------
+
+def utc_now_iso() -> str:
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
-def now_et() -> datetime:
-    return now_utc().astimezone(ET_TZ)
+def et_today_date_str() -> str:
+    # America/New_York without external deps: approximate with US/Eastern rules is messy.
+    # For the use here (daily stamp), a fixed ET conversion is acceptable via system TZ if set.
+    # Prefer explicit TZ offset if present; otherwise fallback to UTC date.
+    tz_name = os.environ.get("TZ", "")
+    try:
+        from zoneinfo import ZoneInfo  # py3.9+
+        et = dt.datetime.now(ZoneInfo("America/New_York"))
+        return et.date().isoformat()
+    except Exception:
+        return dt.datetime.now(dt.timezone.utc).date().isoformat()
 
 
-def sha256_text(s: str) -> str:
-    return hashlib.sha256(s.encode("utf-8")).hexdigest()
+# --------------------------- network helpers ---------------------------------
+
+def sha256_bytes(b: bytes) -> str:
+    return hashlib.sha256(b).hexdigest()
 
 
-def atomic_write_json(path: str, payload: dict) -> None:
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, separators=(",", ":"), sort_keys=False)
-    os.replace(tmp, path)
+def http_get_json(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> Tuple[Any, bytes]:
+    req = Request(url, headers=headers or {})
+    with urlopen(req, timeout=timeout) as resp:
+        raw = resp.read()
+    return json.loads(raw.decode("utf-8")), raw
 
 
-def fetch_text(url: str, timeout: int = 45) -> str:
-    r = requests.get(url, timeout=timeout)
-    r.raise_for_status()
-    return r.text
+def http_get_bytes(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> bytes:
+    req = Request(url, headers=headers or {})
+    with urlopen(req, timeout=timeout) as resp:
+        return resp.read()
 
 
-def fetch_odds_current():
-    api_key = os.getenv("ODDS_API_KEY", "").strip()
-    url = ODDS_ENDPOINT.format(sport=ODDS_SPORT)
-
-    meta = {
-        "endpoint": "odds_current",
-        "url": url,
-        "regions": ODDS_REGIONS,
-        "markets": ODDS_MARKETS,
-        "oddsFormat": ODDS_ODDS_FORMAT,
-        "dateFormat": ODDS_DATE_FORMAT,
-    }
-
-    if not api_key:
-        return [], meta, sha256_text("")
-
-    params = {
-        "apiKey": api_key,
-        "regions": ODDS_REGIONS,
-        "markets": ",".join(ODDS_MARKETS),
-        "oddsFormat": ODDS_ODDS_FORMAT,
-        "dateFormat": ODDS_DATE_FORMAT,
-    }
-
-    r = requests.get(url, params=params, timeout=35)
-    r.raise_for_status()
-    data = r.json()
-
-    odds_hash_basis = json.dumps(data, sort_keys=True, separators=(",", ":"))
-    return data, meta, sha256_text(odds_hash_basis)
+def fetch_csv(url: str) -> Tuple[pd.DataFrame, str]:
+    raw = http_get_bytes(url)
+    df = pd.read_csv(pd.io.common.BytesIO(raw))
+    return df, sha256_bytes(raw)
 
 
-def build_teams_slim(csv_text: str):
-    df = pd.read_csv(StringIO(csv_text))
+# --------------------------- parsing: teams ----------------------------------
 
-    required = ["situation", "games_played", "xGoalsFor", "xGoalsAgainst"]
-    for c in required:
-        if c not in df.columns:
-            raise ValueError(f"teams.csv missing column: {c}")
+def parse_moneypuck_teams_csv(teams_df: pd.DataFrame) -> List[Dict[str, Any]]:
+    """
+    Use Team Level + situation=all rows to compute xGF_pg and xGA_pg.
+    Expected columns (from your header dump):
+      team, situation, position, games_played, xGoalsFor, xGoalsAgainst
+    """
+    required = ["team", "situation", "position", "games_played", "xGoalsFor", "xGoalsAgainst"]
+    missing = [c for c in required if c not in teams_df.columns]
+    if missing:
+        raise ValueError(f"teams.csv missing required columns: {missing}")
 
-    team_col = "team.1" if "team.1" in df.columns else "team"
+    df = teams_df.copy()
+    df["situation"] = df["situation"].astype(str)
+    df["position"] = df["position"].astype(str)
 
-    df = df[df["situation"].str.lower() == "all"].copy()
+    df = df[(df["position"] == "Team Level") & (df["situation"] == "all")].copy()
 
-    df["games_played"] = pd.to_numeric(df["games_played"], errors="coerce")
-    df["xGoalsFor"] = pd.to_numeric(df["xGoalsFor"], errors="coerce")
-    df["xGoalsAgainst"] = pd.to_numeric(df["xGoalsAgainst"], errors="coerce")
+    for col in ["games_played", "xGoalsFor", "xGoalsAgainst"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    df = df.dropna(subset=[team_col, "games_played", "xGoalsFor", "xGoalsAgainst"])
-    df = df[df["games_played"] > 0]
+    df = df.dropna(subset=["team", "games_played", "xGoalsFor", "xGoalsAgainst"]).copy()
+    df = df[df["games_played"] > 0].copy()
 
     df["xGF_pg"] = df["xGoalsFor"] / df["games_played"]
     df["xGA_pg"] = df["xGoalsAgainst"] / df["games_played"]
 
-    df = (
-        df.sort_values([team_col, "games_played"], ascending=[True, False])
-        .drop_duplicates(subset=[team_col], keep="first")
-        .reset_index(drop=True)
-    )
-
-    teams = []
-    for _, r in df.iterrows():
-        teams.append({
-            "team": r[team_col],
-            "games_played": int(r["games_played"]),
-            "xGF_pg": float(r["xGF_pg"]),
-            "xGA_pg": float(r["xGA_pg"]),
-        })
-
-    league_avg_lambda = float(pd.Series([t["xGF_pg"] for t in teams]).mean())
-
-    return teams, league_avg_lambda
-
-
-def main():
-    generated_at = now_utc().replace(microsecond=0)
-    data_date_et = (now_et().date() - timedelta(days=1)).isoformat()
-
-    odds_data, odds_meta, odds_sha = fetch_odds_current()
-
-    teams_csv = fetch_text(MONEYPuck_TEAMS_CSV)
-    teams_sha = sha256_text(teams_csv)
-    teams, league_avg_lambda = build_teams_slim(teams_csv)
-
-    goalies_csv = fetch_text(MONEYPuck_GOALIES_CSV)
-    goalies_sha = sha256_text(goalies_csv)
-
-    payload = {
-        "schema_version": SCHEMA_VERSION,
-        "generated_at_utc": generated_at.isoformat(),
-        "data_date_et": data_date_et,
-        "source_status": {
-            "odds_current": {"ok": True, "meta": odds_meta},
-            "teams": {"ok": True, "url": MONEYPuck_TEAMS_CSV},
-            "goalies": {
-                "ok": False,
-                "url": MONEYPuck_GOALIES_CSV,
-                "error": "Goalies CSV missing gsa_x60 and cannot derive from goalsSavedAboveExpected/icetime."
-            },
-            "odds_open": {
-                "ok": False,
-                "reason": "Historical odds not available on current Odds API plan"
+    out: List[Dict[str, Any]] = []
+    for r in df[["team", "games_played", "xGF_pg", "xGA_pg"]].to_dict(orient="records"):
+        out.append(
+            {
+                "team": str(r["team"]),
+                "games_played": int(r["games_played"]),
+                "xGF_pg": float(r["xGF_pg"]),
+                "xGA_pg": float(r["xGA_pg"]),
             }
-        },
-        "validations": {
-            "odds_games_count": len(odds_data),
-            "teams_count": len(teams),
-            "goalies_count": 0
-        },
-        "inputs_hash": {
-            "odds_current_sha256": odds_sha,
-            "teams_sha256": teams_sha,
-            "goalies_sha256": goalies_sha
-        },
-        "slim": {
-            "odds_current": odds_data,
-            "league_avg_lambda": league_avg_lambda,
-            "teams": teams,
-            "goalies": []
-        }
+        )
+
+    # deterministic order
+    out.sort(key=lambda x: x["team"])
+    return out
+
+
+def league_avg_lambda_from_teams(teams_slim: List[Dict[str, Any]]) -> float:
+    """
+    League average goals per team per game proxy from xGF_pg across teams.
+    """
+    if not teams_slim:
+        return 0.0
+    vals = [t["xGF_pg"] for t in teams_slim if isinstance(t.get("xGF_pg"), (int, float))]
+    return float(sum(vals) / len(vals)) if vals else 0.0
+
+
+# --------------------------- parsing: goalies --------------------------------
+
+def parse_moneypuck_goalies_csv(
+    goalies_df: pd.DataFrame,
+    *,
+    situation: str = "all",
+    min_icetime_minutes: float = 200.0,
+) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """
+    MoneyPuck goalies.csv columns visible in your sample:
+      playerId, name, team, situation, icetime, xGoals, goals
+    We derive:
+      xGA_per60, GA_per60, GSAx_per60 (=(xGoals-goals) per 60)
+    """
+    required = ["playerId", "name", "team", "situation", "icetime", "xGoals", "goals"]
+    missing = [c for c in required if c not in goalies_df.columns]
+    if missing:
+        raise ValueError(f"goalies.csv missing required columns: {missing}")
+
+    df = goalies_df.copy()
+    df["situation"] = df["situation"].astype(str)
+
+    # numeric coercion
+    df["playerId"] = pd.to_numeric(df["playerId"], errors="coerce").astype("Int64")
+    df["icetime"] = pd.to_numeric(df["icetime"], errors="coerce")
+    df["xGoals"] = pd.to_numeric(df["xGoals"], errors="coerce")
+    df["goals"] = pd.to_numeric(df["goals"], errors="coerce")
+
+    df = df[df["situation"] == situation].copy()
+    df = df.dropna(subset=["playerId", "team", "icetime", "xGoals", "goals"]).copy()
+    df = df[df["icetime"] > 0].copy()
+
+    # MoneyPuck seasonSummary is seconds
+    df["icetime_sec"] = df["icetime"]
+    df["icetime_min"] = df["icetime_sec"] / 60.0
+
+    if min_icetime_minutes and min_icetime_minutes > 0:
+        df = df[df["icetime_min"] >= float(min_icetime_minutes)].copy()
+
+    # per-60
+    df["xGA_per60"] = (df["xGoals"] / df["icetime_sec"]) * 3600.0
+    df["GA_per60"] = (df["goals"] / df["icetime_sec"]) * 3600.0
+    df["GSAx_per60"] = ((df["xGoals"] - df["goals"]) / df["icetime_sec"]) * 3600.0
+
+    # one row per goalie
+    df = df.sort_values(["playerId", "icetime_sec"], ascending=[True, False]).drop_duplicates("playerId", keep="first")
+
+    records: List[Dict[str, Any]] = []
+    for r in df[
+        ["playerId", "name", "team", "icetime_min", "xGoals", "goals", "xGA_per60", "GA_per60", "GSAx_per60"]
+    ].to_dict(orient="records"):
+        records.append(
+            {
+                "playerId": int(r["playerId"]),
+                "name": str(r["name"]),
+                "team": str(r["team"]),
+                "icetime_min": float(r["icetime_min"]),
+                "xGoals": float(r["xGoals"]),
+                "goals": float(r["goals"]),
+                "xGA_per60": float(r["xGA_per60"]),
+                "GA_per60": float(r["GA_per60"]),
+                "GSAx_per60": float(r["GSAx_per60"]),
+            }
+        )
+
+    meta = {
+        "situation_used": situation,
+        "min_icetime_minutes": float(min_icetime_minutes),
+        "goalies_count": len(records),
     }
+    return records, meta
 
-    atomic_write_json(OUTPUT_PATH, payload)
+
+# --------------------------- odds: current -----------------------------------
+
+def fetch_odds_current() -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any], Optional[str]]:
+    api_key = os.environ.get("ODDS_API_KEY", "").strip()
+    if not api_key:
+        return None, {"ok": False, "reason": "Missing ODDS_API_KEY env var"}, None
+
+    regions = os.environ.get("ODDS_API_REGIONS", "us").strip()
+    markets = os.environ.get("ODDS_API_MARKETS", "h2h,totals").strip()
+    markets_list = [m.strip() for m in markets.split(",") if m.strip()]
+
+    base_url = "https://api.the-odds-api.com/v4/sports/icehockey_nhl/odds"
+    qs = urlencode(
+        {
+            "apiKey": api_key,
+            "regions": regions,
+            "markets": ",".join(markets_list),
+            "oddsFormat": "american",
+            "dateFormat": "iso",
+        }
+    )
+    url = f"{base_url}?{qs}"
+
+    try:
+        payload, raw = http_get_json(url)
+        return (
+            payload,
+            {
+                "ok": True,
+                "meta": {
+                    "endpoint": "odds_current",
+                    "url": base_url,
+                    "regions": regions,
+                    "markets": markets_list,
+                    "oddsFormat": "american",
+                    "dateFormat": "iso",
+                },
+            },
+            sha256_bytes(raw),
+        )
+    except Exception as e:
+        return None, {"ok": False, "error": str(e)}, None
 
 
-if __name__ == "__main__":
-    main()
+# --------------------------- output writers ----------------------------------
+
+def ensure_parent_dir(path: str) -> None:
+    parent = os.path.dirname(path)
+    if parent and not os.path.exists(parent):
+        os.makedirs(parent, exist_ok=True)
+
+
+def write_json(path: str, obj: Any) -> None:
+    ensure_parent_dir(path)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, separators=(",", ":"), sort_keys=False)
+
+
+def write_yaml(path: str, obj: Any) -> Tuple[bool, Optional[str]]:
+    """
+    Writes YAML to a separate file path.
+    If PyYAML is not installed, returns (False, reason) but does not crash.
+    """
+    try:
+        import yaml  # type: ignore
+    except Exception:
+        return False, "PyYAML not installed"
+
+    ensure_parent_dir(path)
+    with open(path, "w", encoding="utf-8") as f:
+        yaml.safe_dump(obj, f, sort_keys=False, allow_unicode=True)
+    return True, None
+
+
+# --------------------------- main --------------------------------------------
+
+def main() -> int:
+    season = os.environ.get("MP_SEASON", "2025").strip()
+
+    teams_url = f"https://moneypuck.com/moneypuck/playerData/seasonSummary/{season}/regular/teams.csv"
+    goalies_url = f"https://moneypuck.com/moneypuck/playerData/seasonSummary/{season}/regular/goalies.csv"
+
+    out_json = os.environ.get("OUT_JSON", "data/nhl_daily_slim.json").strip()
+    out_yml = os.environ.get("OUT_YML", "data/nhl_daily_slim.yml").strip()
+
+    generated_at = utc_now_iso()
+    data_date = et_today_date_str()
+
+    source_status: Dict[str, Any] = {}
+    validations: Dict[str, Any] = {}
+    inputs_hash: Dict[str, Any] = {}
+
+    slim: Dict[str, Any] = {}
+
+    # Odds current
+    odds_payload, odds_status, odds_sha = fetch_odds_current()
+    source_status["odds_current"] = odds_status
+    if odds_sha:
+        inputs_hash["odds_current_sha256"] = odds_sha
+
+    if odds_payload is not None:
+        slim["odds_current"] = odds_payload
+        validations["odds_games_count"] = len(odds_payload)
+    else:
+        slim["odds_current"] = []
+        validations["odds_games_count"] = 0
+
+    # Odds open placeholder (you already determined plan limitation)
+    source_status["odds_open"] = {"ok": False, "reason": "Historical odds not available on current Odds API plan"}
+
+    # Teams
+    try:
+        teams_df, teams_sha = fetch_csv(teams_url)
+        inputs_hash["teams_sha256"] = teams_sha
+        teams_slim = parse_moneypuck_teams_csv(teams_df)
+        slim["teams"] =
