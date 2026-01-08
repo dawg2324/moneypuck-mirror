@@ -22,6 +22,10 @@ Optional env:
 - OUT_JSON (default: data/nhl_daily_slim.json)
 - OUT_YML  (default: data/nhl_daily_slim.yml)
 - GOALIES_MIN_ICETIME_MIN (default: 200)
+
+Behavior toggles:
+- FAIL_IF_STARTERS_EMPTY_ON_SLATE (default: 0)
+  If set to 1, exits non-zero when odds_games_count>0 and starters_count==0.
 """
 
 from __future__ import annotations
@@ -315,6 +319,8 @@ def main() -> int:
     out_json = os.environ.get("OUT_JSON", "data/nhl_daily_slim.json").strip()
     out_yml = os.environ.get("OUT_YML", "data/nhl_daily_slim.yml").strip()
 
+    fail_if_starters_empty = os.environ.get("FAIL_IF_STARTERS_EMPTY_ON_SLATE", "0").strip() == "1"
+
     generated_at = utc_now_iso()
     data_date = et_today_date_str()
 
@@ -335,6 +341,8 @@ def main() -> int:
     else:
         slim["odds_current"] = []
         validations["odds_games_count"] = 0
+
+    odds_games_count = int(validations.get("odds_games_count", 0) or 0)
 
     # Odds open placeholder
     source_status["odds_open"] = {"ok": False, "reason": "Historical odds not available on current Odds API plan"}
@@ -374,28 +382,64 @@ def main() -> int:
         source_status["goalies"] = {"ok": False, "url": goalies_url, "error": str(e)}
 
     # Starters (DailyFaceoff)
+    starters_list: List[Dict[str, Any]] = []
+    dfo_status: Dict[str, Any] = {"ok": False, "url": f"https://www.dailyfaceoff.com/starting-goalies/{data_date}"}
+
     try:
-        starters = fetch_dailyfaceoff_starters(data_date)
-        slim["starters"] = starters
-        validations["starters_count"] = len(starters)
-        source_status["starters_dailyfaceoff"] = {
-            "ok": True,
-            "url": f"https://www.dailyfaceoff.com/starting-goalies/{data_date}",
-            "count": len(starters),
-        }
+        # fetch_dailyfaceoff_starters may return either:
+        # - list (legacy)
+        # - StartersFetchResult (new: has .starters and .status)
+        starters_res = fetch_dailyfaceoff_starters(data_date)
+
+        if isinstance(starters_res, list):
+            starters_list = starters_res
+            dfo_status = {
+                "ok": True,
+                "url": f"https://www.dailyfaceoff.com/starting-goalies/{data_date}",
+                "count": len(starters_list),
+            }
+        else:
+            # expected new shape
+            starters_list = list(getattr(starters_res, "starters", []) or [])
+            dfo_status = dict(getattr(starters_res, "status", {}) or {})
+            dfo_status.setdefault("url", f"https://www.dailyfaceoff.com/starting-goalies/{data_date}")
+            dfo_status.setdefault("count", len(starters_list))
+
     except Exception as e:
-        slim["starters"] = []
-        validations["starters_count"] = 0
-        source_status["starters_dailyfaceoff"] = {
+        starters_list = []
+        dfo_status = {
             "ok": False,
             "url": f"https://www.dailyfaceoff.com/starting-goalies/{data_date}",
             "error": str(e),
         }
 
+    slim["starters"] = starters_list
+    validations["starters_count"] = len(starters_list)
+    source_status["starters_dailyfaceoff"] = dfo_status
+
+    # If there is a slate but starters are empty, treat that as a failure signal
+    if odds_games_count > 0 and len(starters_list) == 0:
+        validations["starters_expected_nonempty_on_slate"] = True
+        validations["starters_empty_on_slate"] = True
+
+        # Mark DFO as not ok even if legacy code set it ok
+        source_status["starters_dailyfaceoff"]["ok"] = False
+        source_status["starters_dailyfaceoff"].setdefault(
+            "reason",
+            "Parsed 0 starters while odds slate has games (likely blocked/JS-rendered/selector drift).",
+        )
+
     ok_schema, schema_err = validate_starters_schema(slim.get("starters"))
     validations["starters_schema_ok"] = bool(ok_schema)
     if not ok_schema:
         validations["starters_schema_error"] = schema_err
+
+    # Optionally fail the run so Actions goes red and you notice immediately
+    if fail_if_starters_empty and odds_games_count > 0 and len(starters_list) == 0:
+        sys.stderr.write(
+            f"[error] starters empty on slate: odds_games_count={odds_games_count}, date_et={data_date}\n"
+        )
+        return 2
 
     # League avg lambda proxy (based on teams xGF_pg)
     try:
