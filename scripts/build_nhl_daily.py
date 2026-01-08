@@ -92,69 +92,62 @@ def fetch_odds_current() -> tuple[list, dict, str]:
 
 def build_teams_slim(teams_csv_text: str) -> tuple[list[dict], float]:
     """
-    Uses your exact headers:
-      - team abbreviation column is the SECOND 'team' column
-      - situation filter to 'all'
-      - metrics: games_played, xGoalsFor, xGoalsAgainst
+    Uses your actual MoneyPuck headers:
+      - situation: filter to 'all'
+      - games_played, xGoalsFor, xGoalsAgainst
+      - team abbreviation column: use 'team.1' if pandas created it, else 'team'
     """
     df = pd.read_csv(StringIO(teams_csv_text))
 
-    # There are two 'team' columns. We want the second one (team abbreviation like NYR).
-    team_cols = [c for c in df.columns if c == "team"]
-    if len(team_cols) < 2:
-        raise ValueError("Expected two 'team' columns in teams.csv (id + abbreviation).")
+    # Required columns based on your header
+    required = ["situation", "games_played", "xGoalsFor", "xGoalsAgainst"]
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise ValueError(f"teams.csv missing columns: {missing}. Columns present: {list(df.columns)}")
 
-    # In pandas, duplicate column names are preserved; selecting df['team'] returns both.
-    # We will access by position.
-    team_abbrev_series = df.iloc[:, list(df.columns).index("team", 1)]  # second 'team'
-
-    if "situation" not in df.columns:
-        raise ValueError("teams.csv missing 'situation' column.")
-    if "games_played" not in df.columns:
-        raise ValueError("teams.csv missing 'games_played' column.")
-    if "xGoalsFor" not in df.columns or "xGoalsAgainst" not in df.columns:
-        raise ValueError("teams.csv missing xGoalsFor and/or xGoalsAgainst columns.")
-
-    # Attach team abbreviation explicitly to avoid any ambiguity with duplicate column names
-    df = df.copy()
-    df["team_abbrev"] = team_abbrev_series.astype(str)
+    # Handle duplicate 'team' header.
+    # Pandas commonly mangles duplicate headers into 'team' and 'team.1'.
+    team_abbrev_col = "team.1" if "team.1" in df.columns else "team"
+    if team_abbrev_col not in df.columns:
+        raise ValueError(f"Could not find team abbreviation column. Columns: {list(df.columns)}")
 
     # Filter to overall row only
     df = df[df["situation"].astype(str).str.lower().eq("all")].copy()
 
-    # Convert numeric
+    # Convert numeric fields
     df["games_played"] = pd.to_numeric(df["games_played"], errors="coerce")
     df["xGoalsFor"] = pd.to_numeric(df["xGoalsFor"], errors="coerce")
     df["xGoalsAgainst"] = pd.to_numeric(df["xGoalsAgainst"], errors="coerce")
 
-    df = df.dropna(subset=["team_abbrev", "games_played", "xGoalsFor", "xGoalsAgainst"]).copy()
+    df = df.dropna(subset=[team_abbrev_col, "games_played", "xGoalsFor", "xGoalsAgainst"]).copy()
     df = df[df["games_played"] > 0].copy()
 
+    # Per-game rates
     df["xGF_pg"] = df["xGoalsFor"] / df["games_played"]
     df["xGA_pg"] = df["xGoalsAgainst"] / df["games_played"]
 
-    # Enforce exactly one row per team (should already be true after situation=all)
+    # Enforce one row per team
+    df[team_abbrev_col] = df[team_abbrev_col].astype(str)
     df = (
-        df.sort_values(["team_abbrev", "games_played"], ascending=[True, False])
-        .drop_duplicates(subset=["team_abbrev"], keep="first")
+        df.sort_values([team_abbrev_col, "games_played"], ascending=[True, False])
+        .drop_duplicates(subset=[team_abbrev_col], keep="first")
         .reset_index(drop=True)
     )
 
-    teams = []
-    for _, r in df.iterrows():
-        teams.append(
-            {
-                "team": r["team_abbrev"],
-                "games_played": int(r["games_played"]),
-                "xGF_pg": float(r["xGF_pg"]),
-                "xGA_pg": float(r["xGA_pg"]),
-            }
-        )
+    teams = [
+        {
+            "team": r[team_abbrev_col],
+            "games_played": int(r["games_played"]),
+            "xGF_pg": float(r["xGF_pg"]),
+            "xGA_pg": float(r["xGA_pg"]),
+        }
+        for _, r in df.iterrows()
+    ]
 
     # league_avg_lambda = average expected goals per team per game
     league_avg_lambda = float(pd.Series([t["xGF_pg"] for t in teams]).mean())
 
-    # Validate duplicates
+    # Validate uniqueness
     names = [t["team"] for t in teams]
     if len(names) != len(set(names)):
         raise ValueError("Duplicate teams present after filtering. Output invalid.")
