@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-09",
-  "generated_at_utc": "2026-01-09T17:42:59Z",
+  "generated_at_utc": "2026-01-09T17:48:31Z",
   "schema_version": "1.0.9",
   "slim": {
     "game_rest": [
@@ -150,7 +150,7 @@
       }
     ],
     "goalies": [],
-    "league_avg_lambda": 0.0,
+    "league_avg_lambda": 1.2381744212263832,
     "odds_current": [
       {
         "away_team": "Washington Capitals",
@@ -238,14 +238,14 @@
         "commence_time": "2026-01-10T18:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": 106,
+            "away_book": "betonlineag",
+            "away_price": 115,
             "home_book": "draftkings",
             "home_price": -125
           },
           "consensus_median": {
-            "away_price": 105.0,
-            "home_price": -127.0
+            "away_price": 105.5,
+            "home_price": -127.5
           }
         },
         "home_team": "Boston Bruins",
@@ -265,14 +265,14 @@
         "commence_time": "2026-01-10T20:30:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 115,
+            "away_book": "betonlineag",
+            "away_price": 123,
             "home_book": "draftkings",
             "home_price": -130
           },
           "consensus_median": {
-            "away_price": 112.0,
-            "home_price": -134.0
+            "away_price": 113.5,
+            "home_price": -137.0
           }
         },
         "home_team": "Pittsburgh Penguins",
@@ -319,14 +319,14 @@
         "commence_time": "2026-01-10T21:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": -182,
+            "away_book": "betonlineag",
+            "away_price": -177,
             "home_book": "betrivers",
             "home_price": 163
           },
           "consensus_median": {
-            "away_price": -185.0,
-            "home_price": 154.0
+            "away_price": -183.5,
+            "home_price": 154.5
           }
         },
         "home_team": "San Jose Sharks",
@@ -335,8 +335,8 @@
           "best": {
             "over_book": "fanduel",
             "over_price": -102,
-            "under_book": "draftkings",
-            "under_price": -110
+            "under_book": "betonlineag",
+            "under_price": -108
           },
           "line": 6.5
         }
@@ -586,7 +586,173 @@
       }
     ],
     "starters": [],
-    "teams": []
+    "teams": [
+      {
+        "team_abbrev": "ANA",
+        "xGA_pg": 0.49318181818181817,
+        "xGF_pg": 0.4011363636363636
+      },
+      {
+        "team_abbrev": "ARI",
+        "xGA_pg": 1.2381744212263832,
+        "xGF_pg": 1.2381744212263832
+      },
+      {
+        "team_abbrev": "BOS",
+        "xGA_pg": 0.5365909090909091,
+        "xGF_pg": 0.4184090909090909
+      },
+      {
+        "team_abbrev": "BUF",
+        "xGA_pg": 0.574047619047619,
+        "xGF_pg": 0.4830952380952381
+      },
+      {
+        "team_abbrev": "CAR",
+        "xGA_pg": 0.3897727272727272,
+        "xGF_pg": 0.45909090909090905
+      },
+      {
+        "team_abbrev": "CBJ",
+        "xGA_pg": 0.49883720930232556,
+        "xGF_pg": 0.44488372093023254
+      },
+      {
+        "team_abbrev": "CGY",
+        "xGA_pg": 0.44477272727272726,
+        "xGF_pg": 0.3813636363636364
+      },
+      {
+        "team_abbrev": "CHI",
+        "xGA_pg": 0.3058139534883721,
+        "xGF_pg": 0.2918604651162791
+      },
+      {
+        "team_abbrev": "COL",
+        "xGA_pg": 0.2046511627906977,
+        "xGF_pg": 0.5758139534883722
+      },
+      {
+        "team_abbrev": "DAL",
+        "xGA_pg": 0.3475,
+        "xGF_pg": 0.5145454545454545
+      },
+      {
+        "team_abbrev": "DET",
+        "xGA_pg": 0.42133333333333334,
+        "xGF_pg": 0.42688888888888893
+      },
+      {
+        "team_abbrev": "EDM",
+        "xGA_pg": 0.40295454545454545,
+        "xGF_pg": 0.4509090909090909
+      },
+      {
+        "team_abbrev": "FLA",
+        "xGA_pg": 0.6174418604651163,
+        "xGF_pg": 0.35953488372093023
+      },
+      {
+        "team_abbrev": "LAK",
+        "xGA_pg": 0.3933333333333333,
+        "xGF_pg": 0.554047619047619
+      },
+      {
+        "team_abbrev": "MIN",
+        "xGA_pg": 0.37022222222222223,
+        "xGF_pg": 0.4488888888888889
+      },
+      {
+        "team_abbrev": "MTL",
+        "xGA_pg": 0.4802272727272727,
+        "xGF_pg": 0.5663636363636364
+      },
+      {
+        "team_abbrev": "NJD",
+        "xGA_pg": 0.43772727272727274,
+        "xGF_pg": 0.40090909090909094
+      },
+      {
+        "team_abbrev": "NSH",
+        "xGA_pg": 0.6023255813953488,
+        "xGF_pg": 0.4230232558139535
+      },
+      {
+        "team_abbrev": "NYI",
+        "xGA_pg": 0.4979545454545455,
+        "xGF_pg": 0.5265909090909091
+      },
+      {
+        "team_abbrev": "NYR",
+        "xGA_pg": 0.5840000000000001,
+        "xGF_pg": 0.338
+      },
+      {
+        "team_abbrev": "OTT",
+        "xGA_pg": 0.5455813953488372,
+        "xGF_pg": 0.37790697674418605
+      },
+      {
+        "team_abbrev": "PHI",
+        "xGA_pg": 0.32452380952380955,
+        "xGF_pg": 0.4669047619047619
+      },
+      {
+        "team_abbrev": "PIT",
+        "xGA_pg": 0.4266666666666667,
+        "xGF_pg": 0.4057142857142857
+      },
+      {
+        "team_abbrev": "SEA",
+        "xGA_pg": 0.4452380952380952,
+        "xGF_pg": 0.4823809523809524
+      },
+      {
+        "team_abbrev": "SJS",
+        "xGA_pg": 0.3311627906976744,
+        "xGF_pg": 0.42837209302325585
+      },
+      {
+        "team_abbrev": "STL",
+        "xGA_pg": 0.36,
+        "xGF_pg": 0.22249999999999998
+      },
+      {
+        "team_abbrev": "TBL",
+        "xGA_pg": 0.37833333333333335,
+        "xGF_pg": 0.7359523809523809
+      },
+      {
+        "team_abbrev": "TOR",
+        "xGA_pg": 0.46186046511627904,
+        "xGF_pg": 0.5225581395348837
+      },
+      {
+        "team_abbrev": "UTA",
+        "xGA_pg": 0.4611363636363636,
+        "xGF_pg": 0.3006818181818182
+      },
+      {
+        "team_abbrev": "VAN",
+        "xGA_pg": 0.6074418604651163,
+        "xGF_pg": 0.34813953488372096
+      },
+      {
+        "team_abbrev": "VGK",
+        "xGA_pg": 0.4935714285714286,
+        "xGF_pg": 0.4876190476190476
+      },
+      {
+        "team_abbrev": "WPG",
+        "xGA_pg": 0.45261904761904764,
+        "xGF_pg": 0.44190476190476186
+      },
+      {
+        "team_abbrev": "WSH",
+        "xGA_pg": 0.3104545454545455,
+        "xGF_pg": 0.5356818181818181
+      }
+    ]
   },
   "source_status": {
     "goalies": {
@@ -610,6 +776,6 @@
     "goalies_count": 0,
     "odds_games_slim_count": 16,
     "starters_count": 0,
-    "teams_count": 0
+    "teams_count": 33
   }
 }
