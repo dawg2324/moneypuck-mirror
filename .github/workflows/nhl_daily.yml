@@ -41,27 +41,19 @@ jobs:
         run: |
           python -m scripts.build_nhl_daily
 
-      - name: Debug list files
-        if: always()
-        run: |
           echo "=== DEBUG: filesystem ==="
           pwd
           ls -la
-          echo "=== data/ ==="
           ls -la data || true
-          echo "=== data/debug/ ==="
           ls -la data/debug || true
-          echo "=== find html ==="
-          find . -maxdepth 6 -type f -name "*.html" -print || true
+          find data -maxdepth 3 -type f -name "dailyfaceoff_starting_goalies_*.html" -print || true
 
-      - name: Upload debug html
+      - name: Upload debug html artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dailyfaceoff-debug-html
-          path: |
-            data/debug/*.html
-            dailyfaceoff_starting_goalies_*.html
+          path: data/debug/dailyfaceoff_starting_goalies_*.html
           if-no-files-found: ignore
 
       - name: Commit output if changed
@@ -72,10 +64,7 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
 
             git add data/nhl_daily_slim.json
-            git add data/nhl_daily_slim.yml || true
-
-            # If you want debug HTML committed to the repo too, uncomment:
-            # git add data/debug/*.html dailyfaceoff_starting_goalies_*.html || true
+            git add data/debug/dailyfaceoff_starting_goalies_*.html || true
 
             git commit -m "Update nhl_daily_slim.json"
             git push
