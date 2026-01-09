@@ -30,8 +30,6 @@ jobs:
       - name: Enforce 10am ET gate
         run: |
           ET_HOUR=$(TZ=America/New_York date +%H)
-          ET_MIN=$(TZ=America/New_York date +%M)
-
           if [ "$ET_HOUR" -lt 10 ]; then
             echo "Before 10am ET. Exiting."
             exit 0
@@ -41,43 +39,43 @@ jobs:
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
-          set -euo pipefail
           python -m scripts.build_nhl_daily
 
+      - name: Debug list files
+        if: always()
+        run: |
           echo "=== DEBUG: filesystem ==="
           pwd
           ls -la
+          echo "=== data/ ==="
           ls -la data || true
+          echo "=== data/debug/ ==="
           ls -la data/debug || true
-          ls -la debug || true
+          echo "=== find html ==="
+          find . -maxdepth 6 -type f -name "*.html" -print || true
 
-          echo "=== DEBUG: find html ==="
-          find . -type f -name "dailyfaceoff_starting_goalies_*.html" -print || true
-
-      # Upload ANY debug html no matter where it ended up
       - name: Upload debug html
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dailyfaceoff-debug-html
           path: |
-            data/debug/**
-            debug/**
-            **/dailyfaceoff_starting_goalies_*.html
+            data/debug/*.html
+            dailyfaceoff_starting_goalies_*.html
           if-no-files-found: ignore
 
       - name: Commit output if changed
         run: |
-          set -euo pipefail
           git status --porcelain
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
 
             git add data/nhl_daily_slim.json
+            git add data/nhl_daily_slim.yml || true
 
-            # Optional: commit debug html into the repo too (usually not recommended)
-            # git add data/debug/*.html debug/*.html 2>/dev/null || true
+            # If you want debug HTML committed to the repo too, uncomment:
+            # git add data/debug/*.html dailyfaceoff_starting_goalies_*.html || true
 
             git commit -m "Update nhl_daily_slim.json"
             git push
