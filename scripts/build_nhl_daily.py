@@ -145,9 +145,6 @@ def pick_most_common_float(values: List[float]) -> Optional[float]:
 # --------------------------- id helpers --------------------------------------
 
 def game_id_from_names(commence_time_utc: str, away_team_name: str, home_team_name: str) -> Optional[str]:
-    """
-    Stable id: "{AWAYABBREV}_vs_{HOMEABBREV}_{YYYY-MM-DD}" based on commence_time date.
-    """
     away_abbrev = TEAM_NAME_TO_ABBREV.get((away_team_name or "").upper())
     home_abbrev = TEAM_NAME_TO_ABBREV.get((home_team_name or "").upper())
     if not away_abbrev or not home_abbrev or not commence_time_utc:
@@ -157,12 +154,43 @@ def game_id_from_names(commence_time_utc: str, away_team_name: str, home_team_na
 
 
 def goalie_id_from_name(name: str) -> str:
-    """
-    Deterministic goalie id from goalie name. Stable across runs.
-    """
     base = re.sub(r"\s+", " ", (name or "").strip().lower())
     h = hashlib.sha1(base.encode("utf-8")).hexdigest()[:8]
     return f"g_{h}"
+
+
+# --------------------------- starters normalization helpers -------------------
+
+def normalize_status(v: Any) -> str:
+    s = str(v or "").strip().lower()
+    if "confirm" in s or s == "confirmed" or s in {"y", "yes", "true", "1"}:
+        return "confirmed"
+    if "expect" in s or s == "expected" or "probable" in s:
+        return "expected"
+    return "unknown"
+
+
+def normalize_team_abbrev(v: Any) -> Optional[str]:
+    if v is None:
+        return None
+    s = str(v).strip().upper()
+    if s in ABBREV_SET:
+        return s
+    mapped = TEAM_NAME_TO_ABBREV.get(s)
+    if mapped:
+        return mapped
+    mapped = TEAM_NAME_TO_ABBREV.get(s.replace(".", ""))
+    if mapped:
+        return mapped
+    return None
+
+
+def normalize_goalie_name(v: Any) -> Optional[str]:
+    if v is None:
+        return None
+    name = str(v).strip()
+    name = re.sub(r"\s+", " ", name)
+    return name or None
 
 
 # --------------------------- odds helpers ------------------------------------
@@ -176,9 +204,6 @@ def extract_market(bookmaker: Dict[str, Any], market_key: str) -> Optional[Dict[
 
 
 def slim_odds_current(odds_payload: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    """
-    Returns slimmed odds where "id" is our stable game id.
-    """
     slimmed: List[Dict[str, Any]] = []
     meta: Dict[str, Any] = {"games_with_h2h": 0, "games_with_totals": 0}
 
@@ -327,20 +352,19 @@ def fetch_odds_current() -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]
 
 # --------------------------- teams / goalies (MoneyPuck) ----------------------
 
-def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, Any]], Optional[float]]:
+def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, Any]], float]:
     """
-    Output teams:
+    Must output >= 20 rows (prefer 32) with:
       { "team_abbrev": "CHI", "xGF_pg": 2.75, "xGA_pg": 3.25 }
-    Also returns league_avg_lambda, computed from xGF_pg when available else GF_pg.
+    Must output league_avg_lambda as a number (never null). If cannot compute, return 0.0.
     """
     df = norm_cols(teams_df)
 
-    team_col = pick_col(df, ["team", "Team", "teamName", "teamname", "name"])
+    team_col = pick_col(df, ["team", "Team", "teamName", "teamname", "name", "abbrev", "teamAbbrev", "team_abbrev"])
     gp_col = pick_col(df, ["gamesPlayed", "GP", "gp", "games"])
     xgf_col = pick_col(df, ["xGoalsFor", "xGF", "xGoalsForAll", "xGoalsFor5v5", "xGoalsForTotal"])
     xga_col = pick_col(df, ["xGoalsAgainst", "xGA", "xGoalsAgainstAll", "xGoalsAgainst5v5", "xGoalsAgainstTotal"])
     gf_col = pick_col(df, ["goalsFor", "GF", "goals_for"])
-    ga_col = pick_col(df, ["goalsAgainst", "GA", "goals_against"])
 
     slim_teams: List[Dict[str, Any]] = []
     league_lambdas: List[float] = []
@@ -350,8 +374,11 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         if team_val is None:
             continue
 
-        team_name = str(team_val).strip()
-        team_abbrev = TEAM_NAME_TO_ABBREV.get(team_name.upper())
+        team_abbrev = normalize_team_abbrev(team_val)
+        if not team_abbrev:
+            # If MoneyPuck provides a full name but mapping misses, try the string directly
+            team_abbrev = TEAM_NAME_TO_ABBREV.get(str(team_val).strip().upper())
+
         if not team_abbrev:
             continue
 
@@ -362,7 +389,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         xgf_pg = float(r.get(xgf_col)) / gp if xgf_col and pd.notna(r.get(xgf_col)) else None
         xga_pg = float(r.get(xga_col)) / gp if xga_col and pd.notna(r.get(xga_col)) else None
         gf_pg = float(r.get(gf_col)) / gp if gf_col and pd.notna(r.get(gf_col)) else None
-        _ga_pg = float(r.get(ga_col)) / gp if ga_col and pd.notna(r.get(ga_col)) else None
 
         slim_teams.append(
             {
@@ -377,41 +403,68 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         elif gf_pg is not None:
             league_lambdas.append(gf_pg)
 
-    league_avg_lambda = float(sum(league_lambdas) / len(league_lambdas)) if league_lambdas else None
-    return slim_teams, league_avg_lambda
+    # de-dupe by abbrev (keep first)
+    seen: set[str] = set()
+    deduped: List[Dict[str, Any]] = []
+    for row in slim_teams:
+        ab = row["team_abbrev"]
+        if ab in seen:
+            continue
+        seen.add(ab)
+        deduped.append(row)
+
+    league_avg_lambda = float(sum(league_lambdas) / len(league_lambdas)) if league_lambdas else 0.0
+    return deduped, league_avg_lambda
 
 
-def build_slim_goalies(goalies_df: pd.DataFrame) -> List[Dict[str, Any]]:
+def build_slim_goalies(goalies_df: pd.DataFrame) -> Tuple[List[Dict[str, Any]], bool]:
     """
-    Output goalies:
-      { "goalie_id": "g_001", "name": "Goalie A", "GSAx_per60": 0.25 }
-    goalie_id is deterministic from name, not row order.
+    Must de-dupe. Must only keep goalies with non-null GSAx or GSAx_per60.
+    If we cannot get either column, return [] and ok=False so caller can drop goalies and assume adj=0.
+    Output rows:
+      { "goalie_id": "...", "name": "...", "GSAx": <num or null>, "GSAx_per60": <num or null> }
     """
     df = norm_cols(goalies_df)
 
     name_col = pick_col(df, ["goalie", "Goalie", "playerName", "name"])
+    gsae_col = pick_col(df, ["goalsSavedAboveExpected", "GSAx", "gsax", "gsae"])
     gsae60_col = pick_col(df, ["goalsSavedAboveExpectedPer60", "GSAx/60", "gsaxPer60", "gsax_per60", "GSAx_per60"])
 
-    slim_goalies: List[Dict[str, Any]] = []
+    if not name_col:
+        return [], False
+
+    if not gsae_col and not gsae60_col:
+        return [], False
+
+    best: Dict[str, Dict[str, Any]] = {}
     for _, r in df.iterrows():
-        name_val = r.get(name_col) if name_col else None
+        name_val = r.get(name_col)
         if name_val is None:
             continue
         name = str(name_val).strip()
         if not name:
             continue
 
+        gsae = float(r.get(gsae_col)) if gsae_col and pd.notna(r.get(gsae_col)) else None
         gsae60 = float(r.get(gsae60_col)) if gsae60_col and pd.notna(r.get(gsae60_col)) else None
 
-        slim_goalies.append(
-            {
-                "goalie_id": goalie_id_from_name(name),
-                "name": name,
-                "GSAx_per60": gsae60,
-            }
-        )
+        # keep only non-null rows (required)
+        if gsae is None and gsae60 is None:
+            continue
 
-    return slim_goalies
+        gid = goalie_id_from_name(name)
+        cur = best.get(gid)
+
+        # prefer a row that has per60 (more stable for your intended use), else keep existing
+        if cur is None:
+            best[gid] = {"goalie_id": gid, "name": name, "GSAx": gsae, "GSAx_per60": gsae60}
+        else:
+            cur_has_60 = cur.get("GSAx_per60") is not None
+            new_has_60 = gsae60 is not None
+            if (not cur_has_60) and new_has_60:
+                best[gid] = {"goalie_id": gid, "name": name, "GSAx": gsae, "GSAx_per60": gsae60}
+
+    return list(best.values()), True
 
 
 def fetch_moneypuck_teams() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
@@ -432,41 +485,16 @@ def fetch_moneypuck_goalies() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
 
 # --------------------------- starters (DailyFaceoff) --------------------------
 
-def normalize_status(v: Any) -> str:
-    s = str(v or "").strip().lower()
-    if "confirm" in s or s == "confirmed":
-        return "confirmed"
-    if "expect" in s or s == "expected" or "probable" in s:
-        return "expected"
-    return "unknown"
-
-
-def normalize_team_abbrev(v: Any) -> Optional[str]:
-    if v is None:
-        return None
-    s = str(v).strip().upper()
-    if s in ABBREV_SET:
-        return s
-    mapped = TEAM_NAME_TO_ABBREV.get(s)
-    if mapped:
-        return mapped
-    mapped = TEAM_NAME_TO_ABBREV.get(s.replace(".", ""))
-    if mapped:
-        return mapped
-    return None
-
-
-def normalize_goalie_name(v: Any) -> Optional[str]:
-    if v is None:
-        return None
-    name = str(v).strip()
-    name = re.sub(r"\s+", " ", name)
-    return name or None
-
-
-def fetch_starters() -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]]:
+def fetch_starters(date_et: str) -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]]:
+    """
+    Required: must pass date_et into fetch_dailyfaceoff_starters(date_et=...).
+    Falls back to calling without args if the function signature doesn't accept it.
+    """
     try:
-        starters = fetch_dailyfaceoff_starters()
+        try:
+            starters = fetch_dailyfaceoff_starters(date_et=date_et)
+        except TypeError:
+            starters = fetch_dailyfaceoff_starters()
         if starters is None:
             return None, {"ok": False, "error": "fetch_dailyfaceoff_starters returned None"}
         if not isinstance(starters, list):
@@ -480,13 +508,9 @@ def build_starters_for_slate(
     slimmed_odds: List[Dict[str, Any]],
     starters_rows: List[Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
-    """
-    Produces starters shaped like:
-      { "id": GAME_ID, "team_abbrev": "CHI", "goalie_id": "g_xxx", "goalie_name": "...", "status": "confirmed|expected|unknown" }
-    Only includes rows that can be matched to a team in today's odds slate.
-    """
     teams_in_slate: set[str] = set()
     game_by_team: Dict[str, str] = {}
+
     for g in slimmed_odds:
         gid = g.get("id")
         away_name = g.get("away_team") or ""
@@ -508,7 +532,6 @@ def build_starters_for_slate(
         if not isinstance(r, dict):
             continue
 
-        # try common keys without assuming your exact starter schema
         team_abbrev = (
             normalize_team_abbrev(r.get("team_abbrev"))
             or normalize_team_abbrev(r.get("team"))
@@ -561,16 +584,7 @@ def build_game_rest(
     rest_rows: List[Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
     """
-    Output game_rest shaped like:
-      {
-        "id": GAME_ID,
-        "commence_time": "...Z",
-        "home_team": "CHI",
-        "away_team": "WSH",
-        "home_rest_days": 1,
-        "away_rest_days": 1,
-        "rest_adv_home": 0
-      }
+    Required: rest_adv_home must be computed as home_rest_days - away_rest_days (0 if equal).
     """
     by_key: Dict[str, Dict[str, Any]] = {}
     for r in rest_rows or []:
@@ -594,15 +608,28 @@ def build_game_rest(
         if not rest:
             continue
 
+        home_days = rest.get("home_rest_days")
+        away_days = rest.get("away_rest_days")
+
+        try:
+            home_n = int(home_days) if home_days is not None else 0
+        except Exception:
+            home_n = 0
+
+        try:
+            away_n = int(away_days) if away_days is not None else 0
+        except Exception:
+            away_n = 0
+
         out.append(
             {
                 "id": gid,
                 "commence_time": commence,
                 "home_team": home_abbrev,
                 "away_team": away_abbrev,
-                "home_rest_days": rest.get("home_rest_days"),
-                "away_rest_days": rest.get("away_rest_days"),
-                "rest_adv_home": rest.get("rest_adv_home"),
+                "home_rest_days": home_days,
+                "away_rest_days": away_days,
+                "rest_adv_home": home_n - away_n,
             }
         )
 
@@ -613,7 +640,7 @@ def build_game_rest(
 
 def main() -> int:
     generated_at = utc_now_iso()
-    data_date = et_today_date_str()
+    data_date_et = et_today_date_str()
 
     source_status: Dict[str, Any] = {}
     validations: Dict[str, Any] = {}
@@ -621,7 +648,7 @@ def main() -> int:
 
     # ---------------- Odds ----------------
     odds_payload, odds_status = fetch_odds_current()
-    source_status["odds_current"] = odds_status
+    source_status["odds_current"] = {"ok": bool(odds_status.get("ok"))}
 
     odds_payload = odds_payload or []
     slimmed_odds, _odds_meta = slim_odds_current(odds_payload)
@@ -630,40 +657,55 @@ def main() -> int:
 
     # ---------------- Teams ----------------
     teams_df, teams_status = fetch_moneypuck_teams()
-    source_status["teams"] = teams_status
+    source_status["teams"] = {"ok": bool(teams_status.get("ok"))}
 
     if teams_df is not None and not teams_df.empty:
         slim_teams, league_avg_lambda = build_slim_teams_and_lambda(teams_df)
         slim["teams"] = slim_teams
-        slim["league_avg_lambda"] = league_avg_lambda
+        slim["league_avg_lambda"] = float(league_avg_lambda)
         validations["teams_count"] = len(slim_teams)
     else:
         slim["teams"] = []
-        slim["league_avg_lambda"] = None
+        slim["league_avg_lambda"] = 0.0
         validations["teams_count"] = 0
 
-    # ---------------- Goalies ----------------
-    goalies_df, goalies_status = fetch_moneypuck_goalies()
-    source_status["goalies"] = goalies_status
+    # Required: league_avg_lambda must never be null
+    if slim.get("league_avg_lambda") is None:
+        slim["league_avg_lambda"] = 0.0
 
-    if goalies_df is not None and not goalies_df.empty:
-        slim_goalies = build_slim_goalies(goalies_df)
-        slim["goalies"] = slim_goalies
-        validations["goalies_count"] = len(slim_goalies)
-    else:
-        slim["goalies"] = []
-        validations["goalies_count"] = 0
-
-    # ---------------- Starters ----------------
-    starters_rows_raw, starters_status = fetch_starters()
-    source_status["starters"] = starters_status
+    # ---------------- Starters (must pass date_et) ----------------
+    starters_rows_raw, starters_status = fetch_starters(date_et=data_date_et)
+    source_status["starters"] = {"ok": bool(starters_status.get("ok"))}
 
     starters_rows = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
     validations["starters_count"] = len(starters_rows)
 
+    # ---------------- Goalies (dedupe + only needed + non-null GSAx/GSAx_per60) ----------------
+    goalies_df, goalies_status = fetch_moneypuck_goalies()
+    # mark ok only if fetch ok; we may still drop goalies by requirement
+    source_status["goalies"] = {"ok": bool(goalies_status.get("ok"))}
+
+    goalie_ids_needed = {r["goalie_id"] for r in starters_rows if isinstance(r, dict) and r.get("goalie_id")}
+    if goalies_df is not None and not goalies_df.empty and goalie_ids_needed:
+        slim_goalies_all, goalie_cols_ok = build_slim_goalies(goalies_df)
+        if goalie_cols_ok:
+            # keep only goalies referenced by starters (only goalies we actually need)
+            slim_goalies = [g for g in slim_goalies_all if g.get("goalie_id") in goalie_ids_needed]
+        else:
+            slim_goalies = []
+    else:
+        slim_goalies = []
+
+    # If we cannot get non-null goalie adjustments, drop goalies entirely (adj=0)
+    if not slim_goalies:
+        slim["goalies"] = []
+        validations["goalies_count"] = 0
+    else:
+        slim["goalies"] = slim_goalies
+        validations["goalies_count"] = len(slim_goalies)
+
     # ---------------- REST ----------------
-    # build slate_for_rest from slimmed_odds so compute_rest stays decoupled
     slate_for_rest: List[Dict[str, Any]] = []
     for g in slimmed_odds:
         gid = g.get("id")
@@ -698,27 +740,25 @@ def main() -> int:
     slim["game_rest"] = game_rest_rows
     validations["game_rest_count"] = len(game_rest_rows)
 
-    # ---------------- OUTPUT (modeled like your example) ----------------
+    # ---------------- OUTPUT ----------------
     out_obj = {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": generated_at,
-        "data_date_et": data_date,
+        "data_date_et": data_date_et,
         "source_status": source_status,
-        "validations": validations,
+        "validations": validations,  # single validations key
         "slim": slim,
     }
 
     out_dir = Path("data")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Minimal consumer file (recommended for the scheduled task)
+    # Pretty (required)
     out_path_min = out_dir / "nhl_daily_min.json"
     with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
         f.write("\n")
 
-
-    # Pretty file for humans
     out_path_pretty = out_dir / "nhl_daily_slim.json"
     with out_path_pretty.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
