@@ -58,6 +58,16 @@ jobs:
           echo "=== DEBUG: find any DailyFaceoff HTML ==="
           find . -type f -name "dailyfaceoff_starting_goalies_*.html" -print || true
 
+      - name: Generate betting signals (markdown)
+        run: |
+          python -m scripts.generate_signals
+
+          echo "=== DEBUG: signals file ==="
+          ls -la data/nhl_signals.md || true
+          wc -c data/nhl_signals.md || true
+          echo "=== DEBUG: signals preview ==="
+          sed -n '1,200p' data/nhl_signals.md || true
+
       - name: Upload debug html
         if: always()
         uses: actions/upload-artifact@v4
@@ -80,6 +90,7 @@ jobs:
 
             git add data/nhl_daily_slim.json
             git add data/nhl_daily_min.json
+            git add data/nhl_signals.md
 
             # If you want debug HTML in repo, uncomment:
             # git add data/debug/dailyfaceoff_starting_goalies_*.html || true
@@ -89,3 +100,4 @@ jobs:
           else
             echo "No changes detected."
           fi
+```0
