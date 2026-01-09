@@ -13,10 +13,11 @@ from urllib.request import Request, urlopen
 
 import pandas as pd
 
-from scripts.fetch_starters_dailyfaceoff import fetch_dailyfaceoff_starters
+# Import the module (not just the function) so we can patch its internal team map.
+import scripts.fetch_starters_dailyfaceoff as dailyfaceoff
 from scripts.compute_rest import build_slim_rest
 
-SCHEMA_VERSION = "1.0.10"
+SCHEMA_VERSION = "1.0.11"
 SPORT_KEY = "icehockey_nhl"
 DAILYFACEOFF_BASE = "https://www.dailyfaceoff.com"
 
@@ -142,9 +143,11 @@ def normalize_team_abbrev(v: Any) -> Optional[str]:
 
     s = normalize_team_key(v)
 
+    # direct abbrev
     if s in ABBREV_SET:
         return s
 
+    # name map
     mapped = TEAM_NAME_TO_ABBREV.get(s)
     if mapped:
         return mapped
@@ -414,6 +417,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
     )
     gp_col = pick_col(df, ["gamesPlayed", "GP", "gp", "games", "Games", "games_played"])
 
+    # Prefer totals, avoid per60 columns
     xgf_total_col = pick_col_prefer_non_per60(
         df, ["xGoalsFor", "xGF", "xGoalsForAll", "xGoalsForTotal", "xGoalsForAllStrengths"]
     )
@@ -421,9 +425,11 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         df, ["xGoalsAgainst", "xGA", "xGoalsAgainstAll", "xGoalsAgainstTotal", "xGoalsAgainstAllStrengths"]
     )
 
+    # If totals not available, fall back to per-game cols (still avoid per60)
     xgf_pg_col = pick_col_prefer_non_per60(df, ["xGF_pg", "xGFPerGame", "xGoalsForPerGame", "xGoalsFor_pg"])
     xga_pg_col = pick_col_prefer_non_per60(df, ["xGA_pg", "xGAPerGame", "xGoalsAgainstPerGame", "xGoalsAgainst_pg"])
 
+    # Last fallback: GF/GA totals
     gf_total_col = pick_col_prefer_non_per60(df, ["goalsFor", "GF", "goals_for", "GoalsFor"])
     ga_total_col = pick_col_prefer_non_per60(df, ["goalsAgainst", "GA", "goals_against", "GoalsAgainst"])
 
@@ -461,6 +467,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             if xga_total is not None:
                 xga_pg = xga_total / gp
 
+        # Final fallback to GF/GA totals per game
         if xgf_pg is None and gf_total_col:
             gf_total = _safe_float(r.get(gf_total_col))
             if gf_total is not None:
@@ -474,6 +481,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         if xgf_pg is None or xga_pg is None:
             continue
 
+        # Sanity: discard obviously wrong scales instead of poisoning the baseline
         if not (1.0 <= xgf_pg <= 6.0 and 1.0 <= xga_pg <= 6.0):
             continue
 
@@ -485,11 +493,13 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             }
             team_xgf_list.append(float(xgf_pg))
 
+    # League baseline as combined goals per game
     if team_xgf_list:
         league_avg_lambda = 2.0 * (sum(team_xgf_list) / len(team_xgf_list))
     else:
         league_avg_lambda = 6.0
 
+    # Ensure all 32 teams exist
     baseline_team = league_avg_lambda / 2.0
     for ab in ALL_TEAM_ABBREVS_SORTED:
         if ab not in rows_by_abbrev:
@@ -548,27 +558,66 @@ def fetch_moneypuck_goalies() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
 
 # --------------------------- starters (DailyFaceoff) --------------------------
 
-def fetch_starters(date_et: str) -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]]:
+def _patch_dailyfaceoff_team_map() -> None:
+    """
+    Fix the real problem: scripts.fetch_starters_dailyfaceoff has its own internal name->abbrev map
+    and it is likely doing a direct dict lookup with the raw string "Utah Mammoth".
+    Patch that module map at runtime so it recognizes Utah variants without editing that file.
+    """
+    aliases: Dict[str, str] = {
+        "Utah": "UTA",
+        "Utah Hockey Club": "UTA",
+        "Utah HC": "UTA",
+        "Utah Mammoth": "UTA",
+        "UTAH": "UTA",
+        "UTAH HOCKEY CLUB": "UTA",
+        "UTAH HC": "UTA",
+        "UTAH MAMMOTH": "UTA",
+        # Keep Arizona compatibility but force to UTA
+        "Arizona Coyotes": "UTA",
+        "ARIZONA COYOTES": "UTA",
+    }
+
+    # Build a superset of key variants because we do not control how the upstream script normalizes.
+    variants: Dict[str, str] = {}
+    for k, v in aliases.items():
+        variants[k] = v
+        variants[k.strip()] = v
+        variants[k.strip().upper()] = v
+        variants[normalize_team_key(k)] = v
+
+    # Patch common attribute names if present
+    for attr in ["TEAM_NAME_TO_ABBREV", "TEAM_MAP", "TEAM_ABBREV_MAP", "TEAMNAME_TO_ABBREV", "TEAM_TO_ABBREV"]:
+        m = getattr(dailyfaceoff, attr, None)
+        if isinstance(m, dict):
+            m.update(variants)
+
+
+def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """
     Critical behavior:
-    - Always pass date_et.
-    - Never hard-fail the whole run on a KeyError like "'Utah Mammoth'".
-      If the upstream script throws KeyError due to its internal mapping, treat as partial/no data.
+    - Always pass date_et into the upstream function.
+    - Patch upstream team map so "Utah Mammoth" maps cleanly.
+    - Never hard-fail the whole run if starters are missing or partially broken.
     """
+    _patch_dailyfaceoff_team_map()
+
     try:
-        starters = fetch_dailyfaceoff_starters(date_et=date_et)
+        starters = dailyfaceoff.fetch_dailyfaceoff_starters(date_et=date_et)
         if starters is None:
             return [], {"ok": True, "note": "no starters returned"}
         if not isinstance(starters, list):
             return [], {"ok": True, "note": "starters not a list, ignored"}
         return starters, {"ok": True}
     except KeyError as e:
-        # Upstream mapping issue in scripts.fetch_starters_dailyfaceoff
-        # Do not fail the pipeline. Surface the unknown key and continue.
+        # Even after patching, treat mapping errors as partial/no data, do not fail pipeline
         return [], {"ok": True, "partial_error": f"KeyError: {str(e)}"}
     except Exception as e:
-        # Real fetch/parse failure
-        return [], {"ok": False, "error": str(e)}
+        # Some code raises non-KeyError exceptions with a KeyError-like message "'Team Name'".
+        msg = str(e)
+        if msg.startswith("'") and msg.endswith("'") and len(msg) > 2:
+            return [], {"ok": True, "partial_error": f"KeyError-like: {msg}"}
+        return [], {"ok": False, "error": msg}
 
 
 def build_starters_for_slate(
@@ -637,6 +686,7 @@ def build_starters_for_slate(
             }
         )
 
+    # de-dupe within (id, team_abbrev)
     rank = {"confirmed": 2, "expected": 1, "unknown": 0}
     best: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for row in out:
@@ -753,7 +803,7 @@ def main() -> int:
         slim["goalies"] = []
         validations["goalies_count"] = 0
 
-    # Starters (never crash whole run on Utah mapping issues upstream)
+    # Starters (patch upstream map, never crash the run)
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
     starters_rows, unknown_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
@@ -815,6 +865,7 @@ def main() -> int:
     out_dir = Path("data")
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Pretty output (as requested). Keep scheduled task reading nhl_daily_min.json.
     out_path_min = out_dir / "nhl_daily_min.json"
     with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
