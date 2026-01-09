@@ -714,8 +714,9 @@ def main() -> int:
     # Minimal consumer file (recommended for the scheduled task)
     out_path_min = out_dir / "nhl_daily_min.json"
     with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
-        json.dump(out_obj, f, ensure_ascii=False, separators=(",", ":"))
+        json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
         f.write("\n")
+
 
     # Pretty file for humans
     out_path_pretty = out_dir / "nhl_daily_slim.json"
