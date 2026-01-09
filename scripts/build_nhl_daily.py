@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import re
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlencode
@@ -13,14 +14,14 @@ from urllib.request import Request, urlopen
 
 import pandas as pd
 
-# Import the module so we can patch its internal maps if they are module-level.
-import scripts.fetch_starters_dailyfaceoff as dailyfaceoff
+# Keep the import, but do not rely on it. We will fallback to scraping if it KeyErrors.
+from scripts.fetch_starters_dailyfaceoff import fetch_dailyfaceoff_starters
 from scripts.compute_rest import build_slim_rest
 
 SCHEMA_VERSION = "1.0.13"
 SPORT_KEY = "icehockey_nhl"
-DAILYFACEOFF_BASE = "https://www.dailyfaceoff.com"
 
+# MoneyPuck endpoints
 MP_TEAMS_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/teams.csv"
 MP_GOALIES_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/goalies.csv"
 
@@ -29,7 +30,7 @@ MP_GOALIES_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/
 
 TEAM_NAME_TO_ABBREV: Dict[str, str] = {
     "ANAHEIM DUCKS": "ANA",
-    "ARIZONA COYOTES": "UTA",  # Arizona -> Utah (32 team world)
+    "ARIZONA COYOTES": "UTA",  # Arizona -> Utah (32-team world)
     "BOSTON BRUINS": "BOS",
     "BUFFALO SABRES": "BUF",
     "CALGARY FLAMES": "CGY",
@@ -126,6 +127,10 @@ def pick_col(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
 # --------------------------- normalization helpers ----------------------------
 
 def normalize_team_key(v: Any) -> str:
+    """
+    Normalize team strings across sources to improve map hit rate.
+    Example: "Utah Mammoth" -> "UTAH MAMMOTH"
+    """
     s = str(v or "").strip().upper()
     s = re.sub(r"[^A-Z0-9\s]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
@@ -138,9 +143,11 @@ def normalize_team_abbrev(v: Any) -> Optional[str]:
 
     s = normalize_team_key(v)
 
+    # direct abbrev
     if s in ABBREV_SET:
         return s
 
+    # name map
     mapped = TEAM_NAME_TO_ABBREV.get(s)
     if mapped:
         return mapped
@@ -152,7 +159,7 @@ def normalize_status(v: Any) -> str:
     s = str(v or "").strip().lower()
     if "confirm" in s or s == "confirmed":
         return "confirmed"
-    if "expect" in s or s == "expected" or "probable" in s:
+    if "expect" in s or s == "expected" or "probable" in s or "project" in s:
         return "expected"
     return "unknown"
 
@@ -410,6 +417,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
     )
     gp_col = pick_col(df, ["gamesPlayed", "GP", "gp", "games", "Games", "games_played"])
 
+    # Prefer totals, avoid per60 columns
     xgf_total_col = pick_col_prefer_non_per60(
         df, ["xGoalsFor", "xGF", "xGoalsForAll", "xGoalsForTotal", "xGoalsForAllStrengths"]
     )
@@ -417,9 +425,11 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         df, ["xGoalsAgainst", "xGA", "xGoalsAgainstAll", "xGoalsAgainstTotal", "xGoalsAgainstAllStrengths"]
     )
 
+    # If totals not available, fall back to per-game cols (still avoid per60)
     xgf_pg_col = pick_col_prefer_non_per60(df, ["xGF_pg", "xGFPerGame", "xGoalsForPerGame", "xGoalsFor_pg"])
     xga_pg_col = pick_col_prefer_non_per60(df, ["xGA_pg", "xGAPerGame", "xGoalsAgainstPerGame", "xGoalsAgainst_pg"])
 
+    # Last fallback: GF/GA totals
     gf_total_col = pick_col_prefer_non_per60(df, ["goalsFor", "GF", "goals_for", "GoalsFor"])
     ga_total_col = pick_col_prefer_non_per60(df, ["goalsAgainst", "GA", "goals_against", "GoalsAgainst"])
 
@@ -457,6 +467,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             if xga_total is not None:
                 xga_pg = xga_total / gp
 
+        # Final fallback to GF/GA totals per game
         if xgf_pg is None and gf_total_col:
             gf_total = _safe_float(r.get(gf_total_col))
             if gf_total is not None:
@@ -470,6 +481,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         if xgf_pg is None or xga_pg is None:
             continue
 
+        # Sanity: discard obviously wrong scales
         if not (1.0 <= xgf_pg <= 6.0 and 1.0 <= xga_pg <= 6.0):
             continue
 
@@ -481,11 +493,13 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             }
             team_xgf_list.append(float(xgf_pg))
 
+    # Combined goals per game baseline
     if team_xgf_list:
         league_avg_lambda = 2.0 * (sum(team_xgf_list) / len(team_xgf_list))
     else:
         league_avg_lambda = 6.0
 
+    # Ensure all 32 exist
     baseline_team = league_avg_lambda / 2.0
     for ab in ALL_TEAM_ABBREVS_SORTED:
         if ab not in rows_by_abbrev:
@@ -519,6 +533,8 @@ def build_slim_goalies(goalies_df: pd.DataFrame) -> List[Dict[str, Any]]:
             continue
 
         gid = goalie_id_from_name(name)
+
+        # de-dupe, prefer row with per60 populated
         if gid not in rows or (rows[gid].get("GSAx_per60") is None and gsae60 is not None):
             rows[gid] = {"goalie_id": gid, "name": name, "GSAx": gsae, "GSAx_per60": gsae60}
 
@@ -543,92 +559,185 @@ def fetch_moneypuck_goalies() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
 
 # --------------------------- starters (DailyFaceoff) --------------------------
 
-def _dict_looks_like_it_uses_team_names(d: Dict[Any, Any]) -> bool:
-    """
-    More permissive than the old heuristic.
-    If a dict contains any key that normalizes to something we can map, treat it as patchable.
-    """
-    if not d:
+class _TextExtractor(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.texts: List[str] = []
+
+    def handle_data(self, data: str) -> None:
+        if data:
+            self.texts.append(data)
+
+
+_STATUS_WORDS = {"confirmed", "expected", "probable", "projected", "likely", "unconfirmed", "unknown"}
+
+
+def _is_iso_datetime_token(s: str) -> bool:
+    # examples: 2025-10-07T21:00:00.000Z
+    return bool(re.match(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}", s))
+
+
+def _is_goalie_name_candidate(s: str) -> bool:
+    if not s:
         return False
+    if len(s) < 5:
+        return False
+    low = s.strip().lower()
+    if low in _STATUS_WORDS:
+        return False
+    if _is_iso_datetime_token(s.strip()):
+        return False
+    # reject obvious non-name tokens
+    bad_prefixes = ("w-l-otl", "gaa:", "sv%", "so:", "show more", "line combos", "news", "stats", "schedule", "source:")
+    if low.startswith(bad_prefixes):
+        return False
+    # names usually have a space
+    if " " not in s.strip():
+        return False
+    # allow letters, spaces, apostrophe, hyphen, period
+    return bool(re.match(r"^[A-Za-z .'\-]+$", s.strip()))
 
-    checked = 0
-    hits = 0
-    for k in d.keys():
-        if checked >= 300:
-            break
-        checked += 1
-        if not isinstance(k, str):
-            continue
-        nk = normalize_team_key(k)
-        if nk in TEAM_NAME_TO_ABBREV:
-            hits += 1
-            if hits >= 2:
-                return True
-    return False
 
-
-def _patch_dailyfaceoff_team_maps() -> int:
+def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """
-    Patch any module-level dict inside scripts.fetch_starters_dailyfaceoff that appears to use team names.
-    Returns how many dict objects were updated.
+    Fallback scraper that does not use any external mapping logic.
+    Returns rows shaped like:
+      { "team": "Utah Mammoth", "team_abbrev": "UTA", "goalie_name": "...", "status": "confirmed|expected|unknown" }
     """
-    variants: Dict[str, str] = {}
+    url = f"https://www.dailyfaceoff.com/starting-goalies/{date_et}"
+    try:
+        raw = http_get_bytes(url, headers={"User-Agent": "nhl-daily-slim"}, timeout=30)
+    except Exception as e:
+        return [], {"ok": False, "error": f"DailyFaceoff fetch failed: {str(e)}", "url": url}
 
-    # Add both normalized and common raw variants.
-    for raw, ab in {
-        "Utah": "UTA",
-        "Utah Hockey Club": "UTA",
-        "Utah HC": "UTA",
-        "Utah Mammoth": "UTA",
-        "Arizona Coyotes": "UTA",
-        "UTAH": "UTA",
-        "UTAH HOCKEY CLUB": "UTA",
-        "UTAH HC": "UTA",
-        "UTAH MAMMOTH": "UTA",
-        "ARIZONA COYOTES": "UTA",
-    }.items():
-        variants[raw] = ab
-        variants[raw.strip()] = ab
-        variants[raw.strip().upper()] = ab
-        variants[normalize_team_key(raw)] = ab
+    parser = _TextExtractor()
+    try:
+        parser.feed(raw.decode("utf-8", errors="ignore"))
+    except Exception as e:
+        return [], {"ok": False, "error": f"DailyFaceoff HTML parse failed: {str(e)}", "url": url}
 
-    updated = 0
-    for _, obj in dailyfaceoff.__dict__.items():
-        if isinstance(obj, dict) and _dict_looks_like_it_uses_team_names(obj):
-            obj.update(variants)
-            updated += 1
+    tokens = [t.strip() for t in parser.texts if t and t.strip()]
+    rows: List[Dict[str, Any]] = []
+    unmapped_teams: List[str] = []
+    games_found = 0
 
-    return updated
+    i = 0
+    while i < len(tokens):
+        t = tokens[i]
+        # matchup token looks like "Team A at Team B"
+        if " at " in t and len(t) < 120:
+            parts = t.split(" at ")
+            if len(parts) == 2:
+                away_team = parts[0].strip()
+                home_team = parts[1].strip()
+
+                # find commence time next
+                j = i + 1
+                commence: Optional[str] = None
+                while j < len(tokens) and j < i + 20:
+                    if _is_iso_datetime_token(tokens[j]):
+                        commence = tokens[j]
+                        break
+                    j += 1
+
+                # after commence, next two goalie blocks (away then home)
+                goalie_blocks: List[Tuple[str, str]] = []
+                k = (j + 1) if commence else (i + 1)
+                while k < len(tokens) and len(goalie_blocks) < 2:
+                    cand = tokens[k]
+                    if _is_goalie_name_candidate(cand):
+                        name = cand.strip()
+                        # find next status word
+                        m = k + 1
+                        status = "unknown"
+                        while m < len(tokens) and m < k + 10:
+                            low = tokens[m].strip().lower()
+                            if low in _STATUS_WORDS:
+                                status = normalize_status(low)
+                                break
+                            m += 1
+                        goalie_blocks.append((name, status))
+                        k = m + 1
+                        continue
+                    k += 1
+
+                away_abbrev = normalize_team_abbrev(away_team)
+                home_abbrev = normalize_team_abbrev(home_team)
+                if not away_abbrev:
+                    unmapped_teams.append(away_team)
+                if not home_abbrev:
+                    unmapped_teams.append(home_team)
+
+                # If teams can map, emit rows even if goalie blocks are missing
+                if away_abbrev and len(goalie_blocks) >= 1:
+                    rows.append(
+                        {
+                            "team": away_team,
+                            "team_abbrev": away_abbrev,
+                            "goalie_name": goalie_blocks[0][0],
+                            "status": goalie_blocks[0][1],
+                            "commence_time": commence,
+                        }
+                    )
+                if home_abbrev and len(goalie_blocks) >= 2:
+                    rows.append(
+                        {
+                            "team": home_team,
+                            "team_abbrev": home_abbrev,
+                            "goalie_name": goalie_blocks[1][0],
+                            "status": goalie_blocks[1][1],
+                            "commence_time": commence,
+                        }
+                    )
+
+                games_found += 1
+                i = k
+                continue
+
+        i += 1
+
+    # If page has games but no goalies yet, treat as ok with note
+    if games_found > 0 and not rows:
+        return [], {"ok": True, "note": "no starters posted yet", "url": url, "games_found": games_found}
+
+    return rows, {
+        "ok": True,
+        "url": url,
+        "games_found": games_found,
+        "unmapped_teams": sorted(set(unmapped_teams)),
+    }
 
 
 def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """
     Behavior:
-    - Always pass date_et.
-    - Patch upstream module-level team maps if possible.
-    - If KeyError happens, do not mask it: ok=false and include unmapped_teams.
-    - If fetch succeeds but returns empty, ok=true with starters_note.
+    - Always pass date_et into the upstream helper.
+    - If upstream throws KeyError (Utah Mammoth), fallback to scraping the Starting Goalies page.
+    - Never crash the full run because of starters.
     """
-    patched_maps = _patch_dailyfaceoff_team_maps()
-
     try:
-        starters = dailyfaceoff.fetch_dailyfaceoff_starters(date_et=date_et)
-
+        starters = fetch_dailyfaceoff_starters(date_et=date_et)
         if starters is None:
-            return [], {"ok": True, "patched_maps": patched_maps, "starters_note": "no starters posted yet"}
-
+            return [], {"ok": True, "note": "upstream returned None"}
         if not isinstance(starters, list):
-            return [], {"ok": False, "patched_maps": patched_maps, "error": "starters not a list"}
-
-        if len(starters) == 0:
-            return [], {"ok": True, "patched_maps": patched_maps, "starters_note": "no starters posted yet"}
-
-        return starters, {"ok": True, "patched_maps": patched_maps}
+            return [], {"ok": False, "error": "upstream starters not a list"}
+        return starters, {"ok": True, "source": "upstream"}
     except KeyError as e:
-        unmapped = str(e.args[0]) if e.args else str(e)
-        return [], {"ok": False, "patched_maps": patched_maps, "unmapped_teams": [unmapped], "error": f"KeyError: {unmapped}"}
+        # This is the failure you are seeing. Do not stop here.
+        scraped, st = _scrape_dailyfaceoff_starting_goalies(date_et=date_et)
+        if st.get("ok") is True:
+            st["source"] = "fallback_scrape"
+            st["upstream_keyerror"] = str(e)
+            return scraped, st
+        return [], {"ok": False, "error": f"upstream KeyError: {str(e)}; fallback failed: {st.get('error')}"}
     except Exception as e:
-        return [], {"ok": False, "patched_maps": patched_maps, "error": str(e)}
+        # If upstream fails for any reason, try fallback.
+        scraped, st = _scrape_dailyfaceoff_starting_goalies(date_et=date_et)
+        if st.get("ok") is True:
+            st["source"] = "fallback_scrape"
+            st["upstream_error"] = str(e)
+            return scraped, st
+        return [], {"ok": False, "error": str(e)}
 
 
 def build_starters_for_slate(
@@ -656,18 +765,19 @@ def build_starters_for_slate(
         game_by_team[home_abbrev] = gid
 
     out: List[Dict[str, Any]] = []
-    unknown_teams: List[str] = []
+    unmapped_teams: List[str] = []
 
     for r in starters_rows or []:
         if not isinstance(r, dict):
             continue
 
-        team_raw = r.get("team_abbrev") or r.get("team") or r.get("abbrev")
+        # accept multiple schemas
+        team_raw = r.get("team_abbrev") or r.get("team") or r.get("abbrev") or r.get("team_name")
         team_abbrev = normalize_team_abbrev(team_raw)
 
         if not team_abbrev:
             if team_raw:
-                unknown_teams.append(str(team_raw))
+                unmapped_teams.append(str(team_raw))
             continue
 
         if team_abbrev not in teams_in_slate:
@@ -697,6 +807,7 @@ def build_starters_for_slate(
             }
         )
 
+    # de-dupe within (id, team_abbrev)
     rank = {"confirmed": 2, "expected": 1, "unknown": 0}
     best: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for row in out:
@@ -705,7 +816,7 @@ def build_starters_for_slate(
         if cur is None or rank.get(row["status"], 0) > rank.get(cur["status"], 0):
             best[k] = row
 
-    return list(best.values()), sorted(set(unknown_teams))
+    return list(best.values()), sorted(set(unmapped_teams))
 
 
 # --------------------------- rest join ---------------------------------------
@@ -795,10 +906,7 @@ def main() -> int:
     else:
         league_avg_lambda = 6.0
         baseline_team = league_avg_lambda / 2.0
-        slim["teams"] = [
-            {"team_abbrev": ab, "xGF_pg": baseline_team, "xGA_pg": baseline_team}
-            for ab in ALL_TEAM_ABBREVS_SORTED
-        ]
+        slim["teams"] = [{"team_abbrev": ab, "xGF_pg": baseline_team, "xGA_pg": baseline_team} for ab in ALL_TEAM_ABBREVS_SORTED]
         slim["league_avg_lambda"] = league_avg_lambda
         validations["teams_count"] = len(slim["teams"])
 
@@ -813,19 +921,32 @@ def main() -> int:
         slim["goalies"] = []
         validations["goalies_count"] = 0
 
-    # Starters (do not mask failure, but allow rest/odds to continue)
+    # Starters (real fix: do not rely on upstream mapping that KeyErrors)
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
-    starters_rows, unknown_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
+    starters_rows, unmapped_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
     validations["starters_count"] = len(starters_rows)
 
-    st: Dict[str, Any] = dict(starters_status)
-    if unknown_teams:
-        st["unmapped_teams_from_rows"] = unknown_teams
-        if st.get("ok") is True:
-            st["ok"] = False
-            st["error"] = "unmapped teams in starter rows"
-    source_status["starters"] = st
+    # starters.ok semantics:
+    # - ok False only if fetch failed (network/parse), not because no starters posted yet
+    # - no starters posted yet should be ok True with note
+    starters_ok = bool(starters_status.get("ok") is True)
+    st_out: Dict[str, Any] = dict(starters_status)
+
+    if starters_ok:
+        if unmapped_teams:
+            # data integrity issue in our join, surface it
+            st_out["ok"] = False
+            st_out["unmapped_teams"] = unmapped_teams
+        else:
+            st_out["ok"] = True
+    else:
+        # fetch failed
+        st_out["ok"] = False
+        if unmapped_teams:
+            st_out["unmapped_teams"] = unmapped_teams
+
+    source_status["starters"] = st_out
 
     # Rest
     slate_for_rest: List[Dict[str, Any]] = []
@@ -873,13 +994,15 @@ def main() -> int:
     out_dir = Path("data")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    out_path_min = out_dir / "nhl_daily_min.json"
-    with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
+    # Pretty (primary) output
+    out_path_pretty = out_dir / "nhl_daily_slim.json"
+    with out_path_pretty.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
         f.write("\n")
 
-    out_path_pretty = out_dir / "nhl_daily_slim.json"
-    with out_path_pretty.open("w", encoding="utf-8", newline="\n") as f:
+    # Optional smaller consumer file (still pretty, but same content here)
+    out_path_min = out_dir / "nhl_daily_min.json"
+    with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
         f.write("\n")
 
