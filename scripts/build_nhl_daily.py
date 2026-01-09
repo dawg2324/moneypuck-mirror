@@ -13,15 +13,14 @@ from urllib.request import Request, urlopen
 
 import pandas as pd
 
-# Import the module (not just the function) so we can patch its internal team map.
+# Import the module so we can patch its internal maps if they are module-level.
 import scripts.fetch_starters_dailyfaceoff as dailyfaceoff
 from scripts.compute_rest import build_slim_rest
 
-SCHEMA_VERSION = "1.0.11"
+SCHEMA_VERSION = "1.0.12"
 SPORT_KEY = "icehockey_nhl"
 DAILYFACEOFF_BASE = "https://www.dailyfaceoff.com"
 
-# MoneyPuck endpoints
 MP_TEAMS_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/teams.csv"
 MP_GOALIES_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/goalies.csv"
 
@@ -62,7 +61,7 @@ TEAM_NAME_TO_ABBREV: Dict[str, str] = {
     "VEGAS GOLDEN KNIGHTS": "VGK",
     "WASHINGTON CAPITALS": "WSH",
     "WINNIPEG JETS": "WPG",
-    # Utah aliases (must hit from any source)
+    # Utah aliases
     "UTAH": "UTA",
     "UTAH HOCKEY CLUB": "UTA",
     "UTAH HC": "UTA",
@@ -127,10 +126,6 @@ def pick_col(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
 # --------------------------- normalization helpers ----------------------------
 
 def normalize_team_key(v: Any) -> str:
-    """
-    Normalize team strings across sources to improve map hit rate.
-    Example: "Utah Mammoth" -> "UTAH MAMMOTH"
-    """
     s = str(v or "").strip().upper()
     s = re.sub(r"[^A-Z0-9\s]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
@@ -143,11 +138,9 @@ def normalize_team_abbrev(v: Any) -> Optional[str]:
 
     s = normalize_team_key(v)
 
-    # direct abbrev
     if s in ABBREV_SET:
         return s
 
-    # name map
     mapped = TEAM_NAME_TO_ABBREV.get(s)
     if mapped:
         return mapped
@@ -417,7 +410,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
     )
     gp_col = pick_col(df, ["gamesPlayed", "GP", "gp", "games", "Games", "games_played"])
 
-    # Prefer totals, avoid per60 columns
     xgf_total_col = pick_col_prefer_non_per60(
         df, ["xGoalsFor", "xGF", "xGoalsForAll", "xGoalsForTotal", "xGoalsForAllStrengths"]
     )
@@ -425,11 +417,9 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         df, ["xGoalsAgainst", "xGA", "xGoalsAgainstAll", "xGoalsAgainstTotal", "xGoalsAgainstAllStrengths"]
     )
 
-    # If totals not available, fall back to per-game cols (still avoid per60)
     xgf_pg_col = pick_col_prefer_non_per60(df, ["xGF_pg", "xGFPerGame", "xGoalsForPerGame", "xGoalsFor_pg"])
     xga_pg_col = pick_col_prefer_non_per60(df, ["xGA_pg", "xGAPerGame", "xGoalsAgainstPerGame", "xGoalsAgainst_pg"])
 
-    # Last fallback: GF/GA totals
     gf_total_col = pick_col_prefer_non_per60(df, ["goalsFor", "GF", "goals_for", "GoalsFor"])
     ga_total_col = pick_col_prefer_non_per60(df, ["goalsAgainst", "GA", "goals_against", "GoalsAgainst"])
 
@@ -467,7 +457,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             if xga_total is not None:
                 xga_pg = xga_total / gp
 
-        # Final fallback to GF/GA totals per game
         if xgf_pg is None and gf_total_col:
             gf_total = _safe_float(r.get(gf_total_col))
             if gf_total is not None:
@@ -481,7 +470,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         if xgf_pg is None or xga_pg is None:
             continue
 
-        # Sanity: discard obviously wrong scales instead of poisoning the baseline
         if not (1.0 <= xgf_pg <= 6.0 and 1.0 <= xga_pg <= 6.0):
             continue
 
@@ -493,13 +481,11 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             }
             team_xgf_list.append(float(xgf_pg))
 
-    # League baseline as combined goals per game
     if team_xgf_list:
         league_avg_lambda = 2.0 * (sum(team_xgf_list) / len(team_xgf_list))
     else:
         league_avg_lambda = 6.0
 
-    # Ensure all 32 teams exist
     baseline_team = league_avg_lambda / 2.0
     for ab in ALL_TEAM_ABBREVS_SORTED:
         if ab not in rows_by_abbrev:
@@ -558,66 +544,88 @@ def fetch_moneypuck_goalies() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
 
 # --------------------------- starters (DailyFaceoff) --------------------------
 
-def _patch_dailyfaceoff_team_map() -> None:
+def _looks_like_team_map(d: Dict[Any, Any]) -> bool:
+    # Heuristic: team maps usually have string keys and 3-letter uppercase string values.
+    if not d:
+        return False
+    sk = 0
+    sv = 0
+    for k, v in list(d.items())[:50]:
+        if isinstance(k, str):
+            sk += 1
+        if isinstance(v, str) and len(v) == 3 and v.isupper():
+            sv += 1
+    return sk >= 5 and sv >= 5
+
+
+def _patch_dailyfaceoff_team_maps() -> int:
     """
-    Fix the real problem: scripts.fetch_starters_dailyfaceoff has its own internal name->abbrev map
-    and it is likely doing a direct dict lookup with the raw string "Utah Mammoth".
-    Patch that module map at runtime so it recognizes Utah variants without editing that file.
+    Patch any module-level dict inside scripts.fetch_starters_dailyfaceoff that looks like a team map.
+    Returns how many dict objects were updated.
     """
-    aliases: Dict[str, str] = {
+    alias_pairs = {
+        # Title case variants
         "Utah": "UTA",
         "Utah Hockey Club": "UTA",
         "Utah HC": "UTA",
         "Utah Mammoth": "UTA",
+        "Arizona Coyotes": "UTA",
+        # Uppercase normalized variants
         "UTAH": "UTA",
         "UTAH HOCKEY CLUB": "UTA",
         "UTAH HC": "UTA",
         "UTAH MAMMOTH": "UTA",
-        # Keep Arizona compatibility but force to UTA
-        "Arizona Coyotes": "UTA",
         "ARIZONA COYOTES": "UTA",
     }
 
-    # Build a superset of key variants because we do not control how the upstream script normalizes.
     variants: Dict[str, str] = {}
-    for k, v in aliases.items():
+    for k, v in alias_pairs.items():
         variants[k] = v
         variants[k.strip()] = v
         variants[k.strip().upper()] = v
         variants[normalize_team_key(k)] = v
 
-    # Patch common attribute names if present
-    for attr in ["TEAM_NAME_TO_ABBREV", "TEAM_MAP", "TEAM_ABBREV_MAP", "TEAMNAME_TO_ABBREV", "TEAM_TO_ABBREV"]:
-        m = getattr(dailyfaceoff, attr, None)
-        if isinstance(m, dict):
-            m.update(variants)
+    updated = 0
+    for _, obj in dailyfaceoff.__dict__.items():
+        if isinstance(obj, dict) and _looks_like_team_map(obj):
+            obj.update(variants)
+            updated += 1
+
+    return updated
+
+
+def _extract_unmapped_from_keyerror(e: KeyError) -> str:
+    # KeyError args can be weird, normalize to a readable string
+    if e.args:
+        return str(e.args[0])
+    return str(e)
 
 
 def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """
-    Critical behavior:
-    - Always pass date_et into the upstream function.
-    - Patch upstream team map so "Utah Mammoth" maps cleanly.
-    - Never hard-fail the whole run if starters are missing or partially broken.
+    - Always pass date_et.
+    - Try to patch upstream module-level team maps so Utah names resolve.
+    - If mapping still fails, surface as ok:false with unmapped_teams.
     """
-    _patch_dailyfaceoff_team_map()
+    patched_maps = _patch_dailyfaceoff_team_maps()
 
     try:
         starters = dailyfaceoff.fetch_dailyfaceoff_starters(date_et=date_et)
         if starters is None:
-            return [], {"ok": True, "note": "no starters returned"}
+            return [], {"ok": True, "note": "no starters returned", "patched_maps": patched_maps}
         if not isinstance(starters, list):
-            return [], {"ok": True, "note": "starters not a list, ignored"}
-        return starters, {"ok": True}
+            return [], {"ok": False, "error": "starters not a list", "patched_maps": patched_maps}
+        return starters, {"ok": True, "patched_maps": patched_maps}
     except KeyError as e:
-        # Even after patching, treat mapping errors as partial/no data, do not fail pipeline
-        return [], {"ok": True, "partial_error": f"KeyError: {str(e)}"}
+        unmapped = _extract_unmapped_from_keyerror(e)
+        return [], {
+            "ok": False,
+            "error": f"KeyError: {unmapped}",
+            "unmapped_teams": [unmapped],
+            "patched_maps": patched_maps,
+        }
     except Exception as e:
-        # Some code raises non-KeyError exceptions with a KeyError-like message "'Team Name'".
-        msg = str(e)
-        if msg.startswith("'") and msg.endswith("'") and len(msg) > 2:
-            return [], {"ok": True, "partial_error": f"KeyError-like: {msg}"}
-        return [], {"ok": False, "error": msg}
+        return [], {"ok": False, "error": str(e), "patched_maps": patched_maps}
 
 
 def build_starters_for_slate(
@@ -686,7 +694,6 @@ def build_starters_for_slate(
             }
         )
 
-    # de-dupe within (id, team_abbrev)
     rank = {"confirmed": 2, "expected": 1, "unknown": 0}
     best: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for row in out:
@@ -803,21 +810,20 @@ def main() -> int:
         slim["goalies"] = []
         validations["goalies_count"] = 0
 
-    # Starters (patch upstream map, never crash the run)
+    # Starters
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
     starters_rows, unknown_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
     validations["starters_count"] = len(starters_rows)
 
-    if starters_status.get("ok") is True:
-        st: Dict[str, Any] = {"ok": True}
-        if "partial_error" in starters_status:
-            st["partial_error"] = starters_status["partial_error"]
-        if unknown_teams:
-            st["unknown_teams"] = unknown_teams
-        source_status["starters"] = st
-    else:
-        source_status["starters"] = starters_status
+    # Do not mask integrity failures
+    st: Dict[str, Any] = dict(starters_status)
+    if unknown_teams:
+        st["unmapped_teams_from_rows"] = unknown_teams
+        if st.get("ok") is True:
+            st["ok"] = False
+            st["error"] = "unmapped teams in starter rows"
+    source_status["starters"] = st
 
     # Rest
     slate_for_rest: List[Dict[str, Any]] = []
@@ -865,7 +871,6 @@ def main() -> int:
     out_dir = Path("data")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Pretty output (as requested). Keep scheduled task reading nhl_daily_min.json.
     out_path_min = out_dir / "nhl_daily_min.json"
     with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
