@@ -1,7 +1,7 @@
 {
   "data_date_et": "2026-01-09",
-  "generated_at_utc": "2026-01-09T18:28:32Z",
-  "schema_version": "1.0.12",
+  "generated_at_utc": "2026-01-09T18:37:41Z",
+  "schema_version": "1.0.13",
   "slim": {
     "game_rest": [
       {
@@ -157,8 +157,8 @@
         "commence_time": "2026-01-10T01:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": -120,
+            "away_book": "lowvig",
+            "away_price": -122,
             "home_book": "fanduel",
             "home_price": 112
           },
@@ -268,10 +268,10 @@
             "away_book": "betonlineag",
             "away_price": 130,
             "home_book": "fanduel",
-            "home_price": -134
+            "home_price": -137
           },
           "consensus_median": {
-            "away_price": 118.0,
+            "away_price": 118.5,
             "home_price": -145.5
           }
         },
