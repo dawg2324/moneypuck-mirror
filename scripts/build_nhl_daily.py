@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import re
+import math
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -18,7 +19,7 @@ import pandas as pd
 from scripts.fetch_starters_dailyfaceoff import fetch_dailyfaceoff_starters
 from scripts.compute_rest import build_slim_rest
 
-SCHEMA_VERSION = "1.0.13"
+SCHEMA_VERSION = "1.0.14"
 SPORT_KEY = "icehockey_nhl"
 
 # MoneyPuck endpoints
@@ -280,6 +281,9 @@ def slim_odds_current(odds_payload: List[Dict[str, Any]]) -> Tuple[List[Dict[str
                         continue
 
                     pt = float(point)
+                    if not math.isfinite(pt):
+                        continue
+
                     total_points.append(pt)
 
                     if name == "Over":
@@ -377,12 +381,18 @@ def _safe_float(v: Any) -> Optional[float]:
     try:
         if v is None:
             return None
-        if isinstance(v, (int, float)) and pd.notna(v):
-            return float(v)
+
+        if isinstance(v, (int, float)):
+            if pd.isna(v):
+                return None
+            x = float(v)
+            return x if math.isfinite(x) else None
+
         if isinstance(v, str) and not v.strip():
             return None
+
         x = float(v)
-        if pd.isna(x):
+        if pd.isna(x) or not math.isfinite(x):
             return None
         return float(x)
     except Exception:
@@ -446,7 +456,7 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             continue
 
         gp = _safe_float(r.get(gp_col)) if gp_col else None
-        if not gp or gp <= 0:
+        if gp is None or gp <= 0:
             continue
 
         xgf_pg: Optional[float] = None
@@ -479,6 +489,9 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
                 xga_pg = ga_total / gp
 
         if xgf_pg is None or xga_pg is None:
+            continue
+
+        if not math.isfinite(xgf_pg) or not math.isfinite(xga_pg):
             continue
 
         # Sanity: discard obviously wrong scales
@@ -602,7 +615,7 @@ def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, 
     """
     Fallback scraper that does not use any external mapping logic.
     Returns rows shaped like:
-      { "team": "Utah Mammoth", "team_abbrev": "UTA", "goalie_name": "...", "status": "confirmed|expected|unknown" }
+      { "team": "...", "team_abbrev": "UTA", "goalie_name": "...", "status": "confirmed|expected|unknown" }
     """
     url = f"https://www.dailyfaceoff.com/starting-goalies/{date_et}"
     try:
@@ -723,7 +736,6 @@ def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
             return [], {"ok": False, "error": "upstream starters not a list"}
         return starters, {"ok": True, "source": "upstream"}
     except KeyError as e:
-        # This is the failure you are seeing. Do not stop here.
         scraped, st = _scrape_dailyfaceoff_starting_goalies(date_et=date_et)
         if st.get("ok") is True:
             st["source"] = "fallback_scrape"
@@ -731,7 +743,6 @@ def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
             return scraped, st
         return [], {"ok": False, "error": f"upstream KeyError: {str(e)}; fallback failed: {st.get('error')}"}
     except Exception as e:
-        # If upstream fails for any reason, try fallback.
         scraped, st = _scrape_dailyfaceoff_starting_goalies(date_et=date_et)
         if st.get("ok") is True:
             st["source"] = "fallback_scrape"
@@ -771,7 +782,6 @@ def build_starters_for_slate(
         if not isinstance(r, dict):
             continue
 
-        # accept multiple schemas
         team_raw = r.get("team_abbrev") or r.get("team") or r.get("abbrev") or r.get("team_name")
         team_abbrev = normalize_team_abbrev(team_raw)
 
@@ -807,7 +817,6 @@ def build_starters_for_slate(
             }
         )
 
-    # de-dupe within (id, team_abbrev)
     rank = {"confirmed": 2, "expected": 1, "unknown": 0}
     best: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for row in out:
@@ -894,21 +903,34 @@ def main() -> int:
     slim["odds_current"] = slimmed_odds
     validations["odds_games_slim_count"] = len(slimmed_odds)
 
-    # Teams + league baseline
+    # Teams baseline first (guarantees slim.teams exists even if parsing explodes)
+    league_avg_lambda = 6.0
+    baseline_team = league_avg_lambda / 2.0
+    slim["teams"] = [{"team_abbrev": ab, "xGF_pg": baseline_team, "xGA_pg": baseline_team} for ab in ALL_TEAM_ABBREVS_SORTED]
+    slim["league_avg_lambda"] = float(league_avg_lambda)
+    validations["teams_count"] = len(slim["teams"])
+
+    # Teams + league baseline (override baseline if parse works)
     teams_df, teams_status = fetch_moneypuck_teams()
     source_status["teams"] = teams_status
 
-    if teams_df is not None and not teams_df.empty:
-        slim_teams, league_avg_lambda = build_slim_teams_and_lambda(teams_df)
-        slim["teams"] = slim_teams
-        slim["league_avg_lambda"] = float(league_avg_lambda)
-        validations["teams_count"] = len(slim_teams)
-    else:
-        league_avg_lambda = 6.0
-        baseline_team = league_avg_lambda / 2.0
-        slim["teams"] = [{"team_abbrev": ab, "xGF_pg": baseline_team, "xGA_pg": baseline_team} for ab in ALL_TEAM_ABBREVS_SORTED]
-        slim["league_avg_lambda"] = league_avg_lambda
-        validations["teams_count"] = len(slim["teams"])
+    try:
+        if teams_df is not None and not teams_df.empty:
+            slim_teams, league_avg_lambda = build_slim_teams_and_lambda(teams_df)
+            slim["teams"] = slim_teams
+            slim["league_avg_lambda"] = float(league_avg_lambda)
+            validations["teams_count"] = len(slim_teams)
+        else:
+            source_status["teams"] = dict(source_status["teams"] or {})
+            source_status["teams"]["ok"] = False
+            source_status["teams"]["error"] = source_status["teams"].get("error") or "Teams CSV empty or None"
+    except Exception as e:
+        source_status["teams"] = dict(source_status["teams"] or {})
+        source_status["teams"]["ok"] = False
+        source_status["teams"]["error"] = f"teams_parse_error: {type(e).__name__}: {e}"
+
+    validations["teams_ok"] = bool(source_status.get("teams", {}).get("ok") is True)
+    validations["league_avg_lambda"] = float(slim.get("league_avg_lambda") or 0.0)
 
     # Goalies (optional)
     goalies_df, goalies_status = fetch_moneypuck_goalies()
@@ -921,27 +943,22 @@ def main() -> int:
         slim["goalies"] = []
         validations["goalies_count"] = 0
 
-    # Starters (real fix: do not rely on upstream mapping that KeyErrors)
+    # Starters
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
     starters_rows, unmapped_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
     validations["starters_count"] = len(starters_rows)
 
-    # starters.ok semantics:
-    # - ok False only if fetch failed (network/parse), not because no starters posted yet
-    # - no starters posted yet should be ok True with note
     starters_ok = bool(starters_status.get("ok") is True)
     st_out: Dict[str, Any] = dict(starters_status)
 
     if starters_ok:
         if unmapped_teams:
-            # data integrity issue in our join, surface it
             st_out["ok"] = False
             st_out["unmapped_teams"] = unmapped_teams
         else:
             st_out["ok"] = True
     else:
-        # fetch failed
         st_out["ok"] = False
         if unmapped_teams:
             st_out["unmapped_teams"] = unmapped_teams
@@ -982,6 +999,16 @@ def main() -> int:
     slim["game_rest"] = game_rest_rows
     validations["game_rest_count"] = len(game_rest_rows)
 
+    # Contract checks: if these fail, the workflow must fail
+    if "teams" not in slim or not isinstance(slim["teams"], list) or len(slim["teams"]) == 0:
+        raise RuntimeError("Contract violation: slim.teams missing or empty")
+
+    for t in slim["teams"]:
+        if not isinstance(t, dict):
+            raise RuntimeError("Contract violation: slim.teams contains non-object element")
+        if "team_abbrev" not in t or "xGF_pg" not in t or "xGA_pg" not in t:
+            raise RuntimeError(f"Contract violation: slim.teams element missing fields: {t}")
+
     out_obj = {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": generated_at,
@@ -997,13 +1024,13 @@ def main() -> int:
     # Pretty (primary) output
     out_path_pretty = out_dir / "nhl_daily_slim.json"
     with out_path_pretty.open("w", encoding="utf-8", newline="\n") as f:
-        json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
+        json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False)
         f.write("\n")
 
     # Optional smaller consumer file (still pretty, but same content here)
     out_path_min = out_dir / "nhl_daily_min.json"
     with out_path_min.open("w", encoding="utf-8", newline="\n") as f:
-        json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
+        json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False)
         f.write("\n")
 
     return 0
