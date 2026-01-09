@@ -331,7 +331,11 @@ def main() -> int:
 
     # Starters (DailyFaceoff)
     starters_list: List[Dict[str, Any]] = []
-    dfo_status: Dict[str, Any] = {"ok": False, "url": f"{BASE}/starting-goalies/{data_date}"}  # type: ignore[name-defined]
+    dfo_status: Dict[str, Any] = {
+    "ok": False,
+    "url": f"{BASE}/starting-goalies/{data_date}"
+}
+
 
     try:
         starters_res = fetch_dailyfaceoff_starters(data_date)
