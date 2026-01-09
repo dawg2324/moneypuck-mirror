@@ -16,7 +16,7 @@ import pandas as pd
 from scripts.fetch_starters_dailyfaceoff import fetch_dailyfaceoff_starters
 from scripts.compute_rest import build_slim_rest
 
-SCHEMA_VERSION = "1.0.10"
+SCHEMA_VERSION = "1.0.9"
 SPORT_KEY = "icehockey_nhl"
 DAILYFACEOFF_BASE = "https://www.dailyfaceoff.com"
 
@@ -29,7 +29,7 @@ MP_GOALIES_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/
 
 TEAM_NAME_TO_ABBREV: Dict[str, str] = {
     "ANAHEIM DUCKS": "ANA",
-    "ARIZONA COYOTES": "UTA",  # IMPORTANT: map old ARI -> UTA so we stay at 32 unique teams
+    "ARIZONA COYOTES": "UTA",  # Arizona -> Utah (32-team world)
     "BOSTON BRUINS": "BOS",
     "BUFFALO SABRES": "BUF",
     "CALGARY FLAMES": "CGY",
@@ -61,11 +61,14 @@ TEAM_NAME_TO_ABBREV: Dict[str, str] = {
     "VEGAS GOLDEN KNIGHTS": "VGK",
     "WASHINGTON CAPITALS": "WSH",
     "WINNIPEG JETS": "WPG",
+    # Utah aliases (critical for starters merge)
+    "UTAH": "UTA",
+    "UTAH HOCKEY CLUB": "UTA",
+    "UTAH HC": "UTA",
     "UTAH MAMMOTH": "UTA",
 }
 
 ABBREV_SET = set(TEAM_NAME_TO_ABBREV.values())
-ALL_TEAM_ABBREVS_SORTED = sorted(ABBREV_SET)
 
 
 # --------------------------- time helpers ------------------------------------
@@ -119,41 +122,53 @@ def pick_col(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
     return None
 
 
-def _safe_float(v: Any) -> Optional[float]:
+# --------------------------- normalization helpers ----------------------------
+
+def normalize_team_key(v: Any) -> str:
+    """
+    Normalize team strings across sources to improve map hit rate.
+    Example: "Utah Mammoth" -> "UTAH MAMMOTH"
+    """
+    s = str(v or "").strip().upper()
+    # drop punctuation to align "ST. LOUIS" with "ST LOUIS", etc
+    s = re.sub(r"[^A-Z0-9\s]", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+def normalize_team_abbrev(v: Any) -> Optional[str]:
     if v is None:
         return None
-    try:
-        if pd.isna(v):
-            return None
-    except Exception:
-        pass
-    try:
-        return float(v)
-    except Exception:
+
+    s = normalize_team_key(v)
+
+    # direct abbrev
+    if s in ABBREV_SET:
+        return s
+
+    # name map
+    mapped = TEAM_NAME_TO_ABBREV.get(s)
+    if mapped:
+        return mapped
+
+    return None
+
+
+def normalize_status(v: Any) -> str:
+    s = str(v or "").strip().lower()
+    if "confirm" in s or s == "confirmed":
+        return "confirmed"
+    if "expect" in s or s == "expected" or "probable" in s:
+        return "expected"
+    return "unknown"
+
+
+def normalize_goalie_name(v: Any) -> Optional[str]:
+    if v is None:
         return None
-
-
-# --------------------------- per60 avoidance helpers -------------------------
-
-def is_per60_col(col_name: str) -> bool:
-    s = str(col_name).lower()
-    return ("per60" in s) or ("/60" in s) or ("_60" in s) or ("per 60" in s)
-
-
-def pick_col_prefer_non_per60(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
-    # First pass: exact/case-insensitive matches that are NOT per60
-    cols = list(df.columns)
-    lower_map = {c.lower(): c for c in cols}
-
-    for c in candidates:
-        if c in df.columns and not is_per60_col(c):
-            return c
-        cc = lower_map.get(c.lower())
-        if cc and not is_per60_col(cc):
-            return cc
-
-    # Second pass: allow per60 only if nothing else exists
-    return pick_col(df, candidates)
+    name = str(v).strip()
+    name = re.sub(r"\s+", " ", name)
+    return name or None
 
 
 # --------------------------- small math helpers ------------------------------
@@ -180,45 +195,14 @@ def pick_most_common_float(values: List[float]) -> Optional[float]:
     return min(tied)
 
 
-# --------------------------- normalization helpers ---------------------------
-
-def normalize_team_abbrev(v: Any) -> Optional[str]:
-    if v is None:
-        return None
-    s = str(v).strip().upper()
-    if s in ABBREV_SET:
-        return s
-    mapped = TEAM_NAME_TO_ABBREV.get(s)
-    if mapped:
-        return mapped
-    mapped = TEAM_NAME_TO_ABBREV.get(s.replace(".", ""))
-    if mapped:
-        return mapped
-    return None
-
-
-def normalize_goalie_name(v: Any) -> Optional[str]:
-    if v is None:
-        return None
-    name = str(v).strip()
-    name = re.sub(r"\s+", " ", name)
-    return name or None
-
-
-def normalize_status(v: Any) -> str:
-    s = str(v or "").strip().lower()
-    if "confirm" in s or s == "confirmed" or s == "true":
-        return "confirmed"
-    if "expect" in s or s == "expected" or "probable" in s:
-        return "expected"
-    return "unknown"
-
-
 # --------------------------- id helpers --------------------------------------
 
 def game_id_from_names(commence_time_utc: str, away_team_name: str, home_team_name: str) -> Optional[str]:
-    away_abbrev = TEAM_NAME_TO_ABBREV.get((away_team_name or "").upper())
-    home_abbrev = TEAM_NAME_TO_ABBREV.get((home_team_name or "").upper())
+    """
+    Stable id: "{AWAYABBREV}_vs_{HOMEABBREV}_{YYYY-MM-DD}" based on commence_time date.
+    """
+    away_abbrev = normalize_team_abbrev(away_team_name)
+    home_abbrev = normalize_team_abbrev(home_team_name)
     if not away_abbrev or not home_abbrev or not commence_time_utc:
         return None
     date_str = str(commence_time_utc)[:10]
@@ -226,6 +210,9 @@ def game_id_from_names(commence_time_utc: str, away_team_name: str, home_team_na
 
 
 def goalie_id_from_name(name: str) -> str:
+    """
+    Deterministic goalie id from goalie name. Stable across runs.
+    """
     base = re.sub(r"\s+", " ", (name or "").strip().lower())
     h = hashlib.sha1(base.encode("utf-8")).hexdigest()[:8]
     return f"g_{h}"
@@ -242,6 +229,9 @@ def extract_market(bookmaker: Dict[str, Any], market_key: str) -> Optional[Dict[
 
 
 def slim_odds_current(odds_payload: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """
+    Returns slimmed odds where "id" is our stable game id.
+    """
     slimmed: List[Dict[str, Any]] = []
     meta: Dict[str, Any] = {"games_with_h2h": 0, "games_with_totals": 0}
 
@@ -390,6 +380,44 @@ def fetch_odds_current() -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]
 
 # --------------------------- teams / goalies (MoneyPuck) ----------------------
 
+def _safe_float(v: Any) -> Optional[float]:
+    try:
+        if v is None:
+            return None
+        if isinstance(v, (int, float)) and pd.notna(v):
+            return float(v)
+        if isinstance(v, str) and not v.strip():
+            return None
+        x = float(v)
+        if pd.isna(x):
+            return None
+        return float(x)
+    except Exception:
+        return None
+
+
+def is_per60_col(col_name: str) -> bool:
+    s = str(col_name).lower()
+    return ("per60" in s) or ("/60" in s) or ("_60" in s) or ("per 60" in s)
+
+
+def pick_col_prefer_non_per60(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
+    cols = list(df.columns)
+    lower_map = {c.lower(): c for c in cols}
+
+    for c in candidates:
+        if c in df.columns and not is_per60_col(c):
+            return c
+        cc = lower_map.get(c.lower())
+        if cc and not is_per60_col(cc):
+            return cc
+
+    return pick_col(df, candidates)
+
+
+ALL_TEAM_ABBREVS_SORTED = sorted(ABBREV_SET)
+
+
 def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, Any]], float]:
     df = norm_cols(teams_df)
 
@@ -399,7 +427,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
     )
     gp_col = pick_col(df, ["gamesPlayed", "GP", "gp", "games", "Games", "games_played"])
 
-    # Prefer totals, avoid per60 columns
     xgf_total_col = pick_col_prefer_non_per60(
         df, ["xGoalsFor", "xGF", "xGoalsForAll", "xGoalsForTotal", "xGoalsForAllStrengths"]
     )
@@ -407,11 +434,9 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         df, ["xGoalsAgainst", "xGA", "xGoalsAgainstAll", "xGoalsAgainstTotal", "xGoalsAgainstAllStrengths"]
     )
 
-    # If totals not available, fall back to per-game cols (still avoid per60)
     xgf_pg_col = pick_col_prefer_non_per60(df, ["xGF_pg", "xGFPerGame", "xGoalsForPerGame", "xGoalsFor_pg"])
     xga_pg_col = pick_col_prefer_non_per60(df, ["xGA_pg", "xGAPerGame", "xGoalsAgainstPerGame", "xGoalsAgainst_pg"])
 
-    # Last fallback: GF/GA totals
     gf_total_col = pick_col_prefer_non_per60(df, ["goalsFor", "GF", "goals_for", "GoalsFor"])
     ga_total_col = pick_col_prefer_non_per60(df, ["goalsAgainst", "GA", "goals_against", "GoalsAgainst"])
 
@@ -424,8 +449,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             continue
 
         team_abbrev = normalize_team_abbrev(team_val)
-        if not team_abbrev:
-            team_abbrev = TEAM_NAME_TO_ABBREV.get(str(team_val).strip().upper())
         if not team_abbrev or team_abbrev not in ABBREV_SET:
             continue
 
@@ -464,7 +487,6 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
         if xgf_pg is None or xga_pg is None:
             continue
 
-        # Per-team per-game should usually be > 1.0 and < 6.0
         if not (1.0 <= xgf_pg <= 6.0 and 1.0 <= xga_pg <= 6.0):
             continue
 
@@ -476,13 +498,11 @@ def build_slim_teams_and_lambda(teams_df: pd.DataFrame) -> Tuple[List[Dict[str, 
             }
             team_xgf_list.append(float(xgf_pg))
 
-    # Compute league baseline as combined goals per game
     if team_xgf_list:
         league_avg_lambda = 2.0 * (sum(team_xgf_list) / len(team_xgf_list))
     else:
         league_avg_lambda = 6.0
 
-    # Ensure all 32 teams exist for the task
     baseline_team = league_avg_lambda / 2.0
     for ab in ALL_TEAM_ABBREVS_SORTED:
         if ab not in rows_by_abbrev:
@@ -496,43 +516,32 @@ def build_slim_goalies(goalies_df: pd.DataFrame) -> List[Dict[str, Any]]:
     df = norm_cols(goalies_df)
 
     name_col = pick_col(df, ["goalie", "Goalie", "playerName", "name"])
-    gsae_col = pick_col_prefer_non_per60(df, ["goalsSavedAboveExpected", "GSAx", "gsae", "gsax"])
-    gsae60_col = pick_col_prefer_non_per60(df, ["goalsSavedAboveExpectedPer60", "GSAx/60", "gsaxPer60", "gsax_per60", "GSAx_per60"])
+    gsae60_col = pick_col(df, ["goalsSavedAboveExpectedPer60", "GSAx/60", "gsaxPer60", "gsax_per60", "GSAx_per60"])
+    gsae_col = pick_col(df, ["goalsSavedAboveExpected", "GSAx", "gsae", "gsax"])
 
-    if not name_col:
-        return []
-
-    out: List[Dict[str, Any]] = []
-    seen: set[str] = set()
-
+    rows: Dict[str, Dict[str, Any]] = {}
     for _, r in df.iterrows():
-        name_val = r.get(name_col)
-        name = normalize_goalie_name(name_val)
+        name_val = r.get(name_col) if name_col else None
+        if name_val is None:
+            continue
+
+        name = str(name_val).strip()
         if not name:
             continue
 
-        gid = goalie_id_from_name(name)
-        if gid in seen:
-            continue
-
-        gsae = _safe_float(r.get(gsae_col)) if gsae_col else None
         gsae60 = _safe_float(r.get(gsae60_col)) if gsae60_col else None
+        gsae = _safe_float(r.get(gsae_col)) if gsae_col else None
 
-        # Only keep usable rows (non-null adjustment)
-        if gsae is None and gsae60 is None:
+        if gsae60 is None and gsae is None:
             continue
 
-        out.append(
-            {
-                "goalie_id": gid,
-                "name": name,
-                "GSAx": gsae,
-                "GSAx_per60": gsae60,
-            }
-        )
-        seen.add(gid)
+        gid = goalie_id_from_name(name)
 
-    return out
+        # de-dupe: prefer row that has per60, else keep first
+        if gid not in rows or (rows[gid].get("GSAx_per60") is None and gsae60 is not None):
+            rows[gid] = {"goalie_id": gid, "name": name, "GSAx": gsae, "GSAx_per60": gsae60}
+
+    return list(rows.values())
 
 
 def fetch_moneypuck_teams() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
@@ -555,24 +564,12 @@ def fetch_moneypuck_goalies() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
 
 def fetch_starters(date_et: str) -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]]:
     try:
-        # REQUIRED: pass date into your DailyFaceoff fetcher
         starters = fetch_dailyfaceoff_starters(date_et=date_et)
         if starters is None:
             return None, {"ok": False, "error": "fetch_dailyfaceoff_starters returned None"}
         if not isinstance(starters, list):
             return None, {"ok": False, "error": "fetch_dailyfaceoff_starters did not return a list"}
         return starters, {"ok": True}
-    except TypeError:
-        # Backward compatibility if your function signature differs
-        try:
-            starters = fetch_dailyfaceoff_starters(date=date_et)
-            if starters is None:
-                return None, {"ok": False, "error": "fetch_dailyfaceoff_starters returned None"}
-            if not isinstance(starters, list):
-                return None, {"ok": False, "error": "fetch_dailyfaceoff_starters did not return a list"}
-            return starters, {"ok": True}
-        except Exception as e2:
-            return None, {"ok": False, "error": str(e2)}
     except Exception as e:
         return None, {"ok": False, "error": str(e)}
 
@@ -580,7 +577,7 @@ def fetch_starters(date_et: str) -> Tuple[Optional[List[Dict[str, Any]]], Dict[s
 def build_starters_for_slate(
     slimmed_odds: List[Dict[str, Any]],
     starters_rows: List[Dict[str, Any]],
-) -> List[Dict[str, Any]]:
+) -> Tuple[List[Dict[str, Any]], List[str]]:
     teams_in_slate: set[str] = set()
     game_by_team: Dict[str, str] = {}
 
@@ -591,8 +588,8 @@ def build_starters_for_slate(
         if not gid:
             continue
 
-        away_abbrev = TEAM_NAME_TO_ABBREV.get(str(away_name).upper())
-        home_abbrev = TEAM_NAME_TO_ABBREV.get(str(home_name).upper())
+        away_abbrev = normalize_team_abbrev(away_name)
+        home_abbrev = normalize_team_abbrev(home_name)
         if not away_abbrev or not home_abbrev:
             continue
 
@@ -602,16 +599,21 @@ def build_starters_for_slate(
         game_by_team[home_abbrev] = gid
 
     out: List[Dict[str, Any]] = []
+    unknown_teams: List[str] = []
+
     for r in starters_rows or []:
         if not isinstance(r, dict):
             continue
 
-        team_abbrev = (
-            normalize_team_abbrev(r.get("team_abbrev"))
-            or normalize_team_abbrev(r.get("team"))
-            or normalize_team_abbrev(r.get("abbrev"))
-        )
-        if not team_abbrev or team_abbrev not in teams_in_slate:
+        team_raw = r.get("team_abbrev") or r.get("team") or r.get("abbrev")
+        team_abbrev = normalize_team_abbrev(team_raw)
+
+        if not team_abbrev:
+            if team_raw:
+                unknown_teams.append(str(team_raw))
+            continue
+
+        if team_abbrev not in teams_in_slate:
             continue
 
         goalie_name = (
@@ -624,7 +626,6 @@ def build_starters_for_slate(
             continue
 
         status = normalize_status(r.get("status") or r.get("starter_status") or r.get("confirmed"))
-
         gid = game_by_team.get(team_abbrev)
         if not gid:
             continue
@@ -639,7 +640,6 @@ def build_starters_for_slate(
             }
         )
 
-    # De-dupe within (id, team_abbrev) preferring confirmed > expected > unknown
     rank = {"confirmed": 2, "expected": 1, "unknown": 0}
     best: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for row in out:
@@ -648,7 +648,7 @@ def build_starters_for_slate(
         if cur is None or rank.get(row["status"], 0) > rank.get(cur["status"], 0):
             best[k] = row
 
-    return list(best.values())
+    return list(best.values()), sorted(set(unknown_teams))
 
 
 # --------------------------- rest join ---------------------------------------
@@ -669,8 +669,9 @@ def build_game_rest(
         commence = g.get("commence_time")
         away_name = g.get("away_team") or ""
         home_name = g.get("home_team") or ""
-        away_abbrev = TEAM_NAME_TO_ABBREV.get(str(away_name).upper())
-        home_abbrev = TEAM_NAME_TO_ABBREV.get(str(home_name).upper())
+
+        away_abbrev = normalize_team_abbrev(away_name)
+        home_abbrev = normalize_team_abbrev(home_name)
         if not gid or not commence or not away_abbrev or not home_abbrev:
             continue
 
@@ -682,12 +683,13 @@ def build_game_rest(
         home_rest = rest.get("home_rest_days")
         away_rest = rest.get("away_rest_days")
 
-        hr = _safe_float(home_rest)
-        ar = _safe_float(away_rest)
-        if hr is None or ar is None:
+        try:
+            if home_rest is None or away_rest is None:
+                rest_adv = None
+            else:
+                rest_adv = int(home_rest) - int(away_rest)
+        except Exception:
             rest_adv = None
-        else:
-            rest_adv = int(hr - ar)
 
         out.append(
             {
@@ -695,9 +697,9 @@ def build_game_rest(
                 "commence_time": commence,
                 "home_team": home_abbrev,
                 "away_team": away_abbrev,
-                "home_rest_days": int(hr) if hr is not None else None,
-                "away_rest_days": int(ar) if ar is not None else None,
-                "rest_adv_home": rest_adv,  # REQUIRED: numeric, computed as home - away
+                "home_rest_days": home_rest,
+                "away_rest_days": away_rest,
+                "rest_adv_home": rest_adv,
             }
         )
 
@@ -729,15 +731,16 @@ def main() -> int:
 
     if teams_df is not None and not teams_df.empty:
         slim_teams, league_avg_lambda = build_slim_teams_and_lambda(teams_df)
+        slim["teams"] = slim_teams
+        slim["league_avg_lambda"] = league_avg_lambda
+        validations["teams_count"] = len(slim_teams)
     else:
-        # Hard fallback to keep task running with sane baseline
+        # hard fallback that still passes task sanity check
         league_avg_lambda = 6.0
         baseline_team = league_avg_lambda / 2.0
-        slim_teams = [{"team_abbrev": ab, "xGF_pg": baseline_team, "xGA_pg": baseline_team} for ab in ALL_TEAM_ABBREVS_SORTED]
-
-    slim["teams"] = slim_teams
-    slim["league_avg_lambda"] = float(league_avg_lambda)
-    validations["teams_count"] = len(slim_teams)
+        slim["teams"] = [{"team_abbrev": ab, "xGF_pg": baseline_team, "xGA_pg": baseline_team} for ab in ALL_TEAM_ABBREVS_SORTED]
+        slim["league_avg_lambda"] = league_avg_lambda
+        validations["teams_count"] = len(slim["teams"])
 
     # ---------------- Goalies ----------------
     goalies_df, goalies_status = fetch_moneypuck_goalies()
@@ -745,19 +748,26 @@ def main() -> int:
 
     if goalies_df is not None and not goalies_df.empty:
         slim_goalies = build_slim_goalies(goalies_df)
+        slim["goalies"] = slim_goalies
+        validations["goalies_count"] = len(slim_goalies)
     else:
-        slim_goalies = []
-
-    slim["goalies"] = slim_goalies
-    validations["goalies_count"] = len(slim_goalies)
+        slim["goalies"] = []
+        validations["goalies_count"] = 0
 
     # ---------------- Starters ----------------
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
-    source_status["starters"] = starters_status
 
-    starters_rows = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
+    starters_rows, unknown_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
     validations["starters_count"] = len(starters_rows)
+
+    if starters_status.get("ok") is True:
+        if unknown_teams:
+            source_status["starters"] = {"ok": True, "unknown_teams": unknown_teams}
+        else:
+            source_status["starters"] = {"ok": True}
+    else:
+        source_status["starters"] = starters_status
 
     # ---------------- REST ----------------
     slate_for_rest: List[Dict[str, Any]] = []
@@ -767,9 +777,8 @@ def main() -> int:
         away_name = g.get("away_team") or ""
         home_name = g.get("home_team") or ""
 
-        away_abbrev = TEAM_NAME_TO_ABBREV.get(str(away_name).upper())
-        home_abbrev = TEAM_NAME_TO_ABBREV.get(str(home_name).upper())
-
+        away_abbrev = normalize_team_abbrev(away_name)
+        home_abbrev = normalize_team_abbrev(home_name)
         if not gid or not commence or not away_abbrev or not home_abbrev:
             continue
 
@@ -810,12 +819,6 @@ def main() -> int:
     # Pretty JSON output (requested)
     out_path = out_dir / "nhl_daily_min.json"
     with out_path.open("w", encoding="utf-8", newline="\n") as f:
-        json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
-        f.write("\n")
-
-    # Optional: keep the pretty slim file too
-    out_path_pretty = out_dir / "nhl_daily_slim.json"
-    with out_path_pretty.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(out_obj, f, ensure_ascii=False, indent=2, sort_keys=True)
         f.write("\n")
 
