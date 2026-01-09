@@ -20,6 +20,44 @@ SPORT_KEY = "icehockey_nhl"
 DAILYFACEOFF_BASE = "https://www.dailyfaceoff.com"
 
 
+# --------------------------- TEAM NAME → ABBREV -------------------------------
+
+TEAM_NAME_TO_ABBREV = {
+    "ANAHEIM DUCKS": "ANA",
+    "ARIZONA COYOTES": "ARI",
+    "BOSTON BRUINS": "BOS",
+    "BUFFALO SABRES": "BUF",
+    "CALGARY FLAMES": "CGY",
+    "CAROLINA HURRICANES": "CAR",
+    "CHICAGO BLACKHAWKS": "CHI",
+    "COLORADO AVALANCHE": "COL",
+    "COLUMBUS BLUE JACKETS": "CBJ",
+    "DALLAS STARS": "DAL",
+    "DETROIT RED WINGS": "DET",
+    "EDMONTON OILERS": "EDM",
+    "FLORIDA PANTHERS": "FLA",
+    "LOS ANGELES KINGS": "LAK",
+    "MINNESOTA WILD": "MIN",
+    "MONTREAL CANADIENS": "MTL",
+    "NASHVILLE PREDATORS": "NSH",
+    "NEW JERSEY DEVILS": "NJD",
+    "NEW YORK ISLANDERS": "NYI",
+    "NEW YORK RANGERS": "NYR",
+    "OTTAWA SENATORS": "OTT",
+    "PHILADELPHIA FLYERS": "PHI",
+    "PITTSBURGH PENGUINS": "PIT",
+    "SAN JOSE SHARKS": "SJS",
+    "SEATTLE KRAKEN": "SEA",
+    "ST. LOUIS BLUES": "STL",
+    "TAMPA BAY LIGHTNING": "TBL",
+    "TORONTO MAPLE LEAFS": "TOR",
+    "VANCOUVER CANUCKS": "VAN",
+    "VEGAS GOLDEN KNIGHTS": "VGK",
+    "WASHINGTON CAPITALS": "WSH",
+    "WINNIPEG JETS": "WPG",
+}
+
+
 # --------------------------- time helpers ------------------------------------
 
 def utc_now_iso() -> str:
@@ -46,18 +84,6 @@ def http_get_json(url: str, headers: Optional[Dict[str, str]] = None, timeout: i
     with urlopen(req, timeout=timeout) as resp:
         raw = resp.read()
     return json.loads(raw.decode("utf-8")), raw
-
-
-def http_get_bytes(url: str, headers: Optional[Dict[str, str]] = None, timeout: int = 30) -> bytes:
-    req = Request(url, headers=headers or {})
-    with urlopen(req, timeout=timeout) as resp:
-        return resp.read()
-
-
-def fetch_csv(url: str) -> Tuple[pd.DataFrame, str]:
-    raw = http_get_bytes(url)
-    df = pd.read_csv(pd.io.common.BytesIO(raw))
-    return df, sha256_bytes(raw)
 
 
 # --------------------------- odds: current -----------------------------------
@@ -92,11 +118,6 @@ def fetch_odds_current() -> Tuple[Optional[List[Dict[str, Any]]], Dict[str, Any]
 # --------------------------- main --------------------------------------------
 
 def main() -> int:
-    season = os.environ.get("MP_SEASON", "2025").strip()
-
-    out_json = os.environ.get("OUT_JSON", "data/nhl_daily_slim.json").strip()
-    out_yml = os.environ.get("OUT_YML", "data/nhl_daily_slim.yml").strip()
-
     generated_at = utc_now_iso()
     data_date = et_today_date_str()
 
@@ -108,23 +129,24 @@ def main() -> int:
     # ---------------- Odds ----------------
     odds_payload, odds_status, odds_sha = fetch_odds_current()
     source_status["odds_current"] = odds_status
-    if odds_sha:
-        inputs_hash["odds_current_sha256"] = odds_sha
 
     odds_payload = odds_payload or []
     slim["odds_current"] = odds_payload
     validations["odds_games_count"] = len(odds_payload)
 
-    # ---------------- REST (FIXED, FULLY WIRED) ----------------
+    # ---------------- REST (FIXED) ----------------
     slate_for_rest: List[Dict[str, Any]] = []
 
     for g in odds_payload:
-        away = g.get("away_team")
-        home = g.get("home_team")
+        away_name = g.get("away_team", "").upper()
+        home_name = g.get("home_team", "").upper()
         commence = g.get("commence_time")
 
+        away = TEAM_NAME_TO_ABBREV.get(away_name)
+        home = TEAM_NAME_TO_ABBREV.get(home_name)
+
         if not away or not home or not commence:
-            continue
+            continue  # skip safely instead of crashing
 
         game_key = f"{away}_vs_{home}_{commence[:10]}"
 
@@ -141,7 +163,7 @@ def main() -> int:
     validations["rest_games_count"] = len(slim["rest"])
 
     # ---------------- OUTPUT ----------------
-    out_obj: Dict[str, Any] = {
+    out_obj = {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": generated_at,
         "data_date_et": data_date,
@@ -151,16 +173,9 @@ def main() -> int:
         "slim": slim,
     }
 
-    os.makedirs(os.path.dirname(out_json), exist_ok=True)
-    with open(out_json, "w", encoding="utf-8") as f:
+    os.makedirs("data", exist_ok=True)
+    with open("data/nhl_daily_slim.json", "w", encoding="utf-8") as f:
         json.dump(out_obj, f, ensure_ascii=False, separators=(",", ":"), sort_keys=False)
-
-    try:
-        import yaml
-        with open(out_yml, "w", encoding="utf-8") as f:
-            yaml.safe_dump(out_obj, f, sort_keys=False, allow_unicode=True)
-    except Exception:
-        pass
 
     return 0
 
