@@ -5,7 +5,7 @@ import datetime as dt
 import hashlib
 import json
 import os
-import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -132,6 +132,10 @@ def main() -> int:
     odds_payload, odds_status, odds_sha = fetch_odds_current()
     source_status["odds_current"] = odds_status
 
+    # Store input hashes when available (helps debugging + reproducibility)
+    if odds_sha:
+        inputs_hash["odds_current_sha256"] = odds_sha
+
     odds_payload = odds_payload or []
     slim["odds_current"] = odds_payload
     validations["odds_games_count"] = len(odds_payload)
@@ -175,9 +179,18 @@ def main() -> int:
         "slim": slim,
     }
 
-    os.makedirs("data", exist_ok=True)
-    with open("data/nhl_daily_slim.json", "w", encoding="utf-8") as f:
-        json.dump(out_obj, f, ensure_ascii=False, separators=(",", ":"), sort_keys=False)
+    # Write pretty (multi-line) JSON so RAW view + web dumps can parse reliably
+    out_path = Path("data/nhl_daily_slim.json")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", encoding="utf-8", newline="\n") as f:
+        json.dump(
+            out_obj,
+            f,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        f.write("\n")
 
     return 0
 
