@@ -1,7 +1,7 @@
 {
   "data_date_et": "2026-01-09",
-  "generated_at_utc": "2026-01-09T18:09:03Z",
-  "schema_version": "1.0.10",
+  "generated_at_utc": "2026-01-09T18:19:22Z",
+  "schema_version": "1.0.11",
   "slim": {
     "game_rest": [
       {
@@ -157,21 +157,21 @@
         "commence_time": "2026-01-10T01:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -118,
-            "home_book": "betrivers",
-            "home_price": 110
+            "away_book": "bovada",
+            "away_price": -120,
+            "home_book": "fanduel",
+            "home_price": 112
           },
           "consensus_median": {
             "away_price": -125.0,
-            "home_price": 104.0
+            "home_price": 105.0
           }
         },
         "home_team": "Chicago Blackhawks",
         "id": "WSH_vs_CHI_2026-01-10",
         "totals": {
           "best": {
-            "over_book": "bovada",
+            "over_book": "betmgm",
             "over_price": -110,
             "under_book": "lowvig",
             "under_price": 100
@@ -211,9 +211,9 @@
         "commence_time": "2026-01-10T02:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
+            "away_book": "lowvig",
             "away_price": 155,
-            "home_book": "lowvig",
+            "home_book": "betus",
             "home_price": -175
           },
           "consensus_median": {
@@ -266,13 +266,13 @@
         "h2h": {
           "best": {
             "away_book": "betonlineag",
-            "away_price": 123,
+            "away_price": 121,
             "home_book": "fanduel",
             "home_price": -134
           },
           "consensus_median": {
             "away_price": 118.0,
-            "home_price": -141.0
+            "home_price": -139.5
           }
         },
         "home_team": "Pittsburgh Penguins",
@@ -306,8 +306,8 @@
         "id": "CBJ_vs_COL_2026-01-10",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": -114,
+            "over_book": "draftkings",
+            "over_price": -115,
             "under_book": "lowvig",
             "under_price": 104
           },
