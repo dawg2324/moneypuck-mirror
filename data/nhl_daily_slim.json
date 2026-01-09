@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-09",
-  "generated_at_utc": "2026-01-09T18:37:41Z",
+  "generated_at_utc": "2026-01-09T18:46:46Z",
   "schema_version": "1.0.13",
   "slim": {
     "game_rest": [
@@ -568,8 +568,8 @@
             "home_price": -230
           },
           "consensus_median": {
-            "away_price": 190.0,
-            "home_price": -244.0
+            "away_price": 197.5,
+            "home_price": -256.5
           }
         },
         "home_team": "Vegas Golden Knights",
@@ -760,12 +760,12 @@
       "ok": true
     },
     "starters": {
-      "error": "KeyError: Utah Mammoth",
-      "ok": false,
-      "patched_maps": 0,
-      "unmapped_teams": [
-        "Utah Mammoth"
-      ]
+      "games_found": 1,
+      "note": "no starters posted yet",
+      "ok": true,
+      "source": "fallback_scrape",
+      "upstream_keyerror": "'Utah Mammoth'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-01-09"
     },
     "teams": {
       "ok": true
