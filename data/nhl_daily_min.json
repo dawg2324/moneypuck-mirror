@@ -1,7 +1,7 @@
 {
   "data_date_et": "2026-01-09",
-  "generated_at_utc": "2026-01-09T18:04:32Z",
-  "schema_version": "1.0.9",
+  "generated_at_utc": "2026-01-09T18:09:03Z",
+  "schema_version": "1.0.10",
   "slim": {
     "game_rest": [
       {
@@ -164,7 +164,7 @@
           },
           "consensus_median": {
             "away_price": -125.0,
-            "home_price": 105.0
+            "home_price": 104.0
           }
         },
         "home_team": "Chicago Blackhawks",
@@ -271,8 +271,8 @@
             "home_price": -134
           },
           "consensus_median": {
-            "away_price": 117.5,
-            "home_price": -140.0
+            "away_price": 118.0,
+            "home_price": -141.0
           }
         },
         "home_team": "Pittsburgh Penguins",
@@ -433,7 +433,7 @@
             "home_price": 126
           },
           "consensus_median": {
-            "away_price": -144.5,
+            "away_price": -146.5,
             "home_price": 123.0
           }
         },
@@ -760,8 +760,8 @@
       "ok": true
     },
     "starters": {
-      "error": "'Utah Mammoth'",
-      "ok": false
+      "ok": true,
+      "partial_error": "KeyError: 'Utah Mammoth'"
     },
     "teams": {
       "ok": true
