@@ -35,9 +35,13 @@ jobs:
             exit 0
           fi
 
-      - name: Build nhl_daily_slim.json
+      - name: Build nhl_daily JSON outputs
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_API_REGIONS: us
+          ODDS_API_MARKETS: h2h,totals
+          STORE_FULL_ODDS: "0"
+          PYTHONUTF8: "1"
         run: |
           python -m scripts.build_nhl_daily
 
@@ -46,6 +50,10 @@ jobs:
           ls -la
           ls -la data || true
           ls -la data/debug || true
+
+          echo "=== DEBUG: show output sizes ==="
+          wc -c data/nhl_daily_slim.json || true
+          wc -c data/nhl_daily_min.json || true
 
           echo "=== DEBUG: find any DailyFaceoff HTML ==="
           find . -type f -name "dailyfaceoff_starting_goalies_*.html" -print || true
@@ -67,12 +75,16 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
 
-            git add data/nhl_daily_slim.json
+            # Ensure consistent newlines for committed JSON
+            git config core.autocrlf false
 
-            # If you want debug HTML to appear in the repo, uncomment these:
+            git add data/nhl_daily_slim.json
+            git add data/nhl_daily_min.json
+
+            # If you want debug HTML in repo, uncomment:
             # git add data/debug/dailyfaceoff_starting_goalies_*.html || true
 
-            git commit -m "Update nhl_daily_slim.json"
+            git commit -m "Update nhl_daily outputs"
             git push
           else
             echo "No changes detected."
