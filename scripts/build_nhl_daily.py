@@ -17,7 +17,7 @@ import pandas as pd
 import scripts.fetch_starters_dailyfaceoff as dailyfaceoff
 from scripts.compute_rest import build_slim_rest
 
-SCHEMA_VERSION = "1.0.12"
+SCHEMA_VERSION = "1.0.13"
 SPORT_KEY = "icehockey_nhl"
 DAILYFACEOFF_BASE = "https://www.dailyfaceoff.com"
 
@@ -25,7 +25,7 @@ MP_TEAMS_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/re
 MP_GOALIES_URL = "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/goalies.csv"
 
 
-# --------------------------- TEAM NAME → ABBREV -------------------------------
+# --------------------------- TEAM NAME -> ABBREV -------------------------------
 
 TEAM_NAME_TO_ABBREV: Dict[str, str] = {
     "ANAHEIM DUCKS": "ANA",
@@ -61,7 +61,7 @@ TEAM_NAME_TO_ABBREV: Dict[str, str] = {
     "VEGAS GOLDEN KNIGHTS": "VGK",
     "WASHINGTON CAPITALS": "WSH",
     "WINNIPEG JETS": "WPG",
-    # Utah aliases
+    # Utah aliases (must hit from any source)
     "UTAH": "UTA",
     "UTAH HOCKEY CLUB": "UTA",
     "UTAH HC": "UTA",
@@ -519,7 +519,6 @@ def build_slim_goalies(goalies_df: pd.DataFrame) -> List[Dict[str, Any]]:
             continue
 
         gid = goalie_id_from_name(name)
-
         if gid not in rows or (rows[gid].get("GSAx_per60") is None and gsae60 is not None):
             rows[gid] = {"goalie_id": gid, "name": name, "GSAx": gsae, "GSAx_per60": gsae60}
 
@@ -544,88 +543,92 @@ def fetch_moneypuck_goalies() -> Tuple[Optional[pd.DataFrame], Dict[str, Any]]:
 
 # --------------------------- starters (DailyFaceoff) --------------------------
 
-def _looks_like_team_map(d: Dict[Any, Any]) -> bool:
-    # Heuristic: team maps usually have string keys and 3-letter uppercase string values.
+def _dict_looks_like_it_uses_team_names(d: Dict[Any, Any]) -> bool:
+    """
+    More permissive than the old heuristic.
+    If a dict contains any key that normalizes to something we can map, treat it as patchable.
+    """
     if not d:
         return False
-    sk = 0
-    sv = 0
-    for k, v in list(d.items())[:50]:
-        if isinstance(k, str):
-            sk += 1
-        if isinstance(v, str) and len(v) == 3 and v.isupper():
-            sv += 1
-    return sk >= 5 and sv >= 5
+
+    checked = 0
+    hits = 0
+    for k in d.keys():
+        if checked >= 300:
+            break
+        checked += 1
+        if not isinstance(k, str):
+            continue
+        nk = normalize_team_key(k)
+        if nk in TEAM_NAME_TO_ABBREV:
+            hits += 1
+            if hits >= 2:
+                return True
+    return False
 
 
 def _patch_dailyfaceoff_team_maps() -> int:
     """
-    Patch any module-level dict inside scripts.fetch_starters_dailyfaceoff that looks like a team map.
+    Patch any module-level dict inside scripts.fetch_starters_dailyfaceoff that appears to use team names.
     Returns how many dict objects were updated.
     """
-    alias_pairs = {
-        # Title case variants
+    variants: Dict[str, str] = {}
+
+    # Add both normalized and common raw variants.
+    for raw, ab in {
         "Utah": "UTA",
         "Utah Hockey Club": "UTA",
         "Utah HC": "UTA",
         "Utah Mammoth": "UTA",
         "Arizona Coyotes": "UTA",
-        # Uppercase normalized variants
         "UTAH": "UTA",
         "UTAH HOCKEY CLUB": "UTA",
         "UTAH HC": "UTA",
         "UTAH MAMMOTH": "UTA",
         "ARIZONA COYOTES": "UTA",
-    }
-
-    variants: Dict[str, str] = {}
-    for k, v in alias_pairs.items():
-        variants[k] = v
-        variants[k.strip()] = v
-        variants[k.strip().upper()] = v
-        variants[normalize_team_key(k)] = v
+    }.items():
+        variants[raw] = ab
+        variants[raw.strip()] = ab
+        variants[raw.strip().upper()] = ab
+        variants[normalize_team_key(raw)] = ab
 
     updated = 0
     for _, obj in dailyfaceoff.__dict__.items():
-        if isinstance(obj, dict) and _looks_like_team_map(obj):
+        if isinstance(obj, dict) and _dict_looks_like_it_uses_team_names(obj):
             obj.update(variants)
             updated += 1
 
     return updated
 
 
-def _extract_unmapped_from_keyerror(e: KeyError) -> str:
-    # KeyError args can be weird, normalize to a readable string
-    if e.args:
-        return str(e.args[0])
-    return str(e)
-
-
 def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """
+    Behavior:
     - Always pass date_et.
-    - Try to patch upstream module-level team maps so Utah names resolve.
-    - If mapping still fails, surface as ok:false with unmapped_teams.
+    - Patch upstream module-level team maps if possible.
+    - If KeyError happens, do not mask it: ok=false and include unmapped_teams.
+    - If fetch succeeds but returns empty, ok=true with starters_note.
     """
     patched_maps = _patch_dailyfaceoff_team_maps()
 
     try:
         starters = dailyfaceoff.fetch_dailyfaceoff_starters(date_et=date_et)
+
         if starters is None:
-            return [], {"ok": True, "note": "no starters returned", "patched_maps": patched_maps}
+            return [], {"ok": True, "patched_maps": patched_maps, "starters_note": "no starters posted yet"}
+
         if not isinstance(starters, list):
-            return [], {"ok": False, "error": "starters not a list", "patched_maps": patched_maps}
+            return [], {"ok": False, "patched_maps": patched_maps, "error": "starters not a list"}
+
+        if len(starters) == 0:
+            return [], {"ok": True, "patched_maps": patched_maps, "starters_note": "no starters posted yet"}
+
         return starters, {"ok": True, "patched_maps": patched_maps}
     except KeyError as e:
-        unmapped = _extract_unmapped_from_keyerror(e)
-        return [], {
-            "ok": False,
-            "error": f"KeyError: {unmapped}",
-            "unmapped_teams": [unmapped],
-            "patched_maps": patched_maps,
-        }
+        unmapped = str(e.args[0]) if e.args else str(e)
+        return [], {"ok": False, "patched_maps": patched_maps, "unmapped_teams": [unmapped], "error": f"KeyError: {unmapped}"}
     except Exception as e:
-        return [], {"ok": False, "error": str(e), "patched_maps": patched_maps}
+        return [], {"ok": False, "patched_maps": patched_maps, "error": str(e)}
 
 
 def build_starters_for_slate(
@@ -810,13 +813,12 @@ def main() -> int:
         slim["goalies"] = []
         validations["goalies_count"] = 0
 
-    # Starters
+    # Starters (do not mask failure, but allow rest/odds to continue)
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
     starters_rows, unknown_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
     validations["starters_count"] = len(starters_rows)
 
-    # Do not mask integrity failures
     st: Dict[str, Any] = dict(starters_status)
     if unknown_teams:
         st["unmapped_teams_from_rows"] = unknown_teams
