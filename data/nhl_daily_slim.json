@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-10",
-  "generated_at_utc": "2026-01-10T14:27:20Z",
+  "generated_at_utc": "2026-01-10T15:29:24Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -146,8 +146,8 @@
           "best": {
             "over_book": "betrivers",
             "over_price": 100,
-            "under_book": "betonlineag",
-            "under_price": -104
+            "under_book": "betmgm",
+            "under_price": -105
           },
           "line": 6.0
         }
@@ -171,8 +171,8 @@
         "id": "CGY_vs_PIT_2026-01-10",
         "totals": {
           "best": {
-            "over_book": "betus",
-            "over_price": -115,
+            "over_book": "betonlineag",
+            "over_price": -117,
             "under_book": "betonlineag",
             "under_price": 101
           },
@@ -185,23 +185,23 @@
         "h2h": {
           "best": {
             "away_book": "bovada",
-            "away_price": 250,
+            "away_price": 260,
             "home_book": "lowvig",
             "home_price": -275
           },
           "consensus_median": {
             "away_price": 240.0,
-            "home_price": -298.0
+            "home_price": -300.0
           }
         },
         "home_team": "Colorado Avalanche",
         "id": "CBJ_vs_COL_2026-01-10",
         "totals": {
           "best": {
-            "over_book": "fanduel",
+            "over_book": "betus",
             "over_price": -130,
             "under_book": "lowvig",
-            "under_price": 117
+            "under_price": 128
           },
           "line": 6.5
         }
@@ -212,12 +212,12 @@
         "h2h": {
           "best": {
             "away_book": "betonlineag",
-            "away_price": -160,
-            "home_book": "bovada",
+            "away_price": -162,
+            "home_book": "mybookieag",
             "home_price": 150
           },
           "consensus_median": {
-            "away_price": -170.0,
+            "away_price": -175.0,
             "home_price": 145.0
           }
         },
@@ -225,10 +225,10 @@
         "id": "DAL_vs_SJS_2026-01-10",
         "totals": {
           "best": {
-            "over_book": "draftkings",
-            "over_price": -110,
+            "over_book": "betrivers",
+            "over_price": -112,
             "under_book": "betonlineag",
-            "under_price": -105
+            "under_price": -101
           },
           "line": 6.5
         }
@@ -240,11 +240,11 @@
           "best": {
             "away_book": "betonlineag",
             "away_price": 136,
-            "home_book": "bovada",
-            "home_price": -147
+            "home_book": "betrivers",
+            "home_price": -150
           },
           "consensus_median": {
-            "away_price": 129.0,
+            "away_price": 130.0,
             "home_price": -155.0
           }
         },
@@ -265,14 +265,14 @@
         "commence_time": "2026-01-11T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": 240,
+            "away_book": "bovada",
+            "away_price": 250,
             "home_book": "betonlineag",
-            "home_price": -270
+            "home_price": -280
           },
           "consensus_median": {
-            "away_price": 234.0,
-            "home_price": -290.0
+            "away_price": 240.0,
+            "home_price": -295.0
           }
         },
         "home_team": "Carolina Hurricanes",
@@ -292,10 +292,10 @@
         "commence_time": "2026-01-11T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -102,
-            "home_book": "fanduel",
-            "home_price": -110
+            "away_book": "bovada",
+            "away_price": 102,
+            "home_book": "lowvig",
+            "home_price": -112
           },
           "consensus_median": {
             "away_price": -105.0,
@@ -306,12 +306,12 @@
         "id": "FLA_vs_OTT_2026-01-11",
         "totals": {
           "best": {
-            "over_book": "betrivers",
-            "over_price": -121,
-            "under_book": "lowvig",
-            "under_price": 109
+            "over_book": "bovada",
+            "over_price": 102,
+            "under_book": "fanduel",
+            "under_price": -118
           },
-          "line": 6.0
+          "line": 6.5
         }
       },
       {
@@ -352,17 +352,17 @@
             "home_price": -153
           },
           "consensus_median": {
-            "away_price": 136.0,
-            "home_price": -164.0
+            "away_price": 135.0,
+            "home_price": -160.0
           }
         },
         "home_team": "Toronto Maple Leafs",
         "id": "VAN_vs_TOR_2026-01-11",
         "totals": {
           "best": {
-            "over_book": "bovada",
-            "over_price": -115,
-            "under_book": "lowvig",
+            "over_book": "mybookieag",
+            "over_price": -118,
+            "under_book": "bovada",
             "under_price": 102
           },
           "line": 6.0
@@ -387,10 +387,10 @@
         "id": "CHI_vs_NSH_2026-01-11",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -108,
-            "under_book": "betrivers",
-            "under_price": -104
+            "over_book": "bovada",
+            "over_price": -115,
+            "under_book": "lowvig",
+            "under_price": 105
           },
           "line": 6.0
         }
@@ -429,8 +429,8 @@
           "best": {
             "away_book": "bovada",
             "away_price": 160,
-            "home_book": "betonlineag",
-            "home_price": -175
+            "home_book": "mybookieag",
+            "home_price": -174
           },
           "consensus_median": {
             "away_price": 153.0,
@@ -443,8 +443,8 @@
           "best": {
             "over_book": "betonlineag",
             "over_price": -115,
-            "under_book": "bovada",
-            "under_price": 102
+            "under_book": "betrivers",
+            "under_price": 100
           },
           "line": 6.0
         }
@@ -461,7 +461,7 @@
           },
           "consensus_median": {
             "away_price": 218.0,
-            "home_price": -265.0
+            "home_price": -260.0
           }
         },
         "home_team": "Vegas Golden Knights",
