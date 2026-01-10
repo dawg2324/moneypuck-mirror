@@ -19,6 +19,11 @@ import pandas as pd
 from scripts.fetch_starters_dailyfaceoff import fetch_dailyfaceoff_starters
 from scripts.compute_rest import build_slim_rest
 
+try:
+    from zoneinfo import ZoneInfo
+except Exception:
+    ZoneInfo = None  # type: ignore
+
 SCHEMA_VERSION = "1.0.14"
 SPORT_KEY = "icehockey_nhl"
 
@@ -76,17 +81,55 @@ ALL_TEAM_ABBREVS_SORTED = sorted(ABBREV_SET)
 
 # --------------------------- time helpers ------------------------------------
 
+_ET_TZ = ZoneInfo("America/New_York") if ZoneInfo is not None else None
+
+
 def utc_now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def _parse_iso_utc(s: Any) -> Optional[dt.datetime]:
+    """
+    Parse ISO-8601 to an aware UTC datetime.
+    Accepts "Z" or "+00:00". If naive, assume UTC.
+    """
+    if not isinstance(s, str) or not s.strip():
+        return None
+    try:
+        t = dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=dt.timezone.utc)
+        return t.astimezone(dt.timezone.utc)
+    except Exception:
+        return None
+
+
+def _to_et(t_utc: dt.datetime) -> dt.datetime:
+    if t_utc.tzinfo is None:
+        t_utc = t_utc.replace(tzinfo=dt.timezone.utc)
+    if _ET_TZ is not None:
+        return t_utc.astimezone(_ET_TZ)
+    # Fallback: fixed offset (can be wrong during DST, but ZoneInfo should exist on GH runners)
+    return t_utc.astimezone(dt.timezone(dt.timedelta(hours=-5)))
+
+
 def et_today_date_str() -> str:
     try:
-        from zoneinfo import ZoneInfo
-        et = dt.datetime.now(ZoneInfo("America/New_York"))
-        return et.date().isoformat()
+        if _ET_TZ is not None:
+            return dt.datetime.now(_ET_TZ).date().isoformat()
+        return _to_et(dt.datetime.now(dt.timezone.utc)).date().isoformat()
     except Exception:
         return dt.datetime.now(dt.timezone.utc).date().isoformat()
+
+
+def et_date_from_commence_iso(commence_time_utc: Any) -> Optional[str]:
+    """
+    Return ET date (YYYY-MM-DD) for an ISO commence_time in UTC.
+    """
+    t = _parse_iso_utc(commence_time_utc)
+    if t is None:
+        return None
+    return _to_et(t).date().isoformat()
 
 
 # --------------------------- network helpers ---------------------------------
@@ -586,7 +629,6 @@ _STATUS_WORDS = {"confirmed", "expected", "probable", "projected", "likely", "un
 
 
 def _is_iso_datetime_token(s: str) -> bool:
-    # examples: 2025-10-07T21:00:00.000Z
     return bool(re.match(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}", s))
 
 
@@ -600,23 +642,15 @@ def _is_goalie_name_candidate(s: str) -> bool:
         return False
     if _is_iso_datetime_token(s.strip()):
         return False
-    # reject obvious non-name tokens
     bad_prefixes = ("w-l-otl", "gaa:", "sv%", "so:", "show more", "line combos", "news", "stats", "schedule", "source:")
     if low.startswith(bad_prefixes):
         return False
-    # names usually have a space
     if " " not in s.strip():
         return False
-    # allow letters, spaces, apostrophe, hyphen, period
     return bool(re.match(r"^[A-Za-z .'\-]+$", s.strip()))
 
 
 def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    """
-    Fallback scraper that does not use any external mapping logic.
-    Returns rows shaped like:
-      { "team": "...", "team_abbrev": "UTA", "goalie_name": "...", "status": "confirmed|expected|unknown" }
-    """
     url = f"https://www.dailyfaceoff.com/starting-goalies/{date_et}"
     try:
         raw = http_get_bytes(url, headers={"User-Agent": "nhl-daily-slim"}, timeout=30)
@@ -637,14 +671,12 @@ def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, 
     i = 0
     while i < len(tokens):
         t = tokens[i]
-        # matchup token looks like "Team A at Team B"
         if " at " in t and len(t) < 120:
             parts = t.split(" at ")
             if len(parts) == 2:
                 away_team = parts[0].strip()
                 home_team = parts[1].strip()
 
-                # find commence time next
                 j = i + 1
                 commence: Optional[str] = None
                 while j < len(tokens) and j < i + 20:
@@ -653,14 +685,12 @@ def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, 
                         break
                     j += 1
 
-                # after commence, next two goalie blocks (away then home)
                 goalie_blocks: List[Tuple[str, str]] = []
                 k = (j + 1) if commence else (i + 1)
                 while k < len(tokens) and len(goalie_blocks) < 2:
                     cand = tokens[k]
                     if _is_goalie_name_candidate(cand):
                         name = cand.strip()
-                        # find next status word
                         m = k + 1
                         status = "unknown"
                         while m < len(tokens) and m < k + 10:
@@ -681,7 +711,6 @@ def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, 
                 if not home_abbrev:
                     unmapped_teams.append(home_team)
 
-                # If teams can map, emit rows even if goalie blocks are missing
                 if away_abbrev and len(goalie_blocks) >= 1:
                     rows.append(
                         {
@@ -709,7 +738,6 @@ def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, 
 
         i += 1
 
-    # If page has games but no goalies yet, treat as ok with note
     if games_found > 0 and not rows:
         return [], {"ok": True, "note": "no starters posted yet", "url": url, "games_found": games_found}
 
@@ -722,12 +750,6 @@ def _scrape_dailyfaceoff_starting_goalies(date_et: str) -> Tuple[List[Dict[str, 
 
 
 def fetch_starters(date_et: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    """
-    Behavior:
-    - Always pass date_et into the upstream helper.
-    - If upstream throws KeyError (Utah Mammoth), fallback to scraping the Starting Goalies page.
-    - Never crash the full run because of starters.
-    """
     try:
         starters = fetch_dailyfaceoff_starters(date_et=date_et)
         if starters is None:
@@ -899,9 +921,31 @@ def main() -> int:
     source_status["odds_current"] = odds_status
     odds_payload = odds_payload or []
 
-    slimmed_odds, _odds_meta = slim_odds_current(odds_payload)
+    # Build full odds first, then filter to ET "today" only.
+    slimmed_odds_all, _odds_meta = slim_odds_current(odds_payload)
+
+    kept: List[Dict[str, Any]] = []
+    dropped_by_date = 0
+    dropped_missing_time = 0
+    for g in slimmed_odds_all:
+        commence = g.get("commence_time")
+        et_date = et_date_from_commence_iso(commence)
+        if et_date is None:
+            dropped_missing_time += 1
+            continue
+        if et_date != data_date:
+            dropped_by_date += 1
+            continue
+        kept.append(g)
+
+    slimmed_odds = kept
+
+    # Keep started games: no filtering on current time, only on ET calendar date.
     slim["odds_current"] = slimmed_odds
     validations["odds_games_slim_count"] = len(slimmed_odds)
+    validations["odds_games_unfiltered_count"] = len(slimmed_odds_all)
+    validations["odds_games_filtered_out_by_date"] = dropped_by_date
+    validations["odds_games_filtered_out_missing_commence_time"] = dropped_missing_time
 
     # Teams baseline first (guarantees slim.teams exists even if parsing explodes)
     league_avg_lambda = 6.0
@@ -943,7 +987,7 @@ def main() -> int:
         slim["goalies"] = []
         validations["goalies_count"] = 0
 
-    # Starters
+    # Starters (for today's ET slate)
     starters_rows_raw, starters_status = fetch_starters(date_et=data_date)
     starters_rows, unmapped_teams = build_starters_for_slate(slimmed_odds, starters_rows_raw or [])
     slim["starters"] = starters_rows
@@ -965,7 +1009,7 @@ def main() -> int:
 
     source_status["starters"] = st_out
 
-    # Rest
+    # Rest (for today's ET slate)
     slate_for_rest: List[Dict[str, Any]] = []
     for g in slimmed_odds:
         gid = g.get("id")
