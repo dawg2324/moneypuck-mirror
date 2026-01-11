@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-11",
-  "generated_at_utc": "2026-01-11T14:27:27Z",
+  "generated_at_utc": "2026-01-11T15:29:40Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -85,14 +85,14 @@
         "commence_time": "2026-01-11T22:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": -114,
+            "away_book": "lowvig",
+            "away_price": -113,
             "home_book": "draftkings",
             "home_price": 102
           },
           "consensus_median": {
-            "away_price": -117.0,
-            "home_price": 100.0
+            "away_price": -118.0,
+            "home_price": -101.0
           }
         },
         "home_team": "Boston Bruins",
@@ -101,8 +101,8 @@
           "best": {
             "over_book": "lowvig",
             "over_price": 105,
-            "under_book": "bovada",
-            "under_price": -115
+            "under_book": "mybookieag",
+            "under_price": -118
           },
           "line": 6.5
         }
@@ -113,13 +113,13 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": 158,
-            "home_book": "betrivers",
-            "home_price": -180
+            "away_price": 160,
+            "home_book": "bovada",
+            "home_price": -175
           },
           "consensus_median": {
             "away_price": 155.0,
-            "home_price": -180.0
+            "home_price": -182.0
           }
         },
         "home_team": "Utah Mammoth",
@@ -168,11 +168,11 @@
           "best": {
             "away_book": "fanduel",
             "away_price": -164,
-            "home_book": "lowvig",
+            "home_book": "bovada",
             "home_price": 145
           },
           "consensus_median": {
-            "away_price": -168.0,
+            "away_price": -166.0,
             "home_price": 142.0
           }
         },
@@ -379,10 +379,10 @@
     "game_rest_count": 5,
     "goalies_count": 0,
     "league_avg_lambda": 6.18697746263188,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 8,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 5,
-    "odds_games_unfiltered_count": 5,
+    "odds_games_unfiltered_count": 13,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
