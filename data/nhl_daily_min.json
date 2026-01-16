@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-16",
-  "generated_at_utc": "2026-01-16T14:33:13Z",
+  "generated_at_utc": "2026-01-16T15:35:01Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -58,24 +58,24 @@
         "commence_time": "2026-01-17T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 139,
+            "away_book": "bovada",
+            "away_price": 145,
             "home_book": "betrivers",
             "home_price": -155
           },
           "consensus_median": {
             "away_price": 136.0,
-            "home_price": -160.0
+            "home_price": -162.0
           }
         },
         "home_team": "Carolina Hurricanes",
         "id": "FLA_vs_CAR_2026-01-17",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": -114,
-            "under_book": "bovada",
-            "under_price": 100
+            "over_book": "bovada",
+            "over_price": -110,
+            "under_book": "betmgm",
+            "under_price": -102
           },
           "line": 6.0
         }
@@ -119,7 +119,7 @@
           },
           "consensus_median": {
             "away_price": -189.0,
-            "home_price": 161.0
+            "home_price": 160.0
           }
         },
         "home_team": "St Louis Blues",
@@ -139,7 +139,7 @@
         "commence_time": "2026-01-17T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
+            "away_book": "betrivers",
             "away_price": 255,
             "home_book": "lowvig",
             "home_price": -296
@@ -168,11 +168,11 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 135,
-            "home_book": "betmgm",
-            "home_price": -150
+            "home_book": "betus",
+            "home_price": -145
           },
           "consensus_median": {
-            "away_price": 132.0,
+            "away_price": 129.0,
             "home_price": -155.0
           }
         },
