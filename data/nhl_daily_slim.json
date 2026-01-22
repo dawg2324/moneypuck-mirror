@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-22",
-  "generated_at_utc": "2026-01-22T14:39:14Z",
+  "generated_at_utc": "2026-01-22T15:43:14Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -78,8 +78,8 @@
           "best": {
             "away_book": "lowvig",
             "away_price": -129,
-            "home_book": "mybookieag",
-            "home_price": 116
+            "home_book": "betmgm",
+            "home_price": 115
           },
           "consensus_median": {
             "away_price": -134.0,
@@ -130,22 +130,22 @@
         "commence_time": "2026-01-23T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betmgm",
-            "away_price": -120,
+            "away_book": "betus",
+            "away_price": -115,
             "home_book": "betonlineag",
-            "home_price": 108
+            "home_price": 102
           },
           "consensus_median": {
-            "away_price": -124.0,
-            "home_price": 105.0
+            "away_price": -120.0,
+            "home_price": 100.0
           }
         },
         "home_team": "Columbus Blue Jackets",
         "id": "DAL_vs_CBJ_2026-01-23",
         "totals": {
           "best": {
-            "over_book": "betmgm",
-            "over_price": 100,
+            "over_book": "betonlineag",
+            "over_price": 102,
             "under_book": "betrivers",
             "under_price": -113
           },
@@ -160,7 +160,7 @@
             "away_book": "betonlineag",
             "away_price": -102,
             "home_book": "draftkings",
-            "home_price": -105
+            "home_price": -110
           },
           "consensus_median": {
             "away_price": -110.0,
@@ -185,25 +185,25 @@
         "h2h": {
           "best": {
             "away_book": "mybookieag",
-            "away_price": -110,
+            "away_price": -112,
             "home_book": "betonlineag",
             "home_price": 101
           },
           "consensus_median": {
-            "away_price": -115.0,
-            "home_price": -104.0
+            "away_price": -118.0,
+            "home_price": -102.0
           }
         },
         "home_team": "Nashville Predators",
         "id": "OTT_vs_NSH_2026-01-23",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": 101,
-            "under_book": "draftkings",
-            "under_price": -120
+            "over_book": "bovada",
+            "over_price": -115,
+            "under_book": "betonlineag",
+            "under_price": 104
           },
-          "line": 6.5
+          "line": 6.0
         }
       },
       {
@@ -211,14 +211,14 @@
         "commence_time": "2026-01-23T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "draftkings",
-            "away_price": 164,
+            "away_book": "betrivers",
+            "away_price": 155,
             "home_book": "betonlineag",
-            "home_price": -180
+            "home_price": -158
           },
           "consensus_median": {
-            "away_price": 158.0,
-            "home_price": -185.0
+            "away_price": 146.0,
+            "home_price": -172.0
           }
         },
         "home_team": "Edmonton Oilers",
@@ -238,14 +238,14 @@
         "commence_time": "2026-01-23T02:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 136,
-            "home_book": "bovada",
-            "home_price": -147
+            "away_book": "betrivers",
+            "away_price": 123,
+            "home_book": "betonlineag",
+            "home_price": -135
           },
           "consensus_median": {
-            "away_price": 128.0,
-            "home_price": -152.0
+            "away_price": 120.0,
+            "home_price": -140.0
           }
         },
         "home_team": "Minnesota Wild",
@@ -255,7 +255,7 @@
             "over_book": "betrivers",
             "over_price": -112,
             "under_book": "betonlineag",
-            "under_price": 104
+            "under_price": 106
           },
           "line": 6.0
         }
@@ -447,10 +447,10 @@
     "game_rest_count": 7,
     "goalies_count": 0,
     "league_avg_lambda": 6.217098825155063,
-    "odds_games_filtered_out_by_date": 8,
+    "odds_games_filtered_out_by_date": 0,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 7,
-    "odds_games_unfiltered_count": 15,
+    "odds_games_unfiltered_count": 7,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
