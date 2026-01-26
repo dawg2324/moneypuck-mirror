@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-26",
-  "generated_at_utc": "2026-01-26T14:38:02Z",
+  "generated_at_utc": "2026-01-26T15:39:55Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -112,14 +112,14 @@
         "commence_time": "2026-01-27T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "mybookieag",
-            "away_price": -101,
-            "home_book": "lowvig",
+            "away_book": "lowvig",
+            "away_price": 106,
+            "home_book": "bovada",
             "home_price": -112
           },
           "consensus_median": {
-            "away_price": -105.0,
-            "home_price": -115.0
+            "away_price": 100.0,
+            "home_price": -120.0
           }
         },
         "home_team": "Philadelphia Flyers",
@@ -139,14 +139,14 @@
         "commence_time": "2026-01-27T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": 146,
+            "away_book": "bovada",
+            "away_price": 147,
             "home_book": "betus",
-            "home_price": -165
+            "home_price": -150
           },
           "consensus_median": {
-            "away_price": 145.0,
-            "home_price": -170.0
+            "away_price": 135.0,
+            "home_price": -162.0
           }
         },
         "home_team": "Tampa Bay Lightning",
@@ -155,8 +155,8 @@
           "best": {
             "over_book": "lowvig",
             "over_price": 110,
-            "under_book": "betrivers",
-            "under_price": -121
+            "under_book": "bovada",
+            "under_price": -122
           },
           "line": 6.5
         }
@@ -167,25 +167,25 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": 216,
+            "away_price": 224,
             "home_book": "fanduel",
-            "home_price": -250
+            "home_price": -260
           },
           "consensus_median": {
-            "away_price": 210.0,
-            "home_price": -250.0
+            "away_price": 218.0,
+            "home_price": -260.0
           }
         },
         "home_team": "Edmonton Oilers",
         "id": "ANA_vs_EDM_2026-01-27",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": 110,
-            "under_book": "bovada",
-            "under_price": -120
+            "over_book": "draftkings",
+            "over_price": -142,
+            "under_book": "lowvig",
+            "under_price": 125
           },
-          "line": 7.0
+          "line": 6.5
         }
       }
     ],
@@ -364,10 +364,10 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
+      "games_found": 1,
+      "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
-      "unmapped_teams": [],
       "upstream_keyerror": "'Utah Mammoth'",
       "url": "https://www.dailyfaceoff.com/starting-goalies/2026-01-26"
     },
