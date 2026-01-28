@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-01-28",
-  "generated_at_utc": "2026-01-28T14:39:53Z",
+  "generated_at_utc": "2026-01-28T15:46:56Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -40,26 +40,26 @@
         "commence_time": "2026-01-29T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 127,
-            "home_book": "lowvig",
-            "home_price": -140
+            "away_book": "betrivers",
+            "away_price": 117,
+            "home_book": "betus",
+            "home_price": -125
           },
           "consensus_median": {
-            "away_price": 123.0,
-            "home_price": -142.0
+            "away_price": 111.0,
+            "home_price": -130.0
           }
         },
         "home_team": "New York Islanders",
         "id": "NYR_vs_NYI_2026-01-29",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": -120,
-            "under_book": "lowvig",
-            "under_price": 104
+            "over_book": "lowvig",
+            "over_price": 102,
+            "under_book": "bovada",
+            "under_price": -117
           },
-          "line": 6.0
+          "line": 6.5
         }
       },
       {
@@ -68,22 +68,22 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": -155,
-            "home_book": "bovada",
-            "home_price": 142
+            "away_price": -140,
+            "home_book": "betrivers",
+            "home_price": 130
           },
           "consensus_median": {
-            "away_price": -162.0,
-            "home_price": 136.0
+            "away_price": -148.0,
+            "home_price": 125.0
           }
         },
         "home_team": "Ottawa Senators",
         "id": "COL_vs_OTT_2026-01-29",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -124,
-            "under_book": "betrivers",
+            "over_book": "bovada",
+            "over_price": -120,
+            "under_book": "lowvig",
             "under_price": 108
           },
           "line": 6.5
@@ -100,8 +100,8 @@
             "home_price": -130
           },
           "consensus_median": {
-            "away_price": 117.0,
-            "home_price": -135.0
+            "away_price": 120.0,
+            "home_price": -136.0
           }
         },
         "home_team": "Columbus Blue Jackets",
@@ -109,9 +109,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": 104,
-            "under_book": "bovada",
-            "under_price": -115
+            "over_price": 102,
+            "under_book": "betrivers",
+            "under_price": -117
           },
           "line": 6.5
         }
@@ -303,10 +303,10 @@
     "game_rest_count": 3,
     "goalies_count": 0,
     "league_avg_lambda": 6.207796459576413,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 14,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 3,
-    "odds_games_unfiltered_count": 3,
+    "odds_games_unfiltered_count": 17,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
