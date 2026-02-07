@@ -1,5 +1,5 @@
-data_date_et: 2026-02-06
-generated_at_utc: 2026-02-06T15:53:35Z
+data_date_et: 2026-02-07
+generated_at_utc: 2026-02-07T14:35:36Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=0, game_rest_count=0, teams_count=32, starters_count=0
