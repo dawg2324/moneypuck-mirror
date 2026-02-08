@@ -1,11 +1,11 @@
 {
-  "data_date_et": "2026-02-07",
-  "generated_at_utc": "2026-02-07T15:37:05Z",
+  "data_date_et": "2026-02-08",
+  "generated_at_utc": "2026-02-08T14:37:04Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
     "goalies": [],
-    "league_avg_lambda": 6.205270906783275,
+    "league_avg_lambda": 6.205270906783276,
     "odds_current": [],
     "starters": [],
     "teams": [
@@ -192,7 +192,7 @@
   "validations": {
     "game_rest_count": 0,
     "goalies_count": 0,
-    "league_avg_lambda": 6.205270906783275,
+    "league_avg_lambda": 6.205270906783276,
     "odds_games_filtered_out_by_date": 8,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 0,
