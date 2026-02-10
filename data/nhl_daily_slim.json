@@ -1,11 +1,11 @@
 {
-  "data_date_et": "2026-02-09",
-  "generated_at_utc": "2026-02-09T16:06:23Z",
+  "data_date_et": "2026-02-10",
+  "generated_at_utc": "2026-02-10T15:10:07Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
     "goalies": [],
-    "league_avg_lambda": 6.205270906783274,
+    "league_avg_lambda": 6.205270906783273,
     "odds_current": [],
     "starters": [],
     "teams": [
@@ -182,12 +182,8 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
-      "ok": true,
-      "source": "fallback_scrape",
-      "unmapped_teams": [],
-      "upstream_error": "The read operation timed out",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-09"
+      "error": "upstream starters not a list",
+      "ok": false
     },
     "teams": {
       "ok": true
@@ -196,7 +192,7 @@
   "validations": {
     "game_rest_count": 0,
     "goalies_count": 0,
-    "league_avg_lambda": 6.205270906783274,
+    "league_avg_lambda": 6.205270906783273,
     "odds_games_filtered_out_by_date": 8,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 0,
