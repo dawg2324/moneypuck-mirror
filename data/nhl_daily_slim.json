@@ -1,43 +1,43 @@
 {
-  "data_date_et": "2026-02-10",
-  "generated_at_utc": "2026-02-10T16:15:57Z",
+  "data_date_et": "2026-02-11",
+  "generated_at_utc": "2026-02-11T15:03:40Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
     "goalies": [],
-    "league_avg_lambda": 6.205270906783273,
+    "league_avg_lambda": 6.205271433791429,
     "odds_current": [],
     "starters": [],
     "teams": [
       {
         "team_abbrev": "ANA",
-        "xGA_pg": 3.298035714285714,
+        "xGA_pg": 3.2967857142857144,
         "xGF_pg": 3.244464285714286
       },
       {
         "team_abbrev": "BOS",
         "xGA_pg": 3.4257894736842105,
-        "xGF_pg": 2.953684210526316
+        "xGF_pg": 2.9535087719298243
       },
       {
         "team_abbrev": "BUF",
-        "xGA_pg": 3.272280701754386,
-        "xGF_pg": 3.129122807017544
+        "xGA_pg": 3.272456140350877,
+        "xGF_pg": 3.1289473684210525
       },
       {
         "team_abbrev": "CAR",
-        "xGA_pg": 2.8501754385964913,
-        "xGF_pg": 3.6021052631578945
+        "xGA_pg": 2.852982456140351,
+        "xGF_pg": 3.6017543859649126
       },
       {
         "team_abbrev": "CBJ",
         "xGA_pg": 3.294642857142857,
-        "xGF_pg": 3.2101785714285715
+        "xGF_pg": 3.2105357142857143
       },
       {
         "team_abbrev": "CGY",
         "xGA_pg": 3.115535714285714,
-        "xGF_pg": 2.9274999999999998
+        "xGF_pg": 2.9273214285714286
       },
       {
         "team_abbrev": "CHI",
@@ -57,22 +57,22 @@
       {
         "team_abbrev": "DET",
         "xGA_pg": 3.0072413793103445,
-        "xGF_pg": 3.1739655172413794
+        "xGF_pg": 3.172758620689655
       },
       {
         "team_abbrev": "EDM",
-        "xGA_pg": 3.281034482758621,
-        "xGF_pg": 3.3824137931034484
+        "xGA_pg": 3.2808620689655172,
+        "xGF_pg": 3.381896551724138
       },
       {
         "team_abbrev": "FLA",
-        "xGA_pg": 3.1008771929824563,
+        "xGA_pg": 3.100701754385965,
         "xGF_pg": 3.2582456140350877
       },
       {
         "team_abbrev": "LAK",
         "xGA_pg": 2.9398214285714284,
-        "xGF_pg": 2.9794642857142857
+        "xGF_pg": 2.979107142857143
       },
       {
         "team_abbrev": "MIN",
@@ -86,13 +86,13 @@
       },
       {
         "team_abbrev": "NJD",
-        "xGA_pg": 3.0450877192982455,
+        "xGA_pg": 3.0454385964912283,
         "xGF_pg": 2.9642105263157896
       },
       {
         "team_abbrev": "NSH",
         "xGA_pg": 3.202982456140351,
-        "xGF_pg": 3.1366666666666667
+        "xGF_pg": 3.1378947368421053
       },
       {
         "team_abbrev": "NYI",
@@ -101,13 +101,13 @@
       },
       {
         "team_abbrev": "NYR",
-        "xGA_pg": 3.307017543859649,
+        "xGA_pg": 3.3066666666666666,
         "xGF_pg": 2.809298245614035
       },
       {
         "team_abbrev": "OTT",
         "xGA_pg": 2.665614035087719,
-        "xGF_pg": 3.157719298245614
+        "xGF_pg": 3.160350877192982
       },
       {
         "team_abbrev": "PHI",
@@ -116,13 +116,13 @@
       },
       {
         "team_abbrev": "PIT",
-        "xGA_pg": 2.9878571428571425,
+        "xGA_pg": 2.9876785714285714,
         "xGF_pg": 3.3076785714285712
       },
       {
         "team_abbrev": "SEA",
         "xGA_pg": 3.1355357142857145,
-        "xGF_pg": 2.800892857142857
+        "xGF_pg": 2.799464285714286
       },
       {
         "team_abbrev": "SJS",
@@ -137,16 +137,16 @@
       {
         "team_abbrev": "TBL",
         "xGA_pg": 2.856909090909091,
-        "xGF_pg": 3.5607272727272727
+        "xGF_pg": 3.560909090909091
       },
       {
         "team_abbrev": "TOR",
-        "xGA_pg": 3.120877192982456,
+        "xGA_pg": 3.120350877192983,
         "xGF_pg": 2.9435087719298245
       },
       {
         "team_abbrev": "UTA",
-        "xGA_pg": 3.059122807017544,
+        "xGA_pg": 3.0578947368421057,
         "xGF_pg": 3.118245614035088
       },
       {
@@ -156,7 +156,7 @@
       },
       {
         "team_abbrev": "VGK",
-        "xGA_pg": 2.675438596491228,
+        "xGA_pg": 2.6750877192982454,
         "xGF_pg": 3.1536842105263156
       },
       {
@@ -166,7 +166,7 @@
       },
       {
         "team_abbrev": "WSH",
-        "xGA_pg": 3.194915254237288,
+        "xGA_pg": 3.1959322033898308,
         "xGF_pg": 3.306101694915254
       }
     ]
@@ -182,8 +182,12 @@
       "ok": true
     },
     "starters": {
-      "error": "upstream starters not a list",
-      "ok": false
+      "games_found": 1,
+      "note": "no starters posted yet",
+      "ok": true,
+      "source": "fallback_scrape",
+      "upstream_keyerror": "'Team Finland'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-11"
     },
     "teams": {
       "ok": true
@@ -192,7 +196,7 @@
   "validations": {
     "game_rest_count": 0,
     "goalies_count": 0,
-    "league_avg_lambda": 6.205270906783273,
+    "league_avg_lambda": 6.205271433791429,
     "odds_games_filtered_out_by_date": 8,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 0,
