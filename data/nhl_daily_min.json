@@ -1,6 +1,6 @@
 {
-  "data_date_et": "2026-02-11",
-  "generated_at_utc": "2026-02-11T16:12:15Z",
+  "data_date_et": "2026-02-12",
+  "generated_at_utc": "2026-02-12T14:57:31Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
@@ -186,8 +186,8 @@
       "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
-      "upstream_keyerror": "'Team Finland'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-11"
+      "upstream_keyerror": "'Team France'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-12"
     },
     "teams": {
       "ok": true
