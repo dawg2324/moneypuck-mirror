@@ -1,11 +1,11 @@
 {
-  "data_date_et": "2026-02-12",
-  "generated_at_utc": "2026-02-12T16:04:07Z",
+  "data_date_et": "2026-02-13",
+  "generated_at_utc": "2026-02-13T14:52:35Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
     "goalies": [],
-    "league_avg_lambda": 6.205271433791429,
+    "league_avg_lambda": 6.205271433791428,
     "odds_current": [],
     "starters": [],
     "teams": [
@@ -186,8 +186,8 @@
       "ok": true,
       "source": "fallback_scrape",
       "unmapped_teams": [],
-      "upstream_keyerror": "'Team France'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-12"
+      "upstream_keyerror": "'Team Slovakia'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-13"
     },
     "teams": {
       "ok": true
@@ -196,7 +196,7 @@
   "validations": {
     "game_rest_count": 0,
     "goalies_count": 0,
-    "league_avg_lambda": 6.205271433791429,
+    "league_avg_lambda": 6.205271433791428,
     "odds_games_filtered_out_by_date": 8,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 0,
