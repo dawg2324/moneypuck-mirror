@@ -1,6 +1,6 @@
 {
-  "data_date_et": "2026-02-13",
-  "generated_at_utc": "2026-02-13T15:55:22Z",
+  "data_date_et": "2026-02-14",
+  "generated_at_utc": "2026-02-14T14:36:23Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
@@ -186,8 +186,8 @@
       "ok": true,
       "source": "fallback_scrape",
       "unmapped_teams": [],
-      "upstream_keyerror": "'Team Slovakia'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-13"
+      "upstream_keyerror": "'Team Latvia'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-14"
     },
     "teams": {
       "ok": true
