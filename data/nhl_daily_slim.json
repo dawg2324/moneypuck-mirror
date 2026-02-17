@@ -1,11 +1,11 @@
 {
-  "data_date_et": "2026-02-16",
-  "generated_at_utc": "2026-02-16T15:53:24Z",
+  "data_date_et": "2026-02-17",
+  "generated_at_utc": "2026-02-17T14:56:41Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
     "goalies": [],
-    "league_avg_lambda": 6.20527143379143,
+    "league_avg_lambda": 6.205271433791428,
     "odds_current": [],
     "starters": [],
     "teams": [
@@ -182,8 +182,12 @@
       "ok": true
     },
     "starters": {
-      "error": "upstream starters not a list",
-      "ok": false
+      "games_found": 1,
+      "note": "no starters posted yet",
+      "ok": true,
+      "source": "fallback_scrape",
+      "upstream_keyerror": "'Team Italy'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-17"
     },
     "teams": {
       "ok": true
@@ -192,7 +196,7 @@
   "validations": {
     "game_rest_count": 0,
     "goalies_count": 0,
-    "league_avg_lambda": 6.20527143379143,
+    "league_avg_lambda": 6.205271433791428,
     "odds_games_filtered_out_by_date": 8,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 0,
