@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-02-25",
-  "generated_at_utc": "2026-02-25T15:00:29Z",
+  "generated_at_utc": "2026-02-25T16:15:49Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -88,11 +88,11 @@
             "away_book": "fanduel",
             "away_price": -104,
             "home_book": "lowvig",
-            "home_price": -106
+            "home_price": -107
           },
           "consensus_median": {
-            "away_price": -110.0,
-            "home_price": -110.0
+            "away_price": -108.0,
+            "home_price": -112.0
           }
         },
         "home_team": "New Jersey Devils",
@@ -102,7 +102,7 @@
             "over_book": "lowvig",
             "over_price": -110,
             "under_book": "betmgm",
-            "under_price": -102
+            "under_price": -105
           },
           "line": 6.0
         }
@@ -115,11 +115,11 @@
             "away_book": "lowvig",
             "away_price": 132,
             "home_book": "bovada",
-            "home_price": -150
+            "home_price": -147
           },
           "consensus_median": {
-            "away_price": 130.0,
-            "home_price": -151.0
+            "away_price": 127.0,
+            "home_price": -150.0
           }
         },
         "home_team": "Washington Capitals",
@@ -128,8 +128,8 @@
           "best": {
             "over_book": "bovada",
             "over_price": -108,
-            "under_book": "betmgm",
-            "under_price": 100
+            "under_book": "lowvig",
+            "under_price": -102
           },
           "line": 6.0
         }
@@ -139,14 +139,14 @@
         "commence_time": "2026-02-26T00:30:00Z",
         "h2h": {
           "best": {
-            "away_book": "draftkings",
-            "away_price": 185,
-            "home_book": "lowvig",
-            "home_price": -210
+            "away_book": "lowvig",
+            "away_price": 191,
+            "home_book": "betrivers",
+            "home_price": -220
           },
           "consensus_median": {
-            "away_price": 180.0,
-            "home_price": -220.0
+            "away_price": 185.0,
+            "home_price": -224.0
           }
         },
         "home_team": "Tampa Bay Lightning",
@@ -166,14 +166,14 @@
         "commence_time": "2026-02-26T01:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 145,
+            "away_book": "lowvig",
+            "away_price": 147,
             "home_book": "betmgm",
             "home_price": -160
           },
           "consensus_median": {
             "away_price": 138.0,
-            "home_price": -164.0
+            "home_price": -166.0
           }
         },
         "home_team": "Dallas Stars",
@@ -182,8 +182,8 @@
           "best": {
             "over_book": "lowvig",
             "over_price": -109,
-            "under_book": "lowvig",
-            "under_price": -107
+            "under_book": "bovada",
+            "under_price": -105
           },
           "line": 5.5
         }
@@ -199,8 +199,8 @@
             "home_price": 108
           },
           "consensus_median": {
-            "away_price": -122.0,
-            "home_price": 104.0
+            "away_price": -125.0,
+            "home_price": 105.0
           }
         },
         "home_team": "Utah Mammoth",
@@ -276,8 +276,8 @@
           "best": {
             "away_book": "lowvig",
             "away_price": -109,
-            "home_book": "fanduel",
-            "home_price": -102
+            "home_book": "bovada",
+            "home_price": 100
           },
           "consensus_median": {
             "away_price": -115.0,
@@ -472,10 +472,10 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
+      "games_found": 1,
+      "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
-      "unmapped_teams": [],
       "upstream_keyerror": "'Utah Mammoth'",
       "url": "https://www.dailyfaceoff.com/starting-goalies/2026-02-25"
     },
