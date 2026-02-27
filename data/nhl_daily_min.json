@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-02-27",
-  "generated_at_utc": "2026-02-27T14:49:54Z",
+  "generated_at_utc": "2026-02-27T15:49:39Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -51,11 +51,11 @@
           "best": {
             "away_book": "lowvig",
             "away_price": 100,
-            "home_book": "lowvig",
-            "home_price": -114
+            "home_book": "betus",
+            "home_price": -110
           },
           "consensus_median": {
-            "away_price": -103.0,
+            "away_price": -104.0,
             "home_price": -115.0
           }
         },
@@ -66,7 +66,7 @@
             "over_book": "draftkings",
             "over_price": 105,
             "under_book": "bovada",
-            "under_price": -117
+            "under_price": -112
           },
           "line": 6.5
         }
@@ -76,10 +76,10 @@
         "commence_time": "2026-02-28T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": -102,
-            "home_book": "betus",
-            "home_price": -110
+            "away_book": "betonlineag",
+            "away_price": 101,
+            "home_book": "draftkings",
+            "home_price": -115
           },
           "consensus_median": {
             "away_price": -104.0,
@@ -103,22 +103,22 @@
         "commence_time": "2026-02-28T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 119,
+            "away_book": "draftkings",
+            "away_price": 120,
             "home_book": "betrivers",
             "home_price": -132
           },
           "consensus_median": {
-            "away_price": 115.0,
-            "home_price": -135.0
+            "away_price": 119.0,
+            "home_price": -140.0
           }
         },
         "home_team": "Utah Mammoth",
         "id": "MIN_vs_UTA_2026-02-28",
         "totals": {
           "best": {
-            "over_book": "fanduel",
-            "over_price": 102,
+            "over_book": "betonlineag",
+            "over_price": 101,
             "under_book": "draftkings",
             "under_price": -115
           },
@@ -130,8 +130,8 @@
         "commence_time": "2026-02-28T03:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 115,
+            "away_book": "bovada",
+            "away_price": 112,
             "home_book": "lowvig",
             "home_price": -125
           },
@@ -343,10 +343,10 @@
     "game_rest_count": 4,
     "goalies_count": 0,
     "league_avg_lambda": 6.215729542569898,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 12,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 4,
-    "odds_games_unfiltered_count": 4,
+    "odds_games_unfiltered_count": 16,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
