@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-03",
-  "generated_at_utc": "2026-03-03T14:55:35Z",
+  "generated_at_utc": "2026-03-03T15:56:04Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -213,8 +213,8 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 110,
-            "home_book": "bovada",
-            "home_price": -122
+            "home_book": "betus",
+            "home_price": -120
           },
           "consensus_median": {
             "away_price": 105.0,
@@ -254,7 +254,7 @@
           "best": {
             "over_book": "bovada",
             "over_price": -112,
-            "under_book": "draftkings",
+            "under_book": "betrivers",
             "under_price": 100
           },
           "line": 5.5
@@ -265,24 +265,24 @@
         "commence_time": "2026-03-04T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "mybookieag",
+            "away_book": "betonlineag",
             "away_price": -130,
-            "home_book": "bovada",
+            "home_book": "betmgm",
             "home_price": 115
           },
           "consensus_median": {
-            "away_price": -135.0,
-            "home_price": 114.0
+            "away_price": -134.0,
+            "home_price": 112.0
           }
         },
         "home_team": "Calgary Flames",
         "id": "DAL_vs_CGY_2026-03-04",
         "totals": {
           "best": {
-            "over_book": "bovada",
-            "over_price": -117,
-            "under_book": "betonlineag",
-            "under_price": 108
+            "over_book": "fanduel",
+            "over_price": -105,
+            "under_book": "betrivers",
+            "under_price": -108
           },
           "line": 5.5
         }
@@ -292,22 +292,22 @@
         "commence_time": "2026-03-04T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": 109,
-            "home_book": "betus",
-            "home_price": -120
+            "away_book": "betrivers",
+            "away_price": 108,
+            "home_book": "lowvig",
+            "home_price": -118
           },
           "consensus_median": {
-            "away_price": 105.0,
-            "home_price": -125.0
+            "away_price": 104.0,
+            "home_price": -122.0
           }
         },
         "home_team": "Edmonton Oilers",
         "id": "OTT_vs_EDM_2026-03-04",
         "totals": {
           "best": {
-            "over_book": "draftkings",
-            "over_price": -125,
+            "over_book": "bovada",
+            "over_price": -122,
             "under_book": "lowvig",
             "under_price": 109
           },
@@ -320,13 +320,13 @@
         "h2h": {
           "best": {
             "away_book": "betrivers",
-            "away_price": -125,
-            "home_book": "bovada",
-            "home_price": 117
+            "away_price": -132,
+            "home_book": "lowvig",
+            "home_price": 124
           },
           "consensus_median": {
-            "away_price": -135.0,
-            "home_price": 114.0
+            "away_price": -141.0,
+            "home_price": 120.0
           }
         },
         "home_team": "Minnesota Wild",
@@ -544,10 +544,10 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
+      "games_found": 1,
+      "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
-      "unmapped_teams": [],
       "upstream_keyerror": "'Utah Mammoth'",
       "url": "https://www.dailyfaceoff.com/starting-goalies/2026-03-03"
     },
@@ -559,10 +559,10 @@
     "game_rest_count": 10,
     "goalies_count": 0,
     "league_avg_lambda": 6.2182404381565135,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 5,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 10,
-    "odds_games_unfiltered_count": 10,
+    "odds_games_unfiltered_count": 15,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
