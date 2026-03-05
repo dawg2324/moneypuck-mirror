@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-05",
-  "generated_at_utc": "2026-03-05T14:56:21Z",
+  "generated_at_utc": "2026-03-05T15:58:33Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -92,7 +92,7 @@
           },
           "consensus_median": {
             "away_price": -115.0,
-            "home_price": -103.0
+            "home_price": -105.0
           }
         },
         "home_team": "Pittsburgh Penguins",
@@ -102,7 +102,7 @@
             "over_book": "lowvig",
             "over_price": -101,
             "under_book": "bovada",
-            "under_price": -112
+            "under_price": -108
           },
           "line": 6.5
         }
@@ -112,14 +112,14 @@
         "commence_time": "2026-03-06T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
+            "away_book": "fanduel",
             "away_price": -104,
             "home_book": "betonlineag",
             "home_price": -109
           },
           "consensus_median": {
             "away_price": -105.0,
-            "home_price": -112.0
+            "home_price": -115.0
           }
         },
         "home_team": "Columbus Blue Jackets",
@@ -156,7 +156,7 @@
             "over_book": "lowvig",
             "over_price": -107,
             "under_book": "bovada",
-            "under_price": -105
+            "under_price": -108
           },
           "line": 6.0
         }
@@ -195,11 +195,11 @@
           "best": {
             "away_book": "lowvig",
             "away_price": -103,
-            "home_book": "betus",
-            "home_price": -110
+            "home_book": "lowvig",
+            "home_price": -111
           },
           "consensus_median": {
-            "away_price": -104.0,
+            "away_price": -105.0,
             "home_price": -115.0
           }
         },
@@ -236,8 +236,8 @@
           "best": {
             "over_book": "lowvig",
             "over_price": 102,
-            "under_book": "mybookieag",
-            "under_price": -115
+            "under_book": "betmgm",
+            "under_price": -118
           },
           "line": 6.0
         }
@@ -249,20 +249,20 @@
           "best": {
             "away_book": "betrivers",
             "away_price": -165,
-            "home_book": "bovada",
-            "home_price": 153
+            "home_book": "lowvig",
+            "home_price": 150
           },
           "consensus_median": {
             "away_price": -170.0,
-            "home_price": 142.0
+            "home_price": 146.0
           }
         },
         "home_team": "Calgary Flames",
         "id": "OTT_vs_CGY_2026-03-06",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -101,
+            "over_book": "bovada",
+            "over_price": 102,
             "under_book": "betrivers",
             "under_price": -115
           },
@@ -472,10 +472,10 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
+      "games_found": 3,
+      "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
-      "unmapped_teams": [],
       "upstream_keyerror": "'Utah Mammoth'",
       "url": "https://www.dailyfaceoff.com/starting-goalies/2026-03-05"
     },
