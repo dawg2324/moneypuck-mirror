@@ -1,17 +1,26 @@
-data_date_et: 2026-03-09
-generated_at_utc: 2026-03-09T16:08:50Z
+data_date_et: 2026-03-10
+generated_at_utc: 2026-03-10T15:00:02Z
 schema_version: 1.0.14
 
-counts: odds_games_slim_count=5, game_rest_count=5, teams_count=32, starters_count=0
+counts: odds_games_slim_count=12, game_rest_count=12, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:10 PM ET CGY @ WSH | CGY ML 170 (betrivers) | model 55.3% | implied 37.0% | edge +18.3pp | fair -124 | rest_adv_home 0 (rest not applied to ML)
-2) 4:10 PM ET LAK @ CBJ | LAK ML 125 (lowvig) | model 59.3% | implied 44.4% | edge +14.8pp | fair -145 | rest_adv_home 0 (rest not applied to ML)
-3) 7:10 PM ET NYR @ PHI | NYR ML 123 (betrivers) | model 54.9% | implied 44.8% | edge +10.1pp | fair -122 | rest_adv_home 0 (rest not applied to ML)
+1) 7:10 PM ET SJS @ BUF | SJS ML 175 (bovada) | model 56.1% | implied 36.4% | edge +19.7pp | fair -128 | rest_adv_home 0 (rest not applied to ML)
+2) 7:10 PM ET LAK @ BOS | LAK ML 134 (lowvig) | model 61.9% | implied 42.7% | edge +19.2pp | fair -163 | rest_adv_home 0 (rest not applied to ML)
+3) 7:09 PM ET CBJ @ TBL | CBJ ML 205 (bovada) | model 51.9% | implied 32.8% | edge +19.1pp | fair -108 | rest_adv_home 0 (rest not applied to ML)
+4) 7:10 PM ET PIT @ CAR | PIT ML 180 (betrivers) | model 54.7% | implied 35.7% | edge +19.0pp | fair -121 | rest_adv_home 0 (rest not applied to ML)
+5) 8:10 PM ET VGK @ DAL | VGK ML 135 (betrivers) | model 58.6% | implied 42.6% | edge +16.0pp | fair -142 | rest_adv_home 0 (rest not applied to ML)
+6) 8:10 PM ET UTA @ MIN | UTA ML 133 (bovada) | model 57.7% | implied 42.9% | edge +14.7pp | fair -136 | rest_adv_home 0 (rest not applied to ML)
+7) 8:40 PM ET ANA @ WPG | ANA ML 119 (lowvig) | model 59.6% | implied 45.7% | edge +13.9pp | fair -147 | rest_adv_home 0 (rest not applied to ML)
+8) 10:10 PM ET EDM @ COL | EDM ML 153 (bovada) | model 52.1% | implied 39.5% | edge +12.6pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
+9) 7:10 PM ET CGY @ NYR | CGY ML 112 (bovada) | model 59.1% | implied 47.2% | edge +11.9pp | fair -144 | rest_adv_home 0 (rest not applied to ML)
+10) 7:10 PM ET DET @ FLA | DET ML 112 (betrivers) | model 58.0% | implied 47.2% | edge +10.8pp | fair -138 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
-No qualified signals under current thresholds.
+1) 7:10 PM ET SJS @ BUF | Under 6.5 104 (lowvig) | model 54.9% | implied 49.0% | edge +5.9pp | fair -122 | mu_total 6.36 | line half(6.5) | rest_adv_home 0 (rest applied)
+2) 7:40 PM ET NYI @ STL | Over 5.5 -105 (bovada) | model 55.6% | implied 51.2% | edge +4.3pp | fair -125 | mu_total 6.01 | line half(5.5) | rest_adv_home 0 (rest applied)
+3) 7:09 PM ET CBJ @ TBL | Under 6.5 101 (betonlineag) | model 52.8% | implied 49.8% | edge +3.0pp | fair -112 | mu_total 6.49 | line half(6.5) | rest_adv_home 0 (rest applied)
 
 SKIPPED GAMES (short reasons)
 None
