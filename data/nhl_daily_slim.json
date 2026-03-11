@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-11",
-  "generated_at_utc": "2026-03-11T14:56:50Z",
+  "generated_at_utc": "2026-03-11T15:58:43Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -24,12 +24,12 @@
           "best": {
             "away_book": "betrivers",
             "away_price": -117,
-            "home_book": "betonlineag",
-            "home_price": 107
+            "home_book": "bovada",
+            "home_price": 117
           },
           "consensus_median": {
-            "away_price": -121.0,
-            "home_price": 102.0
+            "away_price": -130.0,
+            "home_price": 110.0
           }
         },
         "home_team": "Philadelphia Flyers",
@@ -38,8 +38,8 @@
           "best": {
             "over_book": "bovada",
             "over_price": -103,
-            "under_book": "betonlineag",
-            "under_price": -108
+            "under_book": "betmgm",
+            "under_price": -105
           },
           "line": 6.0
         }
