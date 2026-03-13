@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-13",
-  "generated_at_utc": "2026-03-13T14:53:25Z",
+  "generated_at_utc": "2026-03-13T15:54:39Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -33,8 +33,8 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 116,
-            "home_book": "lowvig",
-            "home_price": -129
+            "home_book": "draftkings",
+            "home_price": -130
           },
           "consensus_median": {
             "away_price": 112.0,
@@ -45,9 +45,9 @@
         "id": "LAK_vs_NYI_2026-03-13",
         "totals": {
           "best": {
-            "over_book": "bovada",
-            "over_price": -105,
-            "under_book": "lowvig",
+            "over_book": "betrivers",
+            "over_price": -108,
+            "under_book": "fanduel",
             "under_price": -104
           },
           "line": 5.5
@@ -65,7 +65,7 @@
           },
           "consensus_median": {
             "away_price": -150.0,
-            "home_price": 130.0
+            "home_price": 128.0
           }
         },
         "home_team": "St Louis Blues",
