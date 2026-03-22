@@ -1,25 +1,25 @@
-data_date_et: 2026-03-21
-generated_at_utc: 2026-03-21T15:36:49Z
+data_date_et: 2026-03-22
+generated_at_utc: 2026-03-22T14:37:19Z
 schema_version: 1.0.14
 
-counts: odds_games_slim_count=10, game_rest_count=10, teams_count=32, starters_count=0
+counts: odds_games_slim_count=9, game_rest_count=9, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:10 PM ET TOR @ OTT | TOR ML 236 (lowvig) | model 50.0% | implied 29.8% | edge +20.3pp | fair -100 | rest_adv_home 0 (rest not applied to ML)
-2) 5:10 PM ET SEA @ CBJ | SEA ML 155 (bovada) | model 55.4% | implied 39.2% | edge +16.2pp | fair -124 | rest_adv_home 0 (rest not applied to ML)
-3) 1:10 PM ET WPG @ PIT | WPG ML 145 (betrivers) | model 53.7% | implied 40.8% | edge +12.9pp | fair -116 | rest_adv_home 0 (rest not applied to ML)
-4) 4:10 PM ET PHI @ SJS | PHI ML 100 (fanduel) | model 59.5% | implied 50.0% | edge +9.5pp | fair -147 | rest_adv_home 0 (rest not applied to ML)
-5) 8:10 PM ET BOS @ DET | BOS ML 110 (betrivers) | model 53.4% | implied 47.6% | edge +5.7pp | fair -114 | rest_adv_home 0 (rest not applied to ML)
-6) 2:10 PM ET VGK @ NSH | VGK ML -132 (betrivers) | model 62.4% | implied 56.9% | edge +5.5pp | fair -166 | rest_adv_home 0 (rest not applied to ML)
-7) 4:10 PM ET DAL @ MIN | DAL ML -126 (fanduel) | model 59.4% | implied 55.8% | edge +3.7pp | fair -146 | rest_adv_home 0 (rest not applied to ML)
-8) 10:10 PM ET TBL @ EDM | TBL ML -135 (bovada) | model 61.0% | implied 57.4% | edge +3.6pp | fair -157 | rest_adv_home 0 (rest not applied to ML)
-9) 4:10 PM ET BUF @ LAK | BUF ML -120 (betus) | model 56.7% | implied 54.5% | edge +2.1pp | fair -131 | rest_adv_home 0 (rest not applied to ML)
+1) 9:00 PM ET LAK @ UTA | LAK ML 152 (lowvig) | model 58.0% | implied 39.7% | edge +18.3pp | fair -138 | rest_adv_home 1 (rest not applied to ML)
+2) 7:00 PM ET VGK @ DAL | VGK ML 126 (lowvig) | model 58.4% | implied 44.2% | edge +14.1pp | fair -140 | rest_adv_home 0 (rest not applied to ML)
+3) 12:00 PM ET WPG @ NYR | WPG ML 105 (draftkings) | model 59.8% | implied 48.8% | edge +11.0pp | fair -149 | rest_adv_home 2 (rest not applied to ML)
+4) 3:00 PM ET NSH @ CHI | NSH ML -110 (draftkings) | model 61.5% | implied 52.4% | edge +9.2pp | fair -160 | rest_adv_home 1 (rest not applied to ML)
+5) 7:00 PM ET CBJ @ NYI | CBJ ML -119 (betonlineag) | model 60.4% | implied 54.3% | edge +6.1pp | fair -153 | rest_adv_home 0 (rest not applied to ML)
+6) 8:00 PM ET BUF @ ANA | BUF ML -110 (fanduel) | model 57.2% | implied 52.4% | edge +4.8pp | fair -134 | rest_adv_home 1 (rest not applied to ML)
+7) 3:00 PM ET CAR @ PIT | CAR ML -135 (betus) | model 61.4% | implied 57.4% | edge +3.9pp | fair -159 | rest_adv_home -1 (rest not applied to ML)
+8) 8:00 PM ET TBL @ CGY | TBL ML -165 (lowvig) | model 64.9% | implied 62.3% | edge +2.6pp | fair -185 | rest_adv_home 1 (rest not applied to ML)
 
 TOTALS SIGNALS
-1) 10:10 PM ET TBL @ EDM | Under 6.5 117 (bovada) | model 52.2% | implied 46.1% | edge +6.1pp | fair -109 | mu_total 6.53 | line half(6.5) | rest_adv_home 0 (rest applied)
-2) 4:10 PM ET DAL @ MIN | Over 5.5 -115 (betrivers) | model 56.8% | implied 53.5% | edge +3.3pp | fair -131 | mu_total 6.08 | line half(5.5) | rest_adv_home 0 (rest applied)
-3) 4:10 PM ET BUF @ LAK | Under 6.5 -120 (betus) | model 57.0% | implied 54.5% | edge +2.5pp | fair -133 | mu_total 6.22 | line half(6.5) | rest_adv_home 0 (rest applied)
+1) 3:00 PM ET CAR @ PIT | Under 6.5 102 (bovada) | model 53.4% | implied 49.5% | edge +3.9pp | fair -115 | mu_total 6.45 | line half(6.5) | rest_adv_home -1 (rest applied)
+2) 8:00 PM ET TBL @ CGY | Under 6.5 -110 (betus) | model 56.1% | implied 52.4% | edge +3.8pp | fair -128 | mu_total 6.28 | line half(6.5) | rest_adv_home 1 (rest applied)
+3) 8:00 PM ET BUF @ ANA | Under 6.5 112 (lowvig) | model 50.9% | implied 47.2% | edge +3.8pp | fair -104 | mu_total 6.61 | line half(6.5) | rest_adv_home 1 (rest applied)
+4) 9:00 PM ET LAK @ UTA | Over 5.5 -120 (fanduel) | model 57.0% | implied 54.5% | edge +2.4pp | fair -133 | mu_total 6.10 | line half(5.5) | rest_adv_home 1 (rest applied)
 
 SKIPPED GAMES (short reasons)
 None
