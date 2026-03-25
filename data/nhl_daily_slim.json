@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-25",
-  "generated_at_utc": "2026-03-25T15:11:24Z",
+  "generated_at_utc": "2026-03-25T16:20:17Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -31,14 +31,14 @@
         "commence_time": "2026-03-25T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": 172,
+            "away_book": "bovada",
+            "away_price": 173,
             "home_book": "lowvig",
             "home_price": -197
           },
           "consensus_median": {
             "away_price": 170.0,
-            "home_price": -200.0
+            "home_price": -205.0
           }
         },
         "home_team": "Buffalo Sabres",
@@ -48,7 +48,7 @@
             "over_book": "lowvig",
             "over_price": -109,
             "under_book": "bovada",
-            "under_price": -105
+            "under_price": -103
           },
           "line": 6.5
         }
@@ -64,8 +64,8 @@
             "home_price": 106
           },
           "consensus_median": {
-            "away_price": -120.0,
-            "home_price": 104.0
+            "away_price": -125.0,
+            "home_price": 105.0
           }
         },
         "home_team": "Toronto Maple Leafs",
