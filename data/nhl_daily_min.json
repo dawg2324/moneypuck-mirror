@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-26",
-  "generated_at_utc": "2026-03-26T15:17:10Z",
+  "generated_at_utc": "2026-03-26T16:19:25Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -128,7 +128,7 @@
           },
           "consensus_median": {
             "away_price": 141.0,
-            "home_price": -167.0
+            "home_price": -165.0
           }
         },
         "home_team": "Philadelphia Flyers",
@@ -136,7 +136,7 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -110,
+            "over_price": -108,
             "under_book": "mybookieag",
             "under_price": -104
           },
@@ -175,14 +175,14 @@
         "commence_time": "2026-03-26T23:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "betus",
-            "away_price": -150,
-            "home_book": "bovada",
-            "home_price": 137
+            "away_book": "lowvig",
+            "away_price": -153,
+            "home_book": "draftkings",
+            "home_price": 136
           },
           "consensus_median": {
-            "away_price": -159.0,
-            "home_price": 135.0
+            "away_price": -158.0,
+            "home_price": 134.0
           }
         },
         "home_team": "Florida Panthers",
@@ -202,14 +202,14 @@
         "commence_time": "2026-03-26T23:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 133,
+            "away_book": "draftkings",
+            "away_price": 130,
             "home_book": "betus",
             "home_price": -145
           },
           "consensus_median": {
-            "away_price": 128.0,
-            "home_price": -151.0
+            "away_price": 126.0,
+            "home_price": -150.0
           }
         },
         "home_team": "Ottawa Senators",
@@ -229,8 +229,8 @@
         "commence_time": "2026-03-26T23:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "mybookieag",
-            "away_price": 250,
+            "away_book": "lowvig",
+            "away_price": 244,
             "home_book": "lowvig",
             "home_price": -285
           },
@@ -244,7 +244,7 @@
         "totals": {
           "best": {
             "over_book": "mybookieag",
-            "over_price": -122,
+            "over_price": -123,
             "under_book": "lowvig",
             "under_price": 112
           },
@@ -285,12 +285,12 @@
           "best": {
             "away_book": "betrivers",
             "away_price": -104,
-            "home_book": "betonlineag",
-            "home_price": -109
+            "home_book": "bovada",
+            "home_price": -108
           },
           "consensus_median": {
-            "away_price": -105.0,
-            "home_price": -113.0
+            "away_price": -106.0,
+            "home_price": -110.0
           }
         },
         "home_team": "Nashville Predators",
@@ -298,7 +298,7 @@
         "totals": {
           "best": {
             "over_book": "bovada",
-            "over_price": -117,
+            "over_price": -120,
             "under_book": "betonlineag",
             "under_price": 109
           },
@@ -310,24 +310,24 @@
         "commence_time": "2026-03-27T00:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 125,
-            "home_book": "lowvig",
-            "home_price": -140
+            "away_book": "betrivers",
+            "away_price": 123,
+            "home_book": "fanduel",
+            "home_price": -137
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -142.0
+            "home_price": -139.0
           }
         },
         "home_team": "St Louis Blues",
         "id": "SJS_vs_STL_2026-03-27",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -118,
-            "under_book": "lowvig",
-            "under_price": 102
+            "over_book": "bovada",
+            "over_price": -105,
+            "under_book": "betmgm",
+            "under_price": -102
           },
           "line": 6.0
         }
@@ -339,8 +339,8 @@
           "best": {
             "away_book": "draftkings",
             "away_price": -135,
-            "home_book": "bovada",
-            "home_price": 125
+            "home_book": "fanduel",
+            "home_price": 122
           },
           "consensus_median": {
             "away_price": -140.0,
@@ -371,7 +371,7 @@
           },
           "consensus_median": {
             "away_price": 127.0,
-            "home_price": -148.0
+            "home_price": -149.0
           }
         },
         "home_team": "Utah Mammoth",
@@ -418,14 +418,14 @@
         "commence_time": "2026-03-27T02:00:00Z",
         "h2h": {
           "best": {
-            "away_book": "betus",
-            "away_price": -165,
+            "away_book": "lowvig",
+            "away_price": -166,
             "home_book": "betrivers",
             "home_price": 150
           },
           "consensus_median": {
-            "away_price": -172.0,
-            "home_price": 147.0
+            "away_price": -171.0,
+            "home_price": 146.0
           }
         },
         "home_team": "Vancouver Canucks",
@@ -616,7 +616,7 @@
       "ok": true
     },
     "starters": {
-      "games_found": 1,
+      "games_found": 3,
       "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
@@ -631,10 +631,10 @@
     "game_rest_count": 12,
     "goalies_count": 0,
     "league_avg_lambda": 6.264328387510807,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 2,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 12,
-    "odds_games_unfiltered_count": 12,
+    "odds_games_unfiltered_count": 14,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
