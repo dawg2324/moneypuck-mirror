@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-03-27",
-  "generated_at_utc": "2026-03-27T15:01:09Z",
+  "generated_at_utc": "2026-03-27T16:01:53Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -31,13 +31,13 @@
         "commence_time": "2026-03-27T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 132,
-            "home_book": "betmgm",
-            "home_price": -150
+            "away_book": "fanduel",
+            "away_price": 134,
+            "home_book": "bovada",
+            "home_price": -147
           },
           "consensus_median": {
-            "away_price": 130.0,
+            "away_price": 129.0,
             "home_price": -150.0
           }
         },
@@ -60,12 +60,12 @@
           "best": {
             "away_book": "bovada",
             "away_price": 155,
-            "home_book": "fanduel",
+            "home_book": "betus",
             "home_price": -170
           },
           "consensus_median": {
-            "away_price": 150.0,
-            "home_price": -177.0
+            "away_price": 151.0,
+            "home_price": -182.0
           }
         },
         "home_team": "New York Rangers",
