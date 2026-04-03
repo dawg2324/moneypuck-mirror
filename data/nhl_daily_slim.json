@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-03",
-  "generated_at_utc": "2026-04-03T14:54:28Z",
+  "generated_at_utc": "2026-04-03T15:50:03Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -34,11 +34,11 @@
             "away_book": "bovada",
             "away_price": 125,
             "home_book": "betonlineag",
-            "home_price": -140
+            "home_price": -138
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -143.0
+            "home_price": -142.0
           }
         },
         "home_team": "New York Islanders",
@@ -46,7 +46,7 @@
         "totals": {
           "best": {
             "over_book": "fanduel",
-            "over_price": -115,
+            "over_price": -114,
             "under_book": "draftkings",
             "under_price": 102
           },
@@ -58,14 +58,14 @@
         "commence_time": "2026-04-04T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 122,
+            "away_book": "bovada",
+            "away_price": 125,
             "home_book": "betonlineag",
-            "home_price": -138
+            "home_price": -140
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -140.0
+            "home_price": -142.0
           }
         },
         "home_team": "Anaheim Ducks",
@@ -74,8 +74,8 @@
           "best": {
             "over_book": "betonlineag",
             "over_price": -115,
-            "under_book": "betonlineag",
-            "under_price": -101
+            "under_book": "bovada",
+            "under_price": 102
           },
           "line": 6.0
         }
