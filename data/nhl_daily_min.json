@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-04",
-  "generated_at_utc": "2026-04-04T14:41:18Z",
+  "generated_at_utc": "2026-04-04T15:44:02Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -25,7 +25,7 @@
       {
         "away_rest_days": 0,
         "away_team": "COL",
-        "commence_time": "2026-04-04T19:10:00Z",
+        "commence_time": "2026-04-04T19:15:00Z",
         "home_rest_days": 0,
         "home_team": "DAL",
         "id": "COL_vs_DAL_2026-04-04",
@@ -139,13 +139,13 @@
         "commence_time": "2026-04-04T16:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": -138,
+            "away_book": "betus",
+            "away_price": -140,
             "home_book": "lowvig",
             "home_price": 125
           },
           "consensus_median": {
-            "away_price": -144.0,
+            "away_price": -142.0,
             "home_price": 120.0
           }
         },
@@ -155,7 +155,7 @@
           "best": {
             "over_book": "bovada",
             "over_price": 100,
-            "under_book": "lowvig",
+            "under_book": "betmgm",
             "under_price": -115
           },
           "line": 6.5
@@ -168,8 +168,8 @@
           "best": {
             "away_book": "betonlineag",
             "away_price": 113,
-            "home_book": "mybookieag",
-            "home_price": -118
+            "home_book": "fanduel",
+            "home_price": -120
           },
           "consensus_median": {
             "away_price": 105.0,
@@ -180,8 +180,8 @@
         "id": "MIN_vs_OTT_2026-04-04",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": -113,
+            "over_book": "bovada",
+            "over_price": -108,
             "under_book": "betmgm",
             "under_price": 100
           },
@@ -190,7 +190,7 @@
       },
       {
         "away_team": "Colorado Avalanche",
-        "commence_time": "2026-04-04T19:10:00Z",
+        "commence_time": "2026-04-04T19:15:00Z",
         "h2h": {
           "best": {
             "away_book": "fanduel",
@@ -207,8 +207,8 @@
         "id": "COL_vs_DAL_2026-04-04",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": -115,
+            "over_book": "bovada",
+            "over_price": -112,
             "under_book": "betonlineag",
             "under_price": -101
           },
@@ -220,14 +220,14 @@
         "commence_time": "2026-04-04T21:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 166,
+            "away_book": "bovada",
+            "away_price": 163,
             "home_book": "mybookieag",
             "home_price": -182
           },
           "consensus_median": {
             "away_price": 158.0,
-            "home_price": -190.0
+            "home_price": -185.0
           }
         },
         "home_team": "Tampa Bay Lightning",
@@ -236,7 +236,7 @@
           "best": {
             "over_book": "draftkings",
             "over_price": 105,
-            "under_book": "betonlineag",
+            "under_book": "betus",
             "under_price": -120
           },
           "line": 6.5
@@ -249,12 +249,12 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 188,
-            "home_book": "lowvig",
-            "home_price": -208
+            "home_book": "fanduel",
+            "home_price": -215
           },
           "consensus_median": {
-            "away_price": 180.0,
-            "home_price": -212.0
+            "away_price": 183.0,
+            "home_price": -218.0
           }
         },
         "home_team": "Pittsburgh Penguins",
@@ -263,8 +263,8 @@
           "best": {
             "over_book": "betrivers",
             "over_price": -109,
-            "under_book": "betus",
-            "under_price": 105
+            "under_book": "lowvig",
+            "under_price": 102
           },
           "line": 6.5
         }
@@ -275,7 +275,7 @@
         "h2h": {
           "best": {
             "away_book": "fanduel",
-            "away_price": -114,
+            "away_price": -113,
             "home_book": "betonlineag",
             "home_price": 101
           },
@@ -301,14 +301,14 @@
         "commence_time": "2026-04-04T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": 210,
+            "away_book": "betmgm",
+            "away_price": 220,
             "home_book": "lowvig",
-            "home_price": -240
+            "home_price": -250
           },
           "consensus_median": {
-            "away_price": 203.0,
-            "home_price": -245.0
+            "away_price": 210.0,
+            "home_price": -258.0
           }
         },
         "home_team": "Carolina Hurricanes",
@@ -331,11 +331,11 @@
             "away_book": "lowvig",
             "away_price": 126,
             "home_book": "fanduel",
-            "home_price": -138
+            "home_price": -137
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -143.0
+            "home_price": -142.0
           }
         },
         "home_team": "Columbus Blue Jackets",
@@ -356,13 +356,13 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": 160,
-            "home_book": "betus",
-            "home_price": -180
+            "away_price": 166,
+            "home_book": "bovada",
+            "home_price": -183
           },
           "consensus_median": {
-            "away_price": 155.0,
-            "home_price": -182.0
+            "away_price": 158.0,
+            "home_price": -190.0
           }
         },
         "home_team": "Los Angeles Kings",
@@ -371,8 +371,8 @@
           "best": {
             "over_book": "betrivers",
             "over_price": -109,
-            "under_book": "bovada",
-            "under_price": -105
+            "under_book": "betmgm",
+            "under_price": -102
           },
           "line": 6.0
         }
@@ -384,8 +384,8 @@
           "best": {
             "away_book": "fanduel",
             "away_price": -215,
-            "home_book": "lowvig",
-            "home_price": 187
+            "home_book": "bovada",
+            "home_price": 195
           },
           "consensus_median": {
             "away_price": -218.0,
@@ -411,12 +411,12 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 138,
-            "home_book": "betonlineag",
-            "home_price": -153
+            "home_book": "bovada",
+            "home_price": -147
           },
           "consensus_median": {
-            "away_price": 134.0,
-            "home_price": -155.0
+            "away_price": 129.0,
+            "home_price": -154.0
           }
         },
         "home_team": "Anaheim Ducks",
@@ -426,7 +426,7 @@
             "over_book": "betrivers",
             "over_price": -108,
             "under_book": "betonlineag",
-            "under_price": -101
+            "under_price": 104
           },
           "line": 6.5
         }
@@ -438,12 +438,12 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 150,
-            "home_book": "betonlineag",
-            "home_price": -169
+            "home_book": "bovada",
+            "home_price": -168
           },
           "consensus_median": {
             "away_price": 146.0,
-            "home_price": -171.0
+            "home_price": -170.0
           }
         },
         "home_team": "Seattle Kraken",
@@ -453,7 +453,7 @@
             "over_book": "betrivers",
             "over_price": 100,
             "under_book": "betonlineag",
-            "under_price": -108
+            "under_price": -106
           },
           "line": 6.0
         }
@@ -480,7 +480,7 @@
             "over_book": "betrivers",
             "over_price": -105,
             "under_book": "lowvig",
-            "under_price": -108
+            "under_price": -106
           },
           "line": 6.5
         }
@@ -496,7 +496,7 @@
             "home_price": -114
           },
           "consensus_median": {
-            "away_price": -103.0,
+            "away_price": -102.0,
             "home_price": -115.0
           }
         },
@@ -688,7 +688,7 @@
       "ok": true
     },
     "starters": {
-      "games_found": 2,
+      "games_found": 3,
       "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
@@ -703,10 +703,10 @@
     "game_rest_count": 14,
     "goalies_count": 0,
     "league_avg_lambda": 6.28117298482693,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 6,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 14,
-    "odds_games_unfiltered_count": 14,
+    "odds_games_unfiltered_count": 20,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
