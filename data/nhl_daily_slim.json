@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-09",
-  "generated_at_utc": "2026-04-09T15:43:19Z",
+  "generated_at_utc": "2026-04-09T16:24:16Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -136,8 +136,8 @@
             "home_price": -250
           },
           "consensus_median": {
-            "away_price": 218.0,
-            "home_price": -265.0
+            "away_price": 220.0,
+            "home_price": -270.0
           }
         },
         "home_team": "New York Islanders",
@@ -185,7 +185,7 @@
         "h2h": {
           "best": {
             "away_book": "betrivers",
-            "away_price": 107,
+            "away_price": 104,
             "home_book": "lowvig",
             "home_price": -114
           },
@@ -211,14 +211,14 @@
         "commence_time": "2026-04-09T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 252,
+            "away_book": "betus",
+            "away_price": 260,
             "home_book": "betrivers",
             "home_price": -295
           },
           "consensus_median": {
-            "away_price": 250.0,
-            "home_price": -298.0
+            "away_price": 252.0,
+            "home_price": -310.0
           }
         },
         "home_team": "Ottawa Senators",
@@ -238,24 +238,24 @@
         "commence_time": "2026-04-09T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": -109,
+            "away_book": "bovada",
+            "away_price": -103,
             "home_book": "betonlineag",
             "home_price": -105
           },
           "consensus_median": {
-            "away_price": -110.0,
-            "home_price": -108.0
+            "away_price": -109.0,
+            "home_price": -110.0
           }
         },
         "home_team": "New Jersey Devils",
         "id": "PIT_vs_NJD_2026-04-09",
         "totals": {
           "best": {
-            "over_book": "betrivers",
-            "over_price": -113,
-            "under_book": "draftkings",
-            "under_price": 102
+            "over_book": "betus",
+            "over_price": -115,
+            "under_book": "bovada",
+            "under_price": 107
           },
           "line": 6.5
         }
@@ -281,8 +281,8 @@
           "best": {
             "over_book": "betonlineag",
             "over_price": -108,
-            "under_book": "draftkings",
-            "under_price": -108
+            "under_book": "fanduel",
+            "under_price": 100
           },
           "line": 5.5
         }
@@ -347,7 +347,7 @@
         "h2h": {
           "best": {
             "away_book": "bovada",
-            "away_price": 110,
+            "away_price": 107,
             "home_book": "lowvig",
             "home_price": -120
           },
@@ -652,10 +652,10 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
+      "games_found": 1,
+      "note": "no starters posted yet",
       "ok": true,
       "source": "fallback_scrape",
-      "unmapped_teams": [],
       "upstream_keyerror": "'Utah Mammoth'",
       "url": "https://www.dailyfaceoff.com/starting-goalies/2026-04-09"
     },
