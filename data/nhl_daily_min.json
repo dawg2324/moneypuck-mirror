@@ -1,515 +1,191 @@
 {
-  "data_date_et": "2026-04-11",
-  "generated_at_utc": "2026-04-11T15:45:03Z",
+  "data_date_et": "2026-04-12",
+  "generated_at_utc": "2026-04-12T14:50:33Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
-        "away_rest_days": 1,
-        "away_team": "TBL",
-        "commence_time": "2026-04-11T16:30:00Z",
-        "home_rest_days": 3,
-        "home_team": "BOS",
-        "id": "TBL_vs_BOS_2026-04-11",
-        "rest_adv_home": 2
+        "away_rest_days": 0,
+        "away_team": "PIT",
+        "commence_time": "2026-04-12T19:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "WSH",
+        "id": "PIT_vs_WSH_2026-04-12",
+        "rest_adv_home": 0
       },
       {
-        "away_rest_days": 1,
+        "away_rest_days": 0,
+        "away_team": "BOS",
+        "commence_time": "2026-04-12T22:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "CBJ",
+        "id": "BOS_vs_CBJ_2026-04-12",
+        "rest_adv_home": 0
+      },
+      {
+        "away_rest_days": 0,
         "away_team": "OTT",
-        "commence_time": "2026-04-11T17:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "NYI",
-        "id": "OTT_vs_NYI_2026-04-11",
+        "commence_time": "2026-04-12T23:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "NJD",
+        "id": "OTT_vs_NJD_2026-04-12",
         "rest_adv_home": 0
       },
       {
-        "away_rest_days": 2,
-        "away_team": "WSH",
-        "commence_time": "2026-04-11T19:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "PIT",
-        "id": "WSH_vs_PIT_2026-04-11",
-        "rest_adv_home": -1
-      },
-      {
-        "away_rest_days": 2,
-        "away_team": "EDM",
-        "commence_time": "2026-04-11T20:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "LAK",
-        "id": "EDM_vs_LAK_2026-04-11",
-        "rest_adv_home": -1
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "CAR",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "UTA",
-        "id": "CAR_vs_UTA_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "STL",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "CHI",
-        "id": "STL_vs_CHI_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 2,
-        "away_team": "NYR",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "DAL",
-        "id": "NYR_vs_DAL_2026-04-11",
-        "rest_adv_home": -1
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "NJD",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "DET",
-        "id": "NJD_vs_DET_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "MIN",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "NSH",
-        "id": "MIN_vs_NSH_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "CGY",
-        "commence_time": "2026-04-11T23:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "SEA",
-        "id": "CGY_vs_SEA_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "FLA",
-        "commence_time": "2026-04-11T23:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "TOR",
-        "id": "FLA_vs_TOR_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "PHI",
-        "commence_time": "2026-04-11T23:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "WPG",
-        "id": "PHI_vs_WPG_2026-04-11",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
-        "away_team": "VGK",
-        "commence_time": "2026-04-12T00:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "COL",
-        "id": "VGK_vs_COL_2026-04-12",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 1,
+        "away_rest_days": 0,
         "away_team": "VAN",
-        "commence_time": "2026-04-12T02:00:00Z",
-        "home_rest_days": 1,
-        "home_team": "SJS",
-        "id": "VAN_vs_SJS_2026-04-12",
+        "commence_time": "2026-04-13T00:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "ANA",
+        "id": "VAN_vs_ANA_2026-04-13",
+        "rest_adv_home": 0
+      },
+      {
+        "away_rest_days": 0,
+        "away_team": "UTA",
+        "commence_time": "2026-04-13T01:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "CGY",
+        "id": "UTA_vs_CGY_2026-04-13",
         "rest_adv_home": 0
       }
     ],
     "goalies": [],
-    "league_avg_lambda": 6.272746977442389,
+    "league_avg_lambda": 6.270799545094937,
     "odds_current": [
       {
-        "away_team": "Tampa Bay Lightning",
-        "commence_time": "2026-04-11T16:30:00Z",
+        "away_team": "Pittsburgh Penguins",
+        "commence_time": "2026-04-12T19:10:00Z",
+        "h2h": {
+          "best": {
+            "away_book": "betrivers",
+            "away_price": 148,
+            "home_book": "fanduel",
+            "home_price": -156
+          },
+          "consensus_median": {
+            "away_price": 140.0,
+            "home_price": -164.0
+          }
+        },
+        "home_team": "Washington Capitals",
+        "id": "PIT_vs_WSH_2026-04-12",
+        "totals": {
+          "best": {
+            "over_book": "draftkings",
+            "over_price": -130,
+            "under_book": "betonlineag",
+            "under_price": 117
+          },
+          "line": 6.5
+        }
+      },
+      {
+        "away_team": "Boston Bruins",
+        "commence_time": "2026-04-12T22:10:00Z",
         "h2h": {
           "best": {
             "away_book": "bovada",
-            "away_price": -117,
-            "home_book": "betonlineag",
-            "home_price": 106
+            "away_price": 130,
+            "home_book": "lowvig",
+            "home_price": -145
           },
           "consensus_median": {
-            "away_price": -120.0,
-            "home_price": 100.0
+            "away_price": 125.0,
+            "home_price": -150.0
           }
         },
-        "home_team": "Boston Bruins",
-        "id": "TBL_vs_BOS_2026-04-11",
+        "home_team": "Columbus Blue Jackets",
+        "id": "BOS_vs_CBJ_2026-04-12",
         "totals": {
           "best": {
-            "over_book": "betrivers",
-            "over_price": -108,
-            "under_book": "betonlineag",
-            "under_price": 100
-          },
-          "line": 6.0
-        }
-      },
-      {
-        "away_team": "Ottawa Senators",
-        "commence_time": "2026-04-11T17:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betrivers",
-            "away_price": -121,
-            "home_book": "betonlineag",
-            "home_price": 115
-          },
-          "consensus_median": {
-            "away_price": -130.0,
-            "home_price": 111.0
-          }
-        },
-        "home_team": "New York Islanders",
-        "id": "OTT_vs_NYI_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "bovada",
-            "over_price": -112,
-            "under_book": "betonlineag",
-            "under_price": 101
-          },
-          "line": 6.0
-        }
-      },
-      {
-        "away_team": "Washington Capitals",
-        "commence_time": "2026-04-11T19:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betrivers",
-            "away_price": 110,
-            "home_book": "mybookieag",
-            "home_price": -124
-          },
-          "consensus_median": {
-            "away_price": 105.5,
-            "home_price": -125.0
-          }
-        },
-        "home_team": "Pittsburgh Penguins",
-        "id": "WSH_vs_PIT_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "bovada",
-            "over_price": -108,
-            "under_book": "betonlineag",
-            "under_price": -104
-          },
-          "line": 6.5
-        }
-      },
-      {
-        "away_team": "Edmonton Oilers",
-        "commence_time": "2026-04-11T20:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": 105,
-            "home_book": "betrivers",
-            "home_price": -110
-          },
-          "consensus_median": {
-            "away_price": 100.0,
-            "home_price": -119.5
-          }
-        },
-        "home_team": "Los Angeles Kings",
-        "id": "EDM_vs_LAK_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "bovada",
+            "over_book": "draftkings",
             "over_price": 100,
-            "under_book": "betonlineag",
-            "under_price": -113
-          },
-          "line": 6.5
-        }
-      },
-      {
-        "away_team": "Carolina Hurricanes",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": 115,
-            "home_book": "mybookieag",
-            "home_price": -129
-          },
-          "consensus_median": {
-            "away_price": 110.0,
-            "home_price": -130.0
-          }
-        },
-        "home_team": "Utah Mammoth",
-        "id": "CAR_vs_UTA_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "betonlineag",
-            "over_price": -103,
-            "under_book": "bovada",
+            "under_book": "lowvig",
             "under_price": -112
           },
           "line": 6.5
         }
       },
       {
-        "away_team": "St Louis Blues",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": -138,
-            "home_book": "betonlineag",
-            "home_price": 122
-          },
-          "consensus_median": {
-            "away_price": -142.0,
-            "home_price": 119.0
-          }
-        },
-        "home_team": "Chicago Blackhawks",
-        "id": "STL_vs_CHI_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "betrivers",
-            "over_price": -105,
-            "under_book": "betonlineag",
-            "under_price": -108
-          },
-          "line": 6.0
-        }
-      },
-      {
-        "away_team": "New York Rangers",
-        "commence_time": "2026-04-11T21:00:00Z",
+        "away_team": "Ottawa Senators",
+        "commence_time": "2026-04-12T23:10:00Z",
         "h2h": {
           "best": {
             "away_book": "draftkings",
-            "away_price": 164,
-            "home_book": "betonlineag",
-            "home_price": -183
+            "away_price": -125,
+            "home_book": "betmgm",
+            "home_price": 110
           },
           "consensus_median": {
-            "away_price": 156.5,
-            "home_price": -187.0
+            "away_price": -126.0,
+            "home_price": 107.0
           }
         },
-        "home_team": "Dallas Stars",
-        "id": "NYR_vs_DAL_2026-04-11",
+        "home_team": "New Jersey Devils",
+        "id": "OTT_vs_NJD_2026-04-12",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": -124,
-            "under_book": "betonlineag",
-            "under_price": 108
-          },
-          "line": 5.5
-        }
-      },
-      {
-        "away_team": "New Jersey Devils",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betrivers",
-            "away_price": 123,
-            "home_book": "betonlineag",
-            "home_price": -133
-          },
-          "consensus_median": {
-            "away_price": 115.5,
-            "home_price": -135.0
-          }
-        },
-        "home_team": "Detroit Red Wings",
-        "id": "NJD_vs_DET_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "betonlineag",
-            "over_price": 100,
-            "under_book": "betonlineag",
-            "under_price": -116
-          },
-          "line": 6.5
-        }
-      },
-      {
-        "away_team": "Minnesota Wild",
-        "commence_time": "2026-04-11T21:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": -129,
-            "home_book": "betrivers",
-            "home_price": 114
-          },
-          "consensus_median": {
-            "away_price": -130.0,
-            "home_price": 112.0
-          }
-        },
-        "home_team": "Nashville Predators",
-        "id": "MIN_vs_NSH_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "betrivers",
-            "over_price": -122,
-            "under_book": "betonlineag",
-            "under_price": 108
-          },
-          "line": 6.0
-        }
-      },
-      {
-        "away_team": "Calgary Flames",
-        "commence_time": "2026-04-11T23:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betrivers",
-            "away_price": 116,
-            "home_book": "betonlineag",
-            "home_price": -128
-          },
-          "consensus_median": {
-            "away_price": 113.5,
-            "home_price": -135.0
-          }
-        },
-        "home_team": "Seattle Kraken",
-        "id": "CGY_vs_SEA_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "draftkings",
-            "over_price": 102,
-            "under_book": "bovada",
-            "under_price": -117
-          },
-          "line": 6.5
-        }
-      },
-      {
-        "away_team": "Florida Panthers",
-        "commence_time": "2026-04-11T23:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": 111,
-            "home_book": "betonlineag",
-            "home_price": -126
-          },
-          "consensus_median": {
-            "away_price": 110.0,
-            "home_price": -129.0
-          }
-        },
-        "home_team": "Toronto Maple Leafs",
-        "id": "FLA_vs_TOR_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "bovada",
-            "over_price": -108,
-            "under_book": "draftkings",
-            "under_price": 100
-          },
-          "line": 6.5
-        }
-      },
-      {
-        "away_team": "Philadelphia Flyers",
-        "commence_time": "2026-04-11T23:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": 114,
-            "home_book": "fanduel",
-            "home_price": -128
-          },
-          "consensus_median": {
-            "away_price": 110.0,
-            "home_price": -130.0
-          }
-        },
-        "home_team": "Winnipeg Jets",
-        "id": "PHI_vs_WPG_2026-04-11",
-        "totals": {
-          "best": {
-            "over_book": "draftkings",
-            "over_price": -115,
-            "under_book": "betonlineag",
-            "under_price": -101
-          },
-          "line": 5.5
-        }
-      },
-      {
-        "away_team": "Vegas Golden Knights",
-        "commence_time": "2026-04-12T00:00:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betonlineag",
-            "away_price": 116,
-            "home_book": "fanduel",
-            "home_price": -128
-          },
-          "consensus_median": {
-            "away_price": 113.0,
-            "home_price": -134.0
-          }
-        },
-        "home_team": "Colorado Avalanche",
-        "id": "VGK_vs_COL_2026-04-12",
-        "totals": {
-          "best": {
-            "over_book": "bovada",
-            "over_price": -108,
-            "under_book": "betmgm",
-            "under_price": 100
+            "over_book": "betmgm",
+            "over_price": -120,
+            "under_book": "lowvig",
+            "under_price": 109
           },
           "line": 6.0
         }
       },
       {
         "away_team": "Vancouver Canucks",
-        "commence_time": "2026-04-12T02:00:00Z",
+        "commence_time": "2026-04-13T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 185,
-            "home_book": "bovada",
-            "home_price": -200
+            "away_book": "bovada",
+            "away_price": 260,
+            "home_book": "lowvig",
+            "home_price": -298
           },
           "consensus_median": {
-            "away_price": 180.0,
-            "home_price": -216.5
+            "away_price": 250.0,
+            "home_price": -305.0
           }
         },
-        "home_team": "San Jose Sharks",
-        "id": "VAN_vs_SJS_2026-04-12",
+        "home_team": "Anaheim Ducks",
+        "id": "VAN_vs_ANA_2026-04-13",
         "totals": {
           "best": {
-            "over_book": "fanduel",
-            "over_price": -115,
-            "under_book": "betonlineag",
-            "under_price": 109
+            "over_book": "betrivers",
+            "over_price": -136,
+            "under_book": "lowvig",
+            "under_price": 121
           },
           "line": 6.5
+        }
+      },
+      {
+        "away_team": "Utah Mammoth",
+        "commence_time": "2026-04-13T01:10:00Z",
+        "h2h": {
+          "best": {
+            "away_book": "bovada",
+            "away_price": -160,
+            "home_book": "lowvig",
+            "home_price": 141
+          },
+          "consensus_median": {
+            "away_price": -162.0,
+            "home_price": 135.0
+          }
+        },
+        "home_team": "Calgary Flames",
+        "id": "UTA_vs_CGY_2026-04-13",
+        "totals": {
+          "best": {
+            "over_book": "betrivers",
+            "over_price": -113,
+            "under_book": "bovada",
+            "under_price": 100
+          },
+          "line": 6.0
         }
       }
     ],
@@ -522,8 +198,8 @@
       },
       {
         "team_abbrev": "BOS",
-        "xGA_pg": 3.4068354430379744,
-        "xGF_pg": 3.0413924050632914
+        "xGA_pg": 3.39375,
+        "xGF_pg": 3.0322500000000003
       },
       {
         "team_abbrev": "BUF",
@@ -532,148 +208,148 @@
       },
       {
         "team_abbrev": "CAR",
-        "xGA_pg": 2.8512658227848102,
-        "xGF_pg": 3.6697468354430383
+        "xGA_pg": 2.863125,
+        "xGF_pg": 3.68525
       },
       {
         "team_abbrev": "CBJ",
-        "xGA_pg": 3.178354430379747,
-        "xGF_pg": 3.1431645569620255
+        "xGA_pg": 3.16775,
+        "xGF_pg": 3.1563749999999997
       },
       {
         "team_abbrev": "CGY",
-        "xGA_pg": 3.297692307692308,
-        "xGF_pg": 2.8576923076923078
+        "xGA_pg": 3.2935443037974683,
+        "xGF_pg": 2.839746835443038
       },
       {
         "team_abbrev": "CHI",
-        "xGA_pg": 3.406329113924051,
-        "xGF_pg": 2.675443037974684
+        "xGA_pg": 3.4103749999999997,
+        "xGF_pg": 2.6888750000000003
       },
       {
         "team_abbrev": "COL",
-        "xGA_pg": 2.838846153846154,
-        "xGF_pg": 3.6716666666666664
+        "xGA_pg": 2.8475949367088607,
+        "xGF_pg": 3.6678481012658226
       },
       {
         "team_abbrev": "DAL",
-        "xGA_pg": 2.917341772151899,
-        "xGF_pg": 3.151898734177215
+        "xGA_pg": 2.909875,
+        "xGF_pg": 3.161
       },
       {
         "team_abbrev": "DET",
-        "xGA_pg": 3.0682278481012655,
-        "xGF_pg": 3.1488607594936706
+        "xGA_pg": 3.086875,
+        "xGF_pg": 3.147125
       },
       {
         "team_abbrev": "EDM",
-        "xGA_pg": 3.1624050632911396,
-        "xGF_pg": 3.3627848101265827
+        "xGA_pg": 3.1561250000000003,
+        "xGF_pg": 3.3496250000000005
       },
       {
         "team_abbrev": "FLA",
-        "xGA_pg": 3.2575949367088612,
-        "xGF_pg": 3.2260759493670887
+        "xGA_pg": 3.2472499999999997,
+        "xGF_pg": 3.2402500000000005
       },
       {
         "team_abbrev": "LAK",
-        "xGA_pg": 2.9521794871794875,
-        "xGF_pg": 3.0123076923076924
+        "xGA_pg": 2.9440506329113925,
+        "xGF_pg": 3.007848101265823
       },
       {
         "team_abbrev": "MIN",
-        "xGA_pg": 2.9343037974683543,
-        "xGF_pg": 3.247341772151899
+        "xGA_pg": 2.925125,
+        "xGF_pg": 3.2357500000000003
       },
       {
         "team_abbrev": "MTL",
-        "xGA_pg": 3.3378481012658225,
-        "xGF_pg": 3.290886075949367
+        "xGA_pg": 3.3486249999999997,
+        "xGF_pg": 3.279
       },
       {
         "team_abbrev": "NJD",
-        "xGA_pg": 3.051518987341772,
-        "xGF_pg": 3.168354430379747
+        "xGA_pg": 3.051,
+        "xGF_pg": 3.185625
       },
       {
         "team_abbrev": "NSH",
-        "xGA_pg": 3.267848101265823,
-        "xGF_pg": 3.0875949367088604
+        "xGA_pg": 3.256125,
+        "xGF_pg": 3.076375
       },
       {
         "team_abbrev": "NYI",
-        "xGA_pg": 3.383291139240506,
-        "xGF_pg": 3.1241772151898735
+        "xGA_pg": 3.371875,
+        "xGF_pg": 3.1225
       },
       {
         "team_abbrev": "NYR",
-        "xGA_pg": 3.258354430379747,
-        "xGF_pg": 2.9024050632911393
+        "xGA_pg": 3.266125,
+        "xGF_pg": 2.895125
       },
       {
         "team_abbrev": "OTT",
-        "xGA_pg": 2.6870886075949367,
-        "xGF_pg": 3.3132911392405062
+        "xGA_pg": 2.690875,
+        "xGF_pg": 3.3027500000000005
       },
       {
         "team_abbrev": "PHI",
-        "xGA_pg": 2.837974683544304,
-        "xGF_pg": 2.9669620253164557
+        "xGA_pg": 2.836375,
+        "xGF_pg": 2.9585
       },
       {
         "team_abbrev": "PIT",
-        "xGA_pg": 3.1169620253164556,
-        "xGF_pg": 3.365949367088608
+        "xGA_pg": 3.120875,
+        "xGF_pg": 3.34225
       },
       {
         "team_abbrev": "SEA",
-        "xGA_pg": 3.1458974358974356,
-        "xGF_pg": 2.7617948717948715
+        "xGA_pg": 3.1244303797468356,
+        "xGF_pg": 2.7644303797468353
       },
       {
         "team_abbrev": "SJS",
-        "xGA_pg": 3.235897435897436,
-        "xGF_pg": 2.9362820512820513
+        "xGA_pg": 3.245569620253164,
+        "xGF_pg": 2.9392405063291136
       },
       {
         "team_abbrev": "STL",
-        "xGA_pg": 3.0124358974358976,
-        "xGF_pg": 2.638846153846154
+        "xGA_pg": 3.0217721518987344,
+        "xGF_pg": 2.65253164556962
       },
       {
         "team_abbrev": "TBL",
-        "xGA_pg": 2.9650632911392405,
-        "xGF_pg": 3.48620253164557
+        "xGA_pg": 2.956875,
+        "xGF_pg": 3.47225
       },
       {
         "team_abbrev": "TOR",
-        "xGA_pg": 3.453544303797468,
-        "xGF_pg": 2.9360759493670883
+        "xGA_pg": 3.464875,
+        "xGF_pg": 2.92975
       },
       {
         "team_abbrev": "UTA",
-        "xGA_pg": 3.0546153846153845,
-        "xGF_pg": 3.2003846153846154
+        "xGA_pg": 3.078101265822785,
+        "xGF_pg": 3.207974683544304
       },
       {
         "team_abbrev": "VAN",
-        "xGA_pg": 3.491666666666667,
-        "xGF_pg": 2.8776923076923078
+        "xGA_pg": 3.4875949367088603,
+        "xGF_pg": 2.8918987341772153
       },
       {
         "team_abbrev": "VGK",
-        "xGA_pg": 2.749240506329114,
-        "xGF_pg": 3.2131645569620253
+        "xGA_pg": 2.756875,
+        "xGF_pg": 3.21725
       },
       {
         "team_abbrev": "WPG",
-        "xGA_pg": 3.190769230769231,
-        "xGF_pg": 3.0255128205128208
+        "xGA_pg": 3.1793670886075946,
+        "xGF_pg": 3.021518987341772
       },
       {
         "team_abbrev": "WSH",
-        "xGA_pg": 3.243164556962025,
-        "xGF_pg": 3.269620253164557
+        "xGA_pg": 3.221,
+        "xGF_pg": 3.2715000000000005
       }
     ]
   },
@@ -688,25 +364,25 @@
       "ok": true
     },
     "starters": {
-      "games_found": 1,
-      "note": "no starters posted yet",
+      "games_found": 0,
       "ok": true,
       "source": "fallback_scrape",
+      "unmapped_teams": [],
       "upstream_keyerror": "'Utah Mammoth'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-04-11"
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-04-12"
     },
     "teams": {
       "ok": true
     }
   },
   "validations": {
-    "game_rest_count": 14,
+    "game_rest_count": 5,
     "goalies_count": 0,
-    "league_avg_lambda": 6.272746977442389,
-    "odds_games_filtered_out_by_date": 5,
+    "league_avg_lambda": 6.270799545094937,
+    "odds_games_filtered_out_by_date": 0,
     "odds_games_filtered_out_missing_commence_time": 0,
-    "odds_games_slim_count": 14,
-    "odds_games_unfiltered_count": 19,
+    "odds_games_slim_count": 5,
+    "odds_games_unfiltered_count": 5,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
