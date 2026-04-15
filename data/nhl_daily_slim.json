@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-15",
-  "generated_at_utc": "2026-04-15T15:13:02Z",
+  "generated_at_utc": "2026-04-15T16:12:26Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -67,21 +67,21 @@
         "commence_time": "2026-04-15T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "fanduel",
-            "away_price": -105,
-            "home_book": "betonlineag",
-            "home_price": -107
+            "away_book": "betrivers",
+            "away_price": -125,
+            "home_book": "bovada",
+            "home_price": 125
           },
           "consensus_median": {
-            "away_price": -110.0,
-            "home_price": -110.0
+            "away_price": -145.0,
+            "home_price": 122.0
           }
         },
         "home_team": "Buffalo Sabres",
         "id": "DAL_vs_BUF_2026-04-15",
         "totals": {
           "best": {
-            "over_book": "betus",
+            "over_book": "bovada",
             "over_price": -115,
             "under_book": "betmgm",
             "under_price": 100
@@ -94,26 +94,26 @@
         "commence_time": "2026-04-15T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
+            "away_book": "betrivers",
             "away_price": -155,
-            "home_book": "draftkings",
-            "home_price": 136
+            "home_book": "betus",
+            "home_price": 138
           },
           "consensus_median": {
-            "away_price": -155.0,
-            "home_price": 134.0
+            "away_price": -160.0,
+            "home_price": 135.0
           }
         },
         "home_team": "Florida Panthers",
         "id": "DET_vs_FLA_2026-04-15",
         "totals": {
           "best": {
-            "over_book": "betrivers",
-            "over_price": -117,
-            "under_book": "betmgm",
-            "under_price": 105
+            "over_book": "draftkings",
+            "over_price": 105,
+            "under_book": "bovada",
+            "under_price": -112
           },
-          "line": 6.0
+          "line": 6.5
         }
       },
       {
@@ -122,13 +122,13 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": 134,
-            "home_book": "betus",
-            "home_price": -140
+            "away_price": 142,
+            "home_book": "betrivers",
+            "home_price": -152
           },
           "consensus_median": {
-            "away_price": 122.0,
-            "home_price": -146.0
+            "away_price": 140.0,
+            "home_price": -162.0
           }
         },
         "home_team": "Tampa Bay Lightning",
@@ -138,7 +138,7 @@
             "over_book": "lowvig",
             "over_price": -110,
             "under_book": "betmgm",
-            "under_price": -105
+            "under_price": -102
           },
           "line": 6.0
         }
@@ -148,14 +148,14 @@
         "commence_time": "2026-04-15T23:30:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 160,
-            "home_book": "bovada",
-            "home_price": -177
+            "away_book": "bovada",
+            "away_price": 173,
+            "home_book": "lowvig",
+            "home_price": -190
           },
           "consensus_median": {
-            "away_price": 155.0,
-            "home_price": -181.0
+            "away_price": 165.0,
+            "home_price": -200.0
           }
         },
         "home_team": "Ottawa Senators",
@@ -163,9 +163,9 @@
         "totals": {
           "best": {
             "over_book": "draftkings",
-            "over_price": -105,
+            "over_price": -112,
             "under_book": "bovada",
-            "under_price": -103
+            "under_price": 105
           },
           "line": 6.5
         }
@@ -175,10 +175,10 @@
         "commence_time": "2026-04-16T00:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -123,
+            "away_book": "bovada",
+            "away_price": -120,
             "home_book": "lowvig",
-            "home_price": 109
+            "home_price": 110
           },
           "consensus_median": {
             "away_price": -125.0,
