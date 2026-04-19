@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-19",
-  "generated_at_utc": "2026-04-19T14:51:18Z",
+  "generated_at_utc": "2026-04-19T15:50:21Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -40,14 +40,14 @@
         "commence_time": "2026-04-19T19:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 245,
+            "away_book": "betus",
+            "away_price": 250,
             "home_book": "lowvig",
             "home_price": -270
           },
           "consensus_median": {
             "away_price": 230.0,
-            "home_price": -275.0
+            "home_price": -278.0
           }
         },
         "home_team": "Colorado Avalanche",
@@ -73,7 +73,7 @@
             "home_price": -163
           },
           "consensus_median": {
-            "away_price": 142.0,
+            "away_price": 140.0,
             "home_price": -166.0
           }
         },
@@ -81,8 +81,8 @@
         "id": "BOS_vs_BUF_2026-04-19",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": -111,
+            "over_book": "mybookieag",
+            "over_price": -112,
             "under_book": "betmgm",
             "under_price": -102
           },
@@ -96,20 +96,20 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 135,
-            "home_book": "betmgm",
-            "home_price": -150
+            "home_book": "bovada",
+            "home_price": -147
           },
           "consensus_median": {
-            "away_price": 134.0,
-            "home_price": -155.0
+            "away_price": 130.0,
+            "home_price": -152.0
           }
         },
         "home_team": "Vegas Golden Knights",
         "id": "UTA_vs_VGK_2026-04-20",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -130,
+            "over_book": "betrivers",
+            "over_price": -125,
             "under_book": "fanduel",
             "under_price": 114
           },
