@@ -1,15 +1,14 @@
-data_date_et: 2026-04-20
-generated_at_utc: 2026-04-20T16:19:13Z
+data_date_et: 2026-04-21
+generated_at_utc: 2026-04-21T15:20:01Z
 schema_version: 1.0.14
 
-counts: odds_games_slim_count=4, game_rest_count=4, teams_count=32, starters_count=0
+counts: odds_games_slim_count=3, game_rest_count=3, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 10:10 PM ET ANA @ EDM | ANA ML 150 (bovada) | model 57.0% | implied 40.0% | edge +17.0pp | fair -133 | rest_adv_home 0 (rest not applied to ML)
-2) 7:10 PM ET PHI @ PIT | PHI ML 130 (draftkings) | model 57.6% | implied 43.5% | edge +14.1pp | fair -136 | rest_adv_home 0 (rest not applied to ML)
-3) 7:40 PM ET OTT @ CAR | OTT ML 129 (betonlineag) | model 56.5% | implied 43.7% | edge +12.8pp | fair -130 | rest_adv_home 0 (rest not applied to ML)
-4) 9:40 PM ET MIN @ DAL | MIN ML 118 (lowvig) | model 58.2% | implied 45.9% | edge +12.3pp | fair -139 | rest_adv_home 0 (rest not applied to ML)
+1) 10:10 PM ET LAK @ COL | LAK ML 240 (draftkings) | model 52.2% | implied 29.4% | edge +22.8pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
+2) 7:40 PM ET BOS @ BUF | BOS ML 148 (betrivers) | model 55.6% | implied 40.3% | edge +15.3pp | fair -125 | rest_adv_home 0 (rest not applied to ML)
+3) 9:40 PM ET UTA @ VGK | UTA ML 135 (lowvig) | model 54.9% | implied 42.6% | edge +12.4pp | fair -122 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
 No qualified signals under current thresholds.
