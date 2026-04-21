@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-21",
-  "generated_at_utc": "2026-04-21T15:20:01Z",
+  "generated_at_utc": "2026-04-21T16:18:53Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -25,7 +25,7 @@
       {
         "away_rest_days": 0,
         "away_team": "LAK",
-        "commence_time": "2026-04-22T02:10:00Z",
+        "commence_time": "2026-04-22T02:22:00Z",
         "home_rest_days": 0,
         "home_team": "COL",
         "id": "LAK_vs_COL_2026-04-22",
@@ -42,22 +42,22 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 148,
-            "home_book": "lowvig",
-            "home_price": -160
+            "home_book": "bovada",
+            "home_price": -155
           },
           "consensus_median": {
             "away_price": 140.0,
-            "home_price": -170.0
+            "home_price": -167.0
           }
         },
         "home_team": "Buffalo Sabres",
         "id": "BOS_vs_BUF_2026-04-21",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": -111,
-            "under_book": "betmgm",
-            "under_price": -102
+            "over_book": "betus",
+            "over_price": -110,
+            "under_book": "lowvig",
+            "under_price": -104
           },
           "line": 6.0
         }
@@ -69,12 +69,12 @@
           "best": {
             "away_book": "lowvig",
             "away_price": 135,
-            "home_book": "betus",
+            "home_book": "bovada",
             "home_price": -150
           },
           "consensus_median": {
-            "away_price": 130.0,
-            "home_price": -154.0
+            "away_price": 132.0,
+            "home_price": -155.0
           }
         },
         "home_team": "Vegas Golden Knights",
@@ -91,7 +91,7 @@
       },
       {
         "away_team": "Los Angeles Kings",
-        "commence_time": "2026-04-22T02:10:00Z",
+        "commence_time": "2026-04-22T02:22:00Z",
         "h2h": {
           "best": {
             "away_book": "draftkings",
@@ -101,7 +101,7 @@
           },
           "consensus_median": {
             "away_price": 235.0,
-            "home_price": -295.0
+            "home_price": -290.0
           }
         },
         "home_team": "Colorado Avalanche",

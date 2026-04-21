@@ -1,12 +1,12 @@
 data_date_et: 2026-04-21
-generated_at_utc: 2026-04-21T15:20:01Z
+generated_at_utc: 2026-04-21T16:18:53Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=3, game_rest_count=3, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 10:10 PM ET LAK @ COL | LAK ML 240 (draftkings) | model 52.2% | implied 29.4% | edge +22.8pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
+1) 10:22 PM ET LAK @ COL | LAK ML 240 (draftkings) | model 52.2% | implied 29.4% | edge +22.8pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
 2) 7:40 PM ET BOS @ BUF | BOS ML 148 (betrivers) | model 55.6% | implied 40.3% | edge +15.3pp | fair -125 | rest_adv_home 0 (rest not applied to ML)
 3) 9:40 PM ET UTA @ VGK | UTA ML 135 (lowvig) | model 54.9% | implied 42.6% | edge +12.4pp | fair -122 | rest_adv_home 0 (rest not applied to ML)
 
