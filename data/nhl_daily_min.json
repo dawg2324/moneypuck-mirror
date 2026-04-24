@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-24",
-  "generated_at_utc": "2026-04-24T15:15:26Z",
+  "generated_at_utc": "2026-04-24T16:10:03Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -61,7 +61,7 @@
             "away_book": "draftkings",
             "away_price": -130,
             "home_book": "lowvig",
-            "home_price": 116
+            "home_price": 115
           },
           "consensus_median": {
             "away_price": -132.0,
@@ -73,9 +73,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": 104,
-            "under_book": "betmgm",
-            "under_price": -115
+            "over_price": -103,
+            "under_book": "lowvig",
+            "under_price": -113
           },
           "line": 7.0
         }
