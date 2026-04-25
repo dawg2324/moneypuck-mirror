@@ -1,25 +1,34 @@
 {
-  "data_date_et": "2026-04-24",
-  "generated_at_utc": "2026-04-24T16:10:03Z",
+  "data_date_et": "2026-04-25",
+  "generated_at_utc": "2026-04-25T14:53:45Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
         "away_rest_days": 0,
-        "away_team": "VGK",
-        "commence_time": "2026-04-25T01:40:00Z",
+        "away_team": "CAR",
+        "commence_time": "2026-04-25T19:10:00Z",
         "home_rest_days": 0,
-        "home_team": "UTA",
-        "id": "VGK_vs_UTA_2026-04-25",
+        "home_team": "OTT",
+        "id": "CAR_vs_OTT_2026-04-25",
         "rest_adv_home": 0
       },
       {
         "away_rest_days": 0,
-        "away_team": "EDM",
-        "commence_time": "2026-04-25T02:10:00Z",
+        "away_team": "DAL",
+        "commence_time": "2026-04-25T21:40:00Z",
         "home_rest_days": 0,
-        "home_team": "ANA",
-        "id": "EDM_vs_ANA_2026-04-25",
+        "home_team": "MIN",
+        "id": "DAL_vs_MIN_2026-04-25",
+        "rest_adv_home": 0
+      },
+      {
+        "away_rest_days": 0,
+        "away_team": "PIT",
+        "commence_time": "2026-04-26T00:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "PHI",
+        "id": "PIT_vs_PHI_2026-04-26",
         "rest_adv_home": 0
       }
     ],
@@ -27,26 +36,53 @@
     "league_avg_lambda": 6.267057926829268,
     "odds_current": [
       {
-        "away_team": "Vegas Golden Knights",
-        "commence_time": "2026-04-25T01:40:00Z",
+        "away_team": "Carolina Hurricanes",
+        "commence_time": "2026-04-25T19:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betmgm",
-            "away_price": -110,
+            "away_book": "betrivers",
+            "away_price": -125,
             "home_book": "lowvig",
-            "home_price": -103
+            "home_price": 112
           },
           "consensus_median": {
-            "away_price": -112.0,
-            "home_price": -107.0
+            "away_price": -127.0,
+            "home_price": 105.0
           }
         },
-        "home_team": "Utah Mammoth",
-        "id": "VGK_vs_UTA_2026-04-25",
+        "home_team": "Ottawa Senators",
+        "id": "CAR_vs_OTT_2026-04-25",
+        "totals": {
+          "best": {
+            "over_book": "betrivers",
+            "over_price": -112,
+            "under_book": "lowvig",
+            "under_price": 101
+          },
+          "line": 5.5
+        }
+      },
+      {
+        "away_team": "Dallas Stars",
+        "commence_time": "2026-04-25T21:40:00Z",
+        "h2h": {
+          "best": {
+            "away_book": "draftkings",
+            "away_price": 120,
+            "home_book": "lowvig",
+            "home_price": -133
+          },
+          "consensus_median": {
+            "away_price": 117.0,
+            "home_price": -140.0
+          }
+        },
+        "home_team": "Minnesota Wild",
+        "id": "DAL_vs_MIN_2026-04-25",
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -101,
+            "over_price": 100,
             "under_book": "betmgm",
             "under_price": -115
           },
@@ -54,30 +90,30 @@
         }
       },
       {
-        "away_team": "Edmonton Oilers",
-        "commence_time": "2026-04-25T02:10:00Z",
+        "away_team": "Pittsburgh Penguins",
+        "commence_time": "2026-04-26T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "draftkings",
-            "away_price": -130,
+            "away_book": "betrivers",
+            "away_price": 106,
             "home_book": "lowvig",
-            "home_price": 115
+            "home_price": -115
           },
           "consensus_median": {
-            "away_price": -132.0,
-            "home_price": 110.0
+            "away_price": 100.0,
+            "home_price": -120.0
           }
         },
-        "home_team": "Anaheim Ducks",
-        "id": "EDM_vs_ANA_2026-04-25",
+        "home_team": "Philadelphia Flyers",
+        "id": "PIT_vs_PHI_2026-04-26",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -103,
-            "under_book": "lowvig",
-            "under_price": -113
+            "over_book": "betmgm",
+            "over_price": -120,
+            "under_book": "fanduel",
+            "under_price": 106
           },
-          "line": 7.0
+          "line": 5.5
         }
       }
     ],
@@ -256,24 +292,20 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
-      "ok": true,
-      "source": "fallback_scrape",
-      "unmapped_teams": [],
-      "upstream_keyerror": "'Utah Mammoth'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-04-24"
+      "error": "upstream starters not a list",
+      "ok": false
     },
     "teams": {
       "ok": true
     }
   },
   "validations": {
-    "game_rest_count": 2,
+    "game_rest_count": 3,
     "goalies_count": 0,
     "league_avg_lambda": 6.267057926829268,
-    "odds_games_filtered_out_by_date": 5,
+    "odds_games_filtered_out_by_date": 4,
     "odds_games_filtered_out_missing_commence_time": 0,
-    "odds_games_slim_count": 2,
+    "odds_games_slim_count": 3,
     "odds_games_unfiltered_count": 7,
     "starters_count": 0,
     "teams_count": 32,
