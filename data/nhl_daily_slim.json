@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-26",
-  "generated_at_utc": "2026-04-26T14:55:18Z",
+  "generated_at_utc": "2026-04-26T15:53:32Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -41,7 +41,7 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": -104,
+            "away_price": -102,
             "home_book": "fanduel",
             "home_price": -110
           },
@@ -55,9 +55,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": 100,
-            "under_book": "betus",
-            "under_price": -115
+            "over_price": 102,
+            "under_book": "lowvig",
+            "under_price": -118
           },
           "line": 6.0
         }
@@ -68,7 +68,7 @@
         "h2h": {
           "best": {
             "away_book": "fanduel",
-            "away_price": -166,
+            "away_price": -170,
             "home_book": "lowvig",
             "home_price": 149
           },
@@ -81,7 +81,7 @@
         "id": "COL_vs_LAK_2026-04-26",
         "totals": {
           "best": {
-            "over_book": "betrivers",
+            "over_book": "bovada",
             "over_price": -110,
             "under_book": "betus",
             "under_price": 100
@@ -94,10 +94,10 @@
         "commence_time": "2026-04-27T01:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": -130,
+            "away_book": "lowvig",
+            "away_price": -134,
             "home_book": "lowvig",
-            "home_price": 119
+            "home_price": 118
           },
           "consensus_median": {
             "away_price": -135.0,
