@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-28",
-  "generated_at_utc": "2026-04-28T16:11:01Z",
+  "generated_at_utc": "2026-04-28T17:00:36Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -42,8 +42,8 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 145,
-            "home_book": "lowvig",
-            "home_price": -163
+            "home_book": "fanduel",
+            "home_price": -162
           },
           "consensus_median": {
             "away_price": 142.0,
@@ -83,8 +83,8 @@
           "best": {
             "over_book": "fanduel",
             "over_price": -115,
-            "under_book": "betrivers",
-            "under_price": 105
+            "under_book": "lowvig",
+            "under_price": 102
           },
           "line": 5.5
         }
