@@ -1,25 +1,25 @@
 {
-  "data_date_et": "2026-04-29",
-  "generated_at_utc": "2026-04-29T16:50:02Z",
+  "data_date_et": "2026-04-30",
+  "generated_at_utc": "2026-04-30T15:50:33Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
         "away_rest_days": 0,
-        "away_team": "PIT",
-        "commence_time": "2026-04-29T23:50:00Z",
+        "away_team": "DAL",
+        "commence_time": "2026-04-30T23:40:00Z",
         "home_rest_days": 0,
-        "home_team": "PHI",
-        "id": "PIT_vs_PHI_2026-04-29",
+        "home_team": "MIN",
+        "id": "DAL_vs_MIN_2026-04-30",
         "rest_adv_home": 0
       },
       {
         "away_rest_days": 0,
-        "away_team": "UTA",
-        "commence_time": "2026-04-30T02:20:00Z",
+        "away_team": "EDM",
+        "commence_time": "2026-05-01T02:10:00Z",
         "home_rest_days": 0,
-        "home_team": "VGK",
-        "id": "UTA_vs_VGK_2026-04-30",
+        "home_team": "ANA",
+        "id": "EDM_vs_ANA_2026-05-01",
         "rest_adv_home": 0
       }
     ],
@@ -27,57 +27,57 @@
     "league_avg_lambda": 6.267057926829268,
     "odds_current": [
       {
-        "away_team": "Pittsburgh Penguins",
-        "commence_time": "2026-04-29T23:50:00Z",
+        "away_team": "Dallas Stars",
+        "commence_time": "2026-04-30T23:40:00Z",
         "h2h": {
           "best": {
             "away_book": "lowvig",
             "away_price": 106,
-            "home_book": "fanduel",
+            "home_book": "lowvig",
             "home_price": -120
           },
           "consensus_median": {
-            "away_price": 102.0,
-            "home_price": -120.0
+            "away_price": 105.0,
+            "home_price": -122.0
           }
         },
-        "home_team": "Philadelphia Flyers",
-        "id": "PIT_vs_PHI_2026-04-29",
+        "home_team": "Minnesota Wild",
+        "id": "DAL_vs_MIN_2026-04-30",
         "totals": {
           "best": {
-            "over_book": "betmgm",
-            "over_price": -120,
-            "under_book": "lowvig",
-            "under_price": 104
+            "over_book": "lowvig",
+            "over_price": -113,
+            "under_book": "betmgm",
+            "under_price": 100
           },
           "line": 5.5
         }
       },
       {
-        "away_team": "Utah Mammoth",
-        "commence_time": "2026-04-30T02:20:00Z",
+        "away_team": "Edmonton Oilers",
+        "commence_time": "2026-05-01T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 141,
-            "home_book": "betonlineag",
-            "home_price": -160
+            "away_book": "betrivers",
+            "away_price": -121,
+            "home_book": "fanduel",
+            "home_price": 110
           },
           "consensus_median": {
-            "away_price": 140.0,
-            "home_price": -163.0
+            "away_price": -130.0,
+            "home_price": 110.0
           }
         },
-        "home_team": "Vegas Golden Knights",
-        "id": "UTA_vs_VGK_2026-04-30",
+        "home_team": "Anaheim Ducks",
+        "id": "EDM_vs_ANA_2026-05-01",
         "totals": {
           "best": {
-            "over_book": "betus",
-            "over_price": 100,
-            "under_book": "betonlineag",
-            "under_price": -113
+            "over_book": "betonlineag",
+            "over_price": 102,
+            "under_book": "betmgm",
+            "under_price": -115
           },
-          "line": 6.0
+          "line": 7.0
         }
       }
     ],
@@ -256,12 +256,8 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
-      "ok": true,
-      "source": "fallback_scrape",
-      "unmapped_teams": [],
-      "upstream_keyerror": "'Utah Mammoth'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-04-29"
+      "error": "upstream starters not a list",
+      "ok": false
     },
     "teams": {
       "ok": true
@@ -271,10 +267,10 @@
     "game_rest_count": 2,
     "goalies_count": 0,
     "league_avg_lambda": 6.267057926829268,
-    "odds_games_filtered_out_by_date": 3,
+    "odds_games_filtered_out_by_date": 4,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 2,
-    "odds_games_unfiltered_count": 5,
+    "odds_games_unfiltered_count": 6,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
