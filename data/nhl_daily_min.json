@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-04-30",
-  "generated_at_utc": "2026-04-30T15:50:33Z",
+  "generated_at_utc": "2026-04-30T16:42:30Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -31,14 +31,14 @@
         "commence_time": "2026-04-30T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": 106,
+            "away_book": "betrivers",
+            "away_price": 110,
             "home_book": "lowvig",
             "home_price": -120
           },
           "consensus_median": {
             "away_price": 105.0,
-            "home_price": -122.0
+            "home_price": -125.0
           }
         },
         "home_team": "Minnesota Wild",
@@ -58,10 +58,10 @@
         "commence_time": "2026-05-01T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": -121,
-            "home_book": "fanduel",
-            "home_price": 110
+            "away_book": "betonlineag",
+            "away_price": -126,
+            "home_book": "betonlineag",
+            "home_price": 111
           },
           "consensus_median": {
             "away_price": -130.0,
