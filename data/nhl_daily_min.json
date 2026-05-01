@@ -1,25 +1,25 @@
 {
-  "data_date_et": "2026-04-30",
-  "generated_at_utc": "2026-04-30T16:42:30Z",
+  "data_date_et": "2026-05-01",
+  "generated_at_utc": "2026-05-01T15:05:16Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
         "away_rest_days": 0,
-        "away_team": "DAL",
-        "commence_time": "2026-04-30T23:40:00Z",
+        "away_team": "BUF",
+        "commence_time": "2026-05-01T23:40:00Z",
         "home_rest_days": 0,
-        "home_team": "MIN",
-        "id": "DAL_vs_MIN_2026-04-30",
+        "home_team": "BOS",
+        "id": "BUF_vs_BOS_2026-05-01",
         "rest_adv_home": 0
       },
       {
         "away_rest_days": 0,
-        "away_team": "EDM",
-        "commence_time": "2026-05-01T02:10:00Z",
+        "away_team": "VGK",
+        "commence_time": "2026-05-02T02:10:00Z",
         "home_rest_days": 0,
-        "home_team": "ANA",
-        "id": "EDM_vs_ANA_2026-05-01",
+        "home_team": "UTA",
+        "id": "VGK_vs_UTA_2026-05-02",
         "rest_adv_home": 0
       }
     ],
@@ -27,57 +27,57 @@
     "league_avg_lambda": 6.267057926829268,
     "odds_current": [
       {
-        "away_team": "Dallas Stars",
-        "commence_time": "2026-04-30T23:40:00Z",
+        "away_team": "Buffalo Sabres",
+        "commence_time": "2026-05-01T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 110,
+            "away_book": "fanduel",
+            "away_price": -118,
             "home_book": "lowvig",
-            "home_price": -120
+            "home_price": 104
           },
           "consensus_median": {
-            "away_price": 105.0,
-            "home_price": -125.0
+            "away_price": -118.0,
+            "home_price": -102.0
           }
         },
-        "home_team": "Minnesota Wild",
-        "id": "DAL_vs_MIN_2026-04-30",
+        "home_team": "Boston Bruins",
+        "id": "BUF_vs_BOS_2026-05-01",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -113,
-            "under_book": "betmgm",
-            "under_price": 100
+            "over_book": "betus",
+            "over_price": -115,
+            "under_book": "draftkings",
+            "under_price": 102
           },
           "line": 5.5
         }
       },
       {
-        "away_team": "Edmonton Oilers",
-        "commence_time": "2026-05-01T02:10:00Z",
+        "away_team": "Vegas Golden Knights",
+        "commence_time": "2026-05-02T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": -126,
-            "home_book": "betonlineag",
-            "home_price": 111
+            "away_book": "lowvig",
+            "away_price": -110,
+            "home_book": "fanduel",
+            "home_price": -102
           },
           "consensus_median": {
-            "away_price": -130.0,
-            "home_price": 110.0
+            "away_price": -115.0,
+            "home_price": -105.0
           }
         },
-        "home_team": "Anaheim Ducks",
-        "id": "EDM_vs_ANA_2026-05-01",
+        "home_team": "Utah Mammoth",
+        "id": "VGK_vs_UTA_2026-05-02",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": 102,
-            "under_book": "betmgm",
-            "under_price": -115
+            "over_book": "betmgm",
+            "over_price": -120,
+            "under_book": "lowvig",
+            "under_price": 105
           },
-          "line": 7.0
+          "line": 5.5
         }
       }
     ],
@@ -256,8 +256,12 @@
       "ok": true
     },
     "starters": {
-      "error": "upstream starters not a list",
-      "ok": false
+      "games_found": 0,
+      "ok": true,
+      "source": "fallback_scrape",
+      "unmapped_teams": [],
+      "upstream_keyerror": "'Utah Mammoth'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-05-01"
     },
     "teams": {
       "ok": true
