@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-05-02",
-  "generated_at_utc": "2026-05-02T14:57:42Z",
+  "generated_at_utc": "2026-05-02T15:57:25Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -38,8 +38,8 @@
           "best": {
             "over_book": "bovada",
             "over_price": -108,
-            "under_book": "betus",
-            "under_price": 100
+            "under_book": "betmgm",
+            "under_price": -105
           },
           "line": 5.5
         }
