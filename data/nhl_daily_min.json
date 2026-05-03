@@ -1,16 +1,16 @@
 {
-  "data_date_et": "2026-05-02",
-  "generated_at_utc": "2026-05-02T15:57:25Z",
+  "data_date_et": "2026-05-03",
+  "generated_at_utc": "2026-05-03T14:57:48Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
         "away_rest_days": 0,
-        "away_team": "PHI",
-        "commence_time": "2026-05-03T00:10:00Z",
+        "away_team": "MIN",
+        "commence_time": "2026-05-04T01:10:15Z",
         "home_rest_days": 0,
-        "home_team": "CAR",
-        "id": "PHI_vs_CAR_2026-05-03",
+        "home_team": "COL",
+        "id": "MIN_vs_COL_2026-05-04",
         "rest_adv_home": 0
       }
     ],
@@ -18,28 +18,28 @@
     "league_avg_lambda": 6.267057926829268,
     "odds_current": [
       {
-        "away_team": "Philadelphia Flyers",
-        "commence_time": "2026-05-03T00:10:00Z",
+        "away_team": "Minnesota Wild",
+        "commence_time": "2026-05-04T01:10:15Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 205,
-            "home_book": "fanduel",
-            "home_price": -225
+            "away_book": "lowvig",
+            "away_price": 164,
+            "home_book": "betrivers",
+            "home_price": -182
           },
           "consensus_median": {
-            "away_price": 195.0,
-            "home_price": -230.0
+            "away_price": 156.0,
+            "home_price": -187.0
           }
         },
-        "home_team": "Carolina Hurricanes",
-        "id": "PHI_vs_CAR_2026-05-03",
+        "home_team": "Colorado Avalanche",
+        "id": "MIN_vs_COL_2026-05-04",
         "totals": {
           "best": {
-            "over_book": "bovada",
-            "over_price": -108,
-            "under_book": "betmgm",
-            "under_price": -105
+            "over_book": "fanduel",
+            "over_price": -122,
+            "under_book": "lowvig",
+            "under_price": 113
           },
           "line": 5.5
         }
@@ -231,10 +231,10 @@
     "game_rest_count": 1,
     "goalies_count": 0,
     "league_avg_lambda": 6.267057926829268,
-    "odds_games_filtered_out_by_date": 3,
+    "odds_games_filtered_out_by_date": 2,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 1,
-    "odds_games_unfiltered_count": 4,
+    "odds_games_unfiltered_count": 3,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
