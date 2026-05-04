@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-05-04",
-  "generated_at_utc": "2026-05-04T16:05:52Z",
+  "generated_at_utc": "2026-05-04T16:56:57Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -47,8 +47,8 @@
           "best": {
             "over_book": "lowvig",
             "over_price": 114,
-            "under_book": "fanduel",
-            "under_price": -122
+            "under_book": "draftkings",
+            "under_price": -125
           },
           "line": 5.5
         }
@@ -58,10 +58,10 @@
         "commence_time": "2026-05-05T01:40:18Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 145,
-            "home_book": "bovada",
-            "home_price": -163
+            "away_book": "betonlineag",
+            "away_price": 144,
+            "home_book": "betonlineag",
+            "home_price": -164
           },
           "consensus_median": {
             "away_price": 140.0,
@@ -73,7 +73,7 @@
         "totals": {
           "best": {
             "over_book": "bovada",
-            "over_price": -103,
+            "over_price": -105,
             "under_book": "betonlineag",
             "under_price": -108
           },
