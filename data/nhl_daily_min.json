@@ -1,16 +1,16 @@
 {
-  "data_date_et": "2026-05-07",
-  "generated_at_utc": "2026-05-07T17:00:39Z",
+  "data_date_et": "2026-05-08",
+  "generated_at_utc": "2026-05-08T15:43:23Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
         "away_rest_days": 0,
-        "away_team": "CAR",
-        "commence_time": "2026-05-08T00:10:00Z",
+        "away_team": "VGK",
+        "commence_time": "2026-05-09T01:50:00Z",
         "home_rest_days": 0,
-        "home_team": "PHI",
-        "id": "CAR_vs_PHI_2026-05-08",
+        "home_team": "ANA",
+        "id": "VGK_vs_ANA_2026-05-09",
         "rest_adv_home": 0
       }
     ],
@@ -18,30 +18,30 @@
     "league_avg_lambda": 6.267057926829268,
     "odds_current": [
       {
-        "away_team": "Carolina Hurricanes",
-        "commence_time": "2026-05-08T00:10:00Z",
+        "away_team": "Vegas Golden Knights",
+        "commence_time": "2026-05-09T01:50:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -160,
-            "home_book": "betrivers",
-            "home_price": 143
+            "away_book": "betrivers",
+            "away_price": -106,
+            "home_book": "lowvig",
+            "home_price": -105
           },
           "consensus_median": {
-            "away_price": -164.0,
-            "home_price": 140.0
+            "away_price": -110.0,
+            "home_price": -110.0
           }
         },
-        "home_team": "Philadelphia Flyers",
-        "id": "CAR_vs_PHI_2026-05-08",
+        "home_team": "Anaheim Ducks",
+        "id": "VGK_vs_ANA_2026-05-09",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": 126,
-            "under_book": "betmgm",
-            "under_price": -140
+            "over_book": "betmgm",
+            "over_price": -120,
+            "under_book": "lowvig",
+            "under_price": 107
           },
-          "line": 5.5
+          "line": 6.0
         }
       }
     ],
