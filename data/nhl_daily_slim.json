@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-05-08",
-  "generated_at_utc": "2026-05-08T15:43:23Z",
+  "generated_at_utc": "2026-05-08T16:25:13Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -36,10 +36,10 @@
         "id": "VGK_vs_ANA_2026-05-09",
         "totals": {
           "best": {
-            "over_book": "betmgm",
-            "over_price": -120,
-            "under_book": "lowvig",
-            "under_price": 107
+            "over_book": "lowvig",
+            "over_price": -115,
+            "under_book": "betmgm",
+            "under_price": 100
           },
           "line": 6.0
         }
