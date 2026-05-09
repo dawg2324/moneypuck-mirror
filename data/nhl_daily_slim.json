@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-05-09",
-  "generated_at_utc": "2026-05-09T15:01:29Z",
+  "generated_at_utc": "2026-05-09T16:02:21Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -37,7 +37,7 @@
             "home_price": 165
           },
           "consensus_median": {
-            "away_price": -192.0,
+            "away_price": -193.0,
             "home_price": 163.0
           }
         },
@@ -45,10 +45,10 @@
         "id": "CAR_vs_PHI_2026-05-09",
         "totals": {
           "best": {
-            "over_book": "draftkings",
+            "over_book": "betrivers",
             "over_price": 120,
             "under_book": "betonlineag",
-            "under_price": -135
+            "under_price": -132
           },
           "line": 5.5
         }
@@ -58,8 +58,8 @@
         "commence_time": "2026-05-10T01:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": -128,
+            "away_book": "betus",
+            "away_price": -125,
             "home_book": "fanduel",
             "home_price": 114
           },
