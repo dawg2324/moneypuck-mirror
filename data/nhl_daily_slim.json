@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-05-14",
-  "generated_at_utc": "2026-05-14T16:12:29Z",
+  "generated_at_utc": "2026-05-14T17:06:39Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -25,7 +25,7 @@
             "away_book": "draftkings",
             "away_price": -112,
             "home_book": "lowvig",
-            "home_price": -101
+            "home_price": 100
           },
           "consensus_median": {
             "away_price": -115.0,
