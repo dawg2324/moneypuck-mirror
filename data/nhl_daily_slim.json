@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-05-26",
-  "generated_at_utc": "2026-05-26T17:30:23Z",
+  "generated_at_utc": "2026-05-26T18:05:16Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -22,24 +22,24 @@
         "commence_time": "2026-05-27T01:20:00Z",
         "h2h": {
           "best": {
-            "away_book": "mybookieag",
-            "away_price": -112,
+            "away_book": "bovada",
+            "away_price": -108,
             "home_book": "lowvig",
-            "home_price": -101
+            "home_price": -104
           },
           "consensus_median": {
-            "away_price": -115.0,
-            "home_price": -105.0
+            "away_price": -110.0,
+            "home_price": -110.0
           }
         },
         "home_team": "Vegas Golden Knights",
         "id": "COL_vs_VGK_2026-05-27",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": -112,
-            "under_book": "betmgm",
-            "under_price": -102
+            "over_book": "bovada",
+            "over_price": -110,
+            "under_book": "lowvig",
+            "under_price": -104
           },
           "line": 6.0
         }
