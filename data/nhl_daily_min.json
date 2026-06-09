@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-06-09",
-  "generated_at_utc": "2026-06-09T16:35:01Z",
+  "generated_at_utc": "2026-06-09T17:27:42Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -23,7 +23,7 @@
         "h2h": {
           "best": {
             "away_book": "mybookieag",
-            "away_price": -109,
+            "away_price": -110,
             "home_book": "lowvig",
             "home_price": -102
           },
