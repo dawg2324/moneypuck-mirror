@@ -1,50 +1,12 @@
 {
-  "data_date_et": "2026-06-09",
-  "generated_at_utc": "2026-06-09T17:27:42Z",
+  "data_date_et": "2026-06-10",
+  "generated_at_utc": "2026-06-10T17:27:12Z",
   "schema_version": "1.0.14",
   "slim": {
-    "game_rest": [
-      {
-        "away_rest_days": 0,
-        "away_team": "CAR",
-        "commence_time": "2026-06-10T00:20:00Z",
-        "home_rest_days": 0,
-        "home_team": "VGK",
-        "id": "CAR_vs_VGK_2026-06-10",
-        "rest_adv_home": 0
-      }
-    ],
+    "game_rest": [],
     "goalies": [],
     "league_avg_lambda": 6.267057926829268,
-    "odds_current": [
-      {
-        "away_team": "Carolina Hurricanes",
-        "commence_time": "2026-06-10T00:20:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "mybookieag",
-            "away_price": -110,
-            "home_book": "lowvig",
-            "home_price": -102
-          },
-          "consensus_median": {
-            "away_price": -114.0,
-            "home_price": -105.0
-          }
-        },
-        "home_team": "Vegas Golden Knights",
-        "id": "CAR_vs_VGK_2026-06-10",
-        "totals": {
-          "best": {
-            "over_book": "lowvig",
-            "over_price": 101,
-            "under_book": "betmgm",
-            "under_price": -115
-          },
-          "line": 6.0
-        }
-      }
-    ],
+    "odds_current": [],
     "starters": [],
     "teams": [
       {
@@ -228,12 +190,12 @@
     }
   },
   "validations": {
-    "game_rest_count": 1,
+    "game_rest_count": 0,
     "goalies_count": 0,
     "league_avg_lambda": 6.267057926829268,
-    "odds_games_filtered_out_by_date": 0,
+    "odds_games_filtered_out_by_date": 1,
     "odds_games_filtered_out_missing_commence_time": 0,
-    "odds_games_slim_count": 1,
+    "odds_games_slim_count": 0,
     "odds_games_unfiltered_count": 1,
     "starters_count": 0,
     "teams_count": 32,
