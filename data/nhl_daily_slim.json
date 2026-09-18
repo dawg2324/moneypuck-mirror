@@ -1,180 +1,179 @@
 {
-  "data_date_et": "2026-09-17",
-  "generated_at_utc": "2026-09-17T18:58:12Z",
+  "data_date_et": "2026-09-18",
+  "generated_at_utc": "2026-09-18T17:37:33Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
     "goalies": [],
-    "league_avg_lambda": 6.0,
+    "league_avg_lambda": 6.267057926829268,
     "odds_current": [],
     "starters": [],
     "teams": [
       {
         "team_abbrev": "ANA",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.3560975609756096,
+        "xGF_pg": 3.482926829268293
       },
       {
         "team_abbrev": "BOS",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.385,
+        "xGF_pg": 3.0191463414634145
       },
       {
         "team_abbrev": "BUF",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.225731707317073,
+        "xGF_pg": 3.146951219512195
       },
       {
         "team_abbrev": "CAR",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.8676829268292683,
+        "xGF_pg": 3.666341463414634
       },
       {
         "team_abbrev": "CBJ",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.1557317073170728,
+        "xGF_pg": 3.1576829268292683
       },
       {
         "team_abbrev": "CGY",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.2946341463414637,
+        "xGF_pg": 2.8320731707317073
       },
       {
         "team_abbrev": "CHI",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.3836585365853655,
+        "xGF_pg": 2.673780487804878
       },
       {
         "team_abbrev": "COL",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.8208536585365853,
+        "xGF_pg": 3.6719512195121955
       },
       {
         "team_abbrev": "DAL",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.901585365853659,
+        "xGF_pg": 3.1617073170731707
       },
       {
         "team_abbrev": "DET",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.0778048780487803,
+        "xGF_pg": 3.127439024390244
       },
       {
         "team_abbrev": "EDM",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.1371951219512195,
+        "xGF_pg": 3.348292682926829
       },
       {
         "team_abbrev": "FLA",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.2343902439024395,
+        "xGF_pg": 3.2342682926829265
       },
       {
         "team_abbrev": "LAK",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.913048780487805,
+        "xGF_pg": 3.03609756097561
       },
       {
         "team_abbrev": "MIN",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.962439024390244,
+        "xGF_pg": 3.2424390243902437
       },
       {
         "team_abbrev": "MTL",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.3340243902439024,
+        "xGF_pg": 3.2720731707317072
       },
       {
         "team_abbrev": "NJD",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.042317073170732,
+        "xGF_pg": 3.1853658536585363
       },
       {
         "team_abbrev": "NSH",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.2902439024390246,
+        "xGF_pg": 3.0620731707317073
       },
       {
         "team_abbrev": "NYI",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.3673170731707316,
+        "xGF_pg": 3.1280487804878048
       },
       {
         "team_abbrev": "NYR",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.2736585365853657,
+        "xGF_pg": 2.892682926829268
       },
       {
         "team_abbrev": "OTT",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.6953658536585365,
+        "xGF_pg": 3.315731707317073
       },
       {
         "team_abbrev": "PHI",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.832317073170732,
+        "xGF_pg": 2.94609756097561
       },
       {
         "team_abbrev": "PIT",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.160609756097561,
+        "xGF_pg": 3.321829268292683
       },
       {
         "team_abbrev": "SEA",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.1453658536585367,
+        "xGF_pg": 2.7308536585365855
       },
       {
         "team_abbrev": "SJS",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.2235365853658533,
+        "xGF_pg": 2.9471951219512196
       },
       {
         "team_abbrev": "STL",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.0097560975609756,
+        "xGF_pg": 2.706951219512195
       },
       {
         "team_abbrev": "TBL",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.9448780487804878,
+        "xGF_pg": 3.468292682926829
       },
       {
         "team_abbrev": "TOR",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.481585365853659,
+        "xGF_pg": 2.9074390243902437
       },
       {
         "team_abbrev": "UTA",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.098170731707317,
+        "xGF_pg": 3.1893902439024386
       },
       {
         "team_abbrev": "VAN",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.4846341463414636,
+        "xGF_pg": 2.8584146341463414
       },
       {
         "team_abbrev": "VGK",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 2.749878048780488,
+        "xGF_pg": 3.2303658536585362
       },
       {
         "team_abbrev": "WPG",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.215,
+        "xGF_pg": 3.017560975609756
       },
       {
         "team_abbrev": "WSH",
-        "xGA_pg": 3.0,
-        "xGF_pg": 3.0
+        "xGA_pg": 3.208658536585366,
+        "xGF_pg": 3.291463414634146
       }
     ]
   },
   "source_status": {
     "goalies": {
-      "error": "HTTP Error 403: Forbidden",
-      "ok": false
+      "ok": true
     },
     "odds_current": {
       "ok": true
@@ -187,20 +186,19 @@
       "ok": false
     },
     "teams": {
-      "error": "HTTP Error 403: Forbidden",
-      "ok": false
+      "ok": true
     }
   },
   "validations": {
     "game_rest_count": 0,
     "goalies_count": 0,
-    "league_avg_lambda": 6.0,
+    "league_avg_lambda": 6.267057926829268,
     "odds_games_filtered_out_by_date": 30,
     "odds_games_filtered_out_missing_commence_time": 0,
     "odds_games_slim_count": 0,
     "odds_games_unfiltered_count": 30,
     "starters_count": 0,
     "teams_count": 32,
-    "teams_ok": false
+    "teams_ok": true
   }
 }
