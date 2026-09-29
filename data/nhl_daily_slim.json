@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-09-29",
-  "generated_at_utc": "2026-09-29T19:15:58Z",
+  "generated_at_utc": "2026-09-29T19:56:46Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -50,9 +50,9 @@
         "h2h": {
           "best": {
             "away_book": "betonlineag",
-            "away_price": 114,
-            "home_book": "mybookieag",
-            "home_price": -127
+            "away_price": 111,
+            "home_book": "lowvig",
+            "home_price": -125
           },
           "consensus_median": {
             "away_price": 110.0,
@@ -64,9 +64,9 @@
         "totals": {
           "best": {
             "over_book": "betonlineag",
-            "over_price": 106,
-            "under_book": "betus",
-            "under_price": -120
+            "over_price": 107,
+            "under_book": "betonlineag",
+            "under_price": -123
           },
           "line": 6.5
         }
@@ -77,7 +77,7 @@
         "h2h": {
           "best": {
             "away_book": "betonlineag",
-            "away_price": -107,
+            "away_price": -108,
             "home_book": "fanduel",
             "home_price": -106
           },
