@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-02",
-  "generated_at_utc": "2026-10-02T19:08:40Z",
+  "generated_at_utc": "2026-10-02T19:53:36Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -64,8 +64,8 @@
             "home_price": -121
           },
           "consensus_median": {
-            "away_price": 105.0,
-            "home_price": -125.0
+            "away_price": 107.0,
+            "home_price": -126.0
           }
         },
         "home_team": "Detroit Red Wings",
@@ -99,8 +99,8 @@
         "id": "WSH_vs_CAR_2026-10-02",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": -117,
+            "over_book": "betus",
+            "over_price": -115,
             "under_book": "lowvig",
             "under_price": 102
           },
@@ -113,7 +113,7 @@
         "h2h": {
           "best": {
             "away_book": "betrivers",
-            "away_price": 107,
+            "away_price": 106,
             "home_book": "fanduel",
             "home_price": -118
           },
@@ -141,7 +141,7 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 163,
-            "home_book": "betonlineag",
+            "home_book": "betmgm",
             "home_price": -180
           },
           "consensus_median": {
@@ -154,7 +154,7 @@
         "totals": {
           "best": {
             "over_book": "mybookieag",
-            "over_price": -108,
+            "over_price": -107,
             "under_book": "betonlineag",
             "under_price": -106
           },
