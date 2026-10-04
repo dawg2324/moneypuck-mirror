@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-04",
-  "generated_at_utc": "2026-10-04T18:04:33Z",
+  "generated_at_utc": "2026-10-04T18:36:43Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -58,24 +58,24 @@
         "commence_time": "2026-10-04T17:08:16Z",
         "h2h": {
           "best": {
-            "away_book": "mybookieag",
-            "away_price": -500,
-            "home_book": "fanduel",
-            "home_price": 390
+            "away_book": "draftkings",
+            "away_price": -920,
+            "home_book": "mybookieag",
+            "home_price": 1125
           },
           "consensus_median": {
-            "away_price": -525.0,
-            "home_price": 350.0
+            "away_price": -1100.0,
+            "home_price": 625.0
           }
         },
         "home_team": "Detroit Red Wings",
         "id": "WPG_vs_DET_2026-10-04",
         "totals": {
           "best": {
-            "over_book": "draftkings",
-            "over_price": 110,
-            "under_book": "mybookieag",
-            "under_price": -133
+            "over_book": "betmgm",
+            "over_price": -130,
+            "under_book": "draftkings",
+            "under_price": 114
           },
           "line": 6.5
         }
@@ -139,14 +139,14 @@
         "commence_time": "2026-10-05T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betmgm",
-            "away_price": 135,
-            "home_book": "mybookieag",
+            "away_book": "bovada",
+            "away_price": 137,
+            "home_book": "betus",
             "home_price": -150
           },
           "consensus_median": {
             "away_price": 130.0,
-            "home_price": -152.0
+            "home_price": -154.0
           }
         },
         "home_team": "Seattle Kraken",
@@ -183,7 +183,7 @@
             "over_book": "betmgm",
             "over_price": -120,
             "under_book": "bovada",
-            "under_price": 105
+            "under_price": 107
           },
           "line": 6.0
         }
