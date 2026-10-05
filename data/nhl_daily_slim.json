@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-05",
-  "generated_at_utc": "2026-10-05T21:26:45Z",
+  "generated_at_utc": "2026-10-05T21:57:56Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -49,13 +49,13 @@
         "commence_time": "2026-10-05T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": 191,
+            "away_book": "bovada",
+            "away_price": 200,
             "home_book": "betus",
             "home_price": -215
           },
           "consensus_median": {
-            "away_price": 183.0,
+            "away_price": 184.0,
             "home_price": -220.0
           }
         },
@@ -83,7 +83,7 @@
           },
           "consensus_median": {
             "away_price": -117.0,
-            "home_price": -104.0
+            "home_price": -103.0
           }
         },
         "home_team": "Boston Bruins",
@@ -105,7 +105,7 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 155,
-            "home_book": "lowvig",
+            "home_book": "betus",
             "home_price": -175
           },
           "consensus_median": {

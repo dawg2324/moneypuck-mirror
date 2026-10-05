@@ -1,12 +1,12 @@
 data_date_et: 2026-10-05
-generated_at_utc: 2026-10-05T21:26:45Z
+generated_at_utc: 2026-10-05T21:57:56Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=4, game_rest_count=4, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:10 PM ET PHI @ TBL | PHI ML 191 (lowvig) | model 54.8% | implied 34.4% | edge +20.4pp | fair -121 | rest_adv_home 0 (rest not applied to ML)
+1) 7:10 PM ET PHI @ TBL | PHI ML 200 (bovada) | model 54.8% | implied 33.3% | edge +21.4pp | fair -121 | rest_adv_home 0 (rest not applied to ML)
 2) 8:10 PM ET SJS @ DAL | SJS ML 175 (lowvig) | model 53.7% | implied 36.4% | edge +17.4pp | fair -116 | rest_adv_home 0 (rest not applied to ML)
 3) 7:40 PM ET WPG @ PIT | WPG ML 155 (betrivers) | model 55.1% | implied 39.2% | edge +15.8pp | fair -123 | rest_adv_home 0 (rest not applied to ML)
 4) 7:40 PM ET OTT @ BOS | OTT ML -114 (betrivers) | model 65.5% | implied 53.3% | edge +12.2pp | fair -190 | rest_adv_home 0 (rest not applied to ML)
