@@ -1,52 +1,43 @@
 {
-  "data_date_et": "2026-10-04",
-  "generated_at_utc": "2026-10-04T18:36:43Z",
+  "data_date_et": "2026-10-05",
+  "generated_at_utc": "2026-10-05T21:26:45Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
       {
         "away_rest_days": 0,
+        "away_team": "PHI",
+        "commence_time": "2026-10-05T23:10:00Z",
+        "home_rest_days": 0,
+        "home_team": "TBL",
+        "id": "PHI_vs_TBL_2026-10-05",
+        "rest_adv_home": 0
+      },
+      {
+        "away_rest_days": 0,
+        "away_team": "OTT",
+        "commence_time": "2026-10-05T23:40:00Z",
+        "home_rest_days": 0,
+        "home_team": "BOS",
+        "id": "OTT_vs_BOS_2026-10-05",
+        "rest_adv_home": 0
+      },
+      {
+        "away_rest_days": 0,
         "away_team": "WPG",
-        "commence_time": "2026-10-04T17:08:16Z",
+        "commence_time": "2026-10-05T23:40:00Z",
         "home_rest_days": 0,
-        "home_team": "DET",
-        "id": "WPG_vs_DET_2026-10-04",
+        "home_team": "PIT",
+        "id": "WPG_vs_PIT_2026-10-05",
         "rest_adv_home": 0
       },
       {
         "away_rest_days": 0,
-        "away_team": "UTA",
-        "commence_time": "2026-10-04T22:10:00Z",
+        "away_team": "SJS",
+        "commence_time": "2026-10-06T00:10:00Z",
         "home_rest_days": 0,
-        "home_team": "NYR",
-        "id": "UTA_vs_NYR_2026-10-04",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 0,
-        "away_team": "FLA",
-        "commence_time": "2026-10-05T00:10:00Z",
-        "home_rest_days": 0,
-        "home_team": "ANA",
-        "id": "FLA_vs_ANA_2026-10-05",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 0,
-        "away_team": "CGY",
-        "commence_time": "2026-10-05T00:10:00Z",
-        "home_rest_days": 0,
-        "home_team": "SEA",
-        "id": "CGY_vs_SEA_2026-10-05",
-        "rest_adv_home": 0
-      },
-      {
-        "away_rest_days": 0,
-        "away_team": "VGK",
-        "commence_time": "2026-10-05T01:10:00Z",
-        "home_rest_days": 0,
-        "home_team": "VAN",
-        "id": "VGK_vs_VAN_2026-10-05",
+        "home_team": "DAL",
+        "id": "SJS_vs_DAL_2026-10-06",
         "rest_adv_home": 0
       }
     ],
@@ -54,138 +45,111 @@
     "league_avg_lambda": 6.267057926829268,
     "odds_current": [
       {
-        "away_team": "Winnipeg Jets",
-        "commence_time": "2026-10-04T17:08:16Z",
+        "away_team": "Philadelphia Flyers",
+        "commence_time": "2026-10-05T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "draftkings",
-            "away_price": -920,
-            "home_book": "mybookieag",
-            "home_price": 1125
+            "away_book": "lowvig",
+            "away_price": 191,
+            "home_book": "betus",
+            "home_price": -215
           },
           "consensus_median": {
-            "away_price": -1100.0,
-            "home_price": 625.0
+            "away_price": 183.0,
+            "home_price": -220.0
           }
         },
-        "home_team": "Detroit Red Wings",
-        "id": "WPG_vs_DET_2026-10-04",
+        "home_team": "Tampa Bay Lightning",
+        "id": "PHI_vs_TBL_2026-10-05",
         "totals": {
           "best": {
-            "over_book": "betmgm",
-            "over_price": -130,
-            "under_book": "draftkings",
-            "under_price": 114
+            "over_book": "draftkings",
+            "over_price": -122,
+            "under_book": "lowvig",
+            "under_price": 109
           },
-          "line": 6.5
+          "line": 5.5
         }
       },
       {
-        "away_team": "Utah Mammoth",
-        "commence_time": "2026-10-04T22:10:00Z",
+        "away_team": "Ottawa Senators",
+        "commence_time": "2026-10-05T23:40:00Z",
         "h2h": {
           "best": {
             "away_book": "betrivers",
-            "away_price": 110,
+            "away_price": -114,
             "home_book": "lowvig",
-            "home_price": -119
+            "home_price": 103
           },
           "consensus_median": {
-            "away_price": 105.0,
-            "home_price": -125.0
+            "away_price": -117.0,
+            "home_price": -104.0
           }
         },
-        "home_team": "New York Rangers",
-        "id": "UTA_vs_NYR_2026-10-04",
+        "home_team": "Boston Bruins",
+        "id": "OTT_vs_BOS_2026-10-05",
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -118,
-            "under_book": "lowvig",
+            "over_price": -114,
+            "under_book": "betrivers",
             "under_price": 102
           },
           "line": 5.5
         }
       },
       {
-        "away_team": "Florida Panthers",
-        "commence_time": "2026-10-05T00:10:00Z",
+        "away_team": "Winnipeg Jets",
+        "commence_time": "2026-10-05T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -130,
-            "home_book": "betmgm",
-            "home_price": 115
+            "away_book": "betrivers",
+            "away_price": 155,
+            "home_book": "lowvig",
+            "home_price": -175
           },
           "consensus_median": {
-            "away_price": -134.0,
-            "home_price": 114.0
+            "away_price": 150.0,
+            "home_price": -180.0
           }
         },
-        "home_team": "Anaheim Ducks",
-        "id": "FLA_vs_ANA_2026-10-05",
+        "home_team": "Pittsburgh Penguins",
+        "id": "WPG_vs_PIT_2026-10-05",
         "totals": {
           "best": {
-            "over_book": "fanduel",
-            "over_price": -114,
-            "under_book": "lowvig",
-            "under_price": -101
+            "over_book": "lowvig",
+            "over_price": -103,
+            "under_book": "betrivers",
+            "under_price": -112
           },
           "line": 6.5
         }
       },
       {
-        "away_team": "Calgary Flames",
-        "commence_time": "2026-10-05T00:10:00Z",
+        "away_team": "San Jose Sharks",
+        "commence_time": "2026-10-06T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 137,
-            "home_book": "betus",
-            "home_price": -150
+            "away_book": "lowvig",
+            "away_price": 175,
+            "home_book": "betrivers",
+            "home_price": -190
           },
           "consensus_median": {
-            "away_price": 130.0,
-            "home_price": -154.0
+            "away_price": 170.0,
+            "home_price": -200.0
           }
         },
-        "home_team": "Seattle Kraken",
-        "id": "CGY_vs_SEA_2026-10-05",
+        "home_team": "Dallas Stars",
+        "id": "SJS_vs_DAL_2026-10-06",
         "totals": {
           "best": {
-            "over_book": "betmgm",
-            "over_price": -120,
-            "under_book": "draftkings",
-            "under_price": 105
+            "over_book": "lowvig",
+            "over_price": 102,
+            "under_book": "fanduel",
+            "under_price": -115
           },
-          "line": 5.5
-        }
-      },
-      {
-        "away_team": "Vegas Golden Knights",
-        "commence_time": "2026-10-05T01:10:00Z",
-        "h2h": {
-          "best": {
-            "away_book": "betrivers",
-            "away_price": -278,
-            "home_book": "betonlineag",
-            "home_price": 244
-          },
-          "consensus_median": {
-            "away_price": -285.0,
-            "home_price": 235.0
-          }
-        },
-        "home_team": "Vancouver Canucks",
-        "id": "VGK_vs_VAN_2026-10-05",
-        "totals": {
-          "best": {
-            "over_book": "betmgm",
-            "over_price": -120,
-            "under_book": "bovada",
-            "under_price": 107
-          },
-          "line": 6.0
+          "line": 6.5
         }
       }
     ],
@@ -364,25 +328,21 @@
       "ok": true
     },
     "starters": {
-      "games_found": 0,
-      "ok": true,
-      "source": "fallback_scrape",
-      "unmapped_teams": [],
-      "upstream_keyerror": "'Utah Mammoth'",
-      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-10-04"
+      "error": "upstream starters not a list",
+      "ok": false
     },
     "teams": {
       "ok": true
     }
   },
   "validations": {
-    "game_rest_count": 5,
+    "game_rest_count": 4,
     "goalies_count": 0,
     "league_avg_lambda": 6.267057926829268,
-    "odds_games_filtered_out_by_date": 10,
+    "odds_games_filtered_out_by_date": 12,
     "odds_games_filtered_out_missing_commence_time": 0,
-    "odds_games_slim_count": 5,
-    "odds_games_unfiltered_count": 15,
+    "odds_games_slim_count": 4,
+    "odds_games_unfiltered_count": 16,
     "starters_count": 0,
     "teams_count": 32,
     "teams_ok": true
