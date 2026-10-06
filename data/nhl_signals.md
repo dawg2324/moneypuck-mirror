@@ -1,21 +1,22 @@
-data_date_et: 2026-10-05
-generated_at_utc: 2026-10-05T21:57:56Z
+data_date_et: 2026-10-06
+generated_at_utc: 2026-10-06T19:24:58Z
 schema_version: 1.0.14
 
-counts: odds_games_slim_count=4, game_rest_count=4, teams_count=32, starters_count=0
+counts: odds_games_slim_count=8, game_rest_count=8, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:10 PM ET PHI @ TBL | PHI ML 200 (bovada) | model 54.8% | implied 33.3% | edge +21.4pp | fair -121 | rest_adv_home 0 (rest not applied to ML)
-2) 8:10 PM ET SJS @ DAL | SJS ML 175 (lowvig) | model 53.7% | implied 36.4% | edge +17.4pp | fair -116 | rest_adv_home 0 (rest not applied to ML)
-3) 7:40 PM ET WPG @ PIT | WPG ML 155 (betrivers) | model 55.1% | implied 39.2% | edge +15.8pp | fair -123 | rest_adv_home 0 (rest not applied to ML)
-4) 7:40 PM ET OTT @ BOS | OTT ML -114 (betrivers) | model 65.5% | implied 53.3% | edge +12.2pp | fair -190 | rest_adv_home 0 (rest not applied to ML)
+1) 7:10 PM ET NSH @ TOR | NSH ML 141 (betonlineag) | model 60.5% | implied 41.5% | edge +19.0pp | fair -153 | rest_adv_home 0 (rest not applied to ML)
+2) 7:40 PM ET NYI @ NYR | NYI ML 138 (betus) | model 59.0% | implied 42.0% | edge +17.0pp | fair -144 | rest_adv_home 0 (rest not applied to ML)
+3) 7:10 PM ET OTT @ DET | OTT ML 105 (betonlineag) | model 62.5% | implied 48.8% | edge +13.7pp | fair -166 | rest_adv_home 0 (rest not applied to ML)
+4) 7:10 PM ET UTA @ NJD | UTA ML 108 (betrivers) | model 57.5% | implied 48.1% | edge +9.4pp | fair -135 | rest_adv_home 0 (rest not applied to ML)
+5) 7:10 PM ET MIN @ BUF | MIN ML -112 (draftkings) | model 60.7% | implied 52.8% | edge +7.8pp | fair -154 | rest_adv_home 0 (rest not applied to ML)
+6) 10:40 PM ET FLA @ LAK | FLA ML -109 (betonlineag) | model 57.0% | implied 52.2% | edge +4.8pp | fair -132 | rest_adv_home 0 (rest not applied to ML)
+7) 8:10 PM ET STL @ CHI | STL ML -138 (fanduel) | model 61.4% | implied 58.0% | edge +3.4pp | fair -159 | rest_adv_home 0 (rest not applied to ML)
+8) 9:10 PM ET VGK @ SEA | VGK ML -166 (betonlineag) | model 65.1% | implied 62.4% | edge +2.7pp | fair -187 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
-1) 7:40 PM ET OTT @ BOS | Over 5.5 -114 (lowvig) | model 58.7% | implied 53.3% | edge +5.4pp | fair -142 | mu_total 6.21 | line half(5.5) | rest_adv_home 0 (rest applied)
-2) 8:10 PM ET SJS @ DAL | Under 6.5 -115 (fanduel) | model 58.8% | implied 53.5% | edge +5.3pp | fair -142 | mu_total 6.12 | line half(6.5) | rest_adv_home 0 (rest applied)
-3) 7:40 PM ET WPG @ PIT | Under 6.5 -112 (betrivers) | model 54.9% | implied 52.8% | edge +2.1pp | fair -122 | mu_total 6.36 | line half(6.5) | rest_adv_home 0 (rest applied)
-4) 7:10 PM ET PHI @ TBL | Over 5.5 -122 (draftkings) | model 57.0% | implied 55.0% | edge +2.0pp | fair -132 | mu_total 6.10 | line half(5.5) | rest_adv_home 0 (rest applied)
+No qualified signals under current thresholds.
 
 SKIPPED GAMES (short reasons)
 None
