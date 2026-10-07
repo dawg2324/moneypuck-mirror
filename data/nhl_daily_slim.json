@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-07",
-  "generated_at_utc": "2026-10-07T19:51:28Z",
+  "generated_at_utc": "2026-10-07T20:33:42Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -47,7 +47,7 @@
           },
           "consensus_median": {
             "away_price": -195.0,
-            "home_price": 164.0
+            "home_price": 162.0
           }
         },
         "home_team": "Winnipeg Jets",
@@ -67,14 +67,14 @@
         "commence_time": "2026-10-07T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 141,
+            "away_book": "betrivers",
+            "away_price": 140,
             "home_book": "betonlineag",
-            "home_price": -160
+            "home_price": -158
           },
           "consensus_median": {
             "away_price": 137.0,
-            "home_price": -161.0
+            "home_price": -162.0
           }
         },
         "home_team": "Washington Capitals",
