@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-09",
-  "generated_at_utc": "2026-10-09T19:25:24Z",
+  "generated_at_utc": "2026-10-09T20:04:13Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -66,7 +66,7 @@
             "over_book": "draftkings",
             "over_price": -115,
             "under_book": "lowvig",
-            "under_price": 111
+            "under_price": 112
           },
           "line": 6.5
         }
@@ -76,14 +76,14 @@
         "commence_time": "2026-10-09T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 127,
+            "away_book": "lowvig",
+            "away_price": 125,
             "home_book": "fanduel",
             "home_price": -140
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -143.0
+            "home_price": -142.0
           }
         },
         "home_team": "Detroit Red Wings",
@@ -105,12 +105,12 @@
           "best": {
             "away_book": "lowvig",
             "away_price": 123,
-            "home_book": "bovada",
-            "home_price": -138
+            "home_book": "lowvig",
+            "home_price": -140
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -140.0
+            "home_price": -141.0
           }
         },
         "home_team": "Washington Capitals",
@@ -130,14 +130,14 @@
         "commence_time": "2026-10-10T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": 107,
-            "home_book": "bovada",
-            "home_price": -117
+            "away_book": "bovada",
+            "away_price": 110,
+            "home_book": "fanduel",
+            "home_price": -120
           },
           "consensus_median": {
             "away_price": 105.0,
-            "home_price": -122.0
+            "home_price": -125.0
           }
         },
         "home_team": "Winnipeg Jets",
@@ -145,7 +145,7 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": 101,
+            "over_price": 103,
             "under_book": "fanduel",
             "under_price": -114
           },
