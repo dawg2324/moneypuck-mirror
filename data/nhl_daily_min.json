@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-11",
-  "generated_at_utc": "2026-10-11T18:45:12Z",
+  "generated_at_utc": "2026-10-11T19:28:57Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -55,9 +55,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": 102,
-            "under_book": "draftkings",
-            "under_price": -115
+            "over_price": 104,
+            "under_book": "betrivers",
+            "under_price": -117
           },
           "line": 6.5
         }
@@ -69,7 +69,7 @@
           "best": {
             "away_book": "lowvig",
             "away_price": 236,
-            "home_book": "draftkings",
+            "home_book": "fanduel",
             "home_price": -265
           },
           "consensus_median": {
@@ -97,10 +97,10 @@
             "away_book": "betmgm",
             "away_price": -210,
             "home_book": "lowvig",
-            "home_price": 188
+            "home_price": 187
           },
           "consensus_median": {
-            "away_price": -216.0,
+            "away_price": -215.0,
             "home_price": 180.0
           }
         },
