@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-13",
-  "generated_at_utc": "2026-10-13T20:10:03Z",
+  "generated_at_utc": "2026-10-13T20:36:34Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -154,8 +154,8 @@
             "home_price": -108
           },
           "consensus_median": {
-            "away_price": -105.0,
-            "home_price": -112.0
+            "away_price": -109.0,
+            "home_price": -110.0
           }
         },
         "home_team": "Detroit Red Wings",
@@ -175,14 +175,14 @@
         "commence_time": "2026-10-13T22:25:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 115,
-            "home_book": "betmgm",
-            "home_price": -130
+            "away_book": "draftkings",
+            "away_price": 114,
+            "home_book": "betonlineag",
+            "home_price": -129
           },
           "consensus_median": {
             "away_price": 112.0,
-            "home_price": -130.0
+            "home_price": -133.0
           }
         },
         "home_team": "Columbus Blue Jackets",
@@ -230,7 +230,7 @@
         "h2h": {
           "best": {
             "away_book": "betrivers",
-            "away_price": 102,
+            "away_price": 105,
             "home_book": "lowvig",
             "home_price": -112
           },
@@ -312,8 +312,8 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 185,
-            "home_book": "betus",
-            "home_price": -195
+            "home_book": "lowvig",
+            "home_price": -200
           },
           "consensus_median": {
             "away_price": 172.0,
@@ -364,8 +364,8 @@
         "commence_time": "2026-10-14T00:25:00Z",
         "h2h": {
           "best": {
-            "away_book": "draftkings",
-            "away_price": -105,
+            "away_book": "betonlineag",
+            "away_price": -106,
             "home_book": "bovada",
             "home_price": -105
           },
@@ -380,7 +380,7 @@
           "best": {
             "over_book": "betonlineag",
             "over_price": -116,
-            "under_book": "bovada",
+            "under_book": "betmgm",
             "under_price": 100
           },
           "line": 6.0
@@ -391,14 +391,14 @@
         "commence_time": "2026-10-14T00:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 101,
+            "away_book": "betrivers",
+            "away_price": 100,
             "home_book": "betonlineag",
-            "home_price": -115
+            "home_price": -113
           },
           "consensus_median": {
             "away_price": -102.0,
-            "home_price": -116.0
+            "home_price": -117.0
           }
         },
         "home_team": "Dallas Stars",
@@ -472,8 +472,8 @@
         "commence_time": "2026-10-14T01:55:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 155,
+            "away_book": "bovada",
+            "away_price": 153,
             "home_book": "lowvig",
             "home_price": -170
           },
@@ -500,7 +500,7 @@
         "h2h": {
           "best": {
             "away_book": "fanduel",
-            "away_price": -125,
+            "away_price": -126,
             "home_book": "lowvig",
             "home_price": 115
           },
@@ -526,8 +526,8 @@
         "commence_time": "2026-10-14T03:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -124,
+            "away_book": "betrivers",
+            "away_price": -120,
             "home_book": "lowvig",
             "home_price": 110
           },
