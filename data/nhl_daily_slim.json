@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-18",
-  "generated_at_utc": "2026-10-18T17:13:54Z",
+  "generated_at_utc": "2026-10-18T18:01:03Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -31,13 +31,13 @@
         "commence_time": "2026-10-18T22:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 165,
+            "away_book": "draftkings",
+            "away_price": 160,
             "home_book": "lowvig",
-            "home_price": -183
+            "home_price": -180
           },
           "consensus_median": {
-            "away_price": 159.0,
+            "away_price": 155.0,
             "home_price": -185.0
           }
         },
@@ -47,8 +47,8 @@
           "best": {
             "over_book": "draftkings",
             "over_price": 102,
-            "under_book": "lowvig",
-            "under_price": -118
+            "under_book": "betus",
+            "under_price": -115
           },
           "line": 6.5
         }
@@ -58,8 +58,8 @@
         "commence_time": "2026-10-19T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betus",
-            "away_price": -210,
+            "away_book": "betonlineag",
+            "away_price": -208,
             "home_book": "betrivers",
             "home_price": 185
           },
@@ -72,10 +72,10 @@
         "id": "CAR_vs_CGY_2026-10-19",
         "totals": {
           "best": {
-            "over_book": "betonlineag",
-            "over_price": -118,
+            "over_book": "mybookieag",
+            "over_price": -119,
             "under_book": "betonlineag",
-            "under_price": 102
+            "under_price": 104
           },
           "line": 6.0
         }
