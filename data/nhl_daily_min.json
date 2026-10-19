@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-19",
-  "generated_at_utc": "2026-10-19T19:45:55Z",
+  "generated_at_utc": "2026-10-19T20:32:09Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -50,9 +50,9 @@
         "h2h": {
           "best": {
             "away_book": "betonlineag",
-            "away_price": 134,
-            "home_book": "betrivers",
-            "home_price": -143
+            "away_price": 133,
+            "home_book": "betus",
+            "home_price": -150
           },
           "consensus_median": {
             "away_price": 130.0,
@@ -77,12 +77,12 @@
         "h2h": {
           "best": {
             "away_book": "betus",
-            "away_price": -235,
+            "away_price": -236,
             "home_book": "lowvig",
             "home_price": 206
           },
           "consensus_median": {
-            "away_price": -244.0,
+            "away_price": -240.0,
             "home_price": 200.0
           }
         },
@@ -103,13 +103,13 @@
         "commence_time": "2026-10-19T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 120,
+            "away_book": "betonlineag",
+            "away_price": 118,
             "home_book": "fanduel",
             "home_price": -130
           },
           "consensus_median": {
-            "away_price": 114.0,
+            "away_price": 115.0,
             "home_price": -134.0
           }
         },
@@ -130,14 +130,14 @@
         "commence_time": "2026-10-20T01:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 160,
-            "home_book": "betrivers",
-            "home_price": -182
+            "away_book": "betrivers",
+            "away_price": 163,
+            "home_book": "betonlineag",
+            "home_price": -183
           },
           "consensus_median": {
-            "away_price": 155.0,
-            "home_price": -184.0
+            "away_price": 159.0,
+            "home_price": -185.0
           }
         },
         "home_team": "Utah Mammoth",
