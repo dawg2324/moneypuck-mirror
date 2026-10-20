@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-20",
-  "generated_at_utc": "2026-10-20T18:25:05Z",
+  "generated_at_utc": "2026-10-20T19:09:22Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -103,8 +103,8 @@
         "commence_time": "2026-10-20T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 133,
+            "away_book": "betonlineag",
+            "away_price": 132,
             "home_book": "betonlineag",
             "home_price": -150
           },
@@ -137,15 +137,15 @@
           },
           "consensus_median": {
             "away_price": -103.0,
-            "home_price": -115.0
+            "home_price": -117.0
           }
         },
         "home_team": "New Jersey Devils",
         "id": "COL_vs_NJD_2026-10-20",
         "totals": {
           "best": {
-            "over_book": "draftkings",
-            "over_price": 100,
+            "over_book": "betrivers",
+            "over_price": 102,
             "under_book": "betus",
             "under_price": -115
           },
@@ -160,10 +160,10 @@
             "away_book": "draftkings",
             "away_price": 130,
             "home_book": "betonlineag",
-            "home_price": -148
+            "home_price": -145
           },
           "consensus_median": {
-            "away_price": 130.0,
+            "away_price": 126.0,
             "home_price": -150.0
           }
         },
@@ -190,8 +190,8 @@
             "home_price": -154
           },
           "consensus_median": {
-            "away_price": 135.0,
-            "home_price": -155.0
+            "away_price": 134.0,
+            "home_price": -156.0
           }
         },
         "home_team": "Washington Capitals",
@@ -213,11 +213,11 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 145,
-            "home_book": "betmgm",
+            "home_book": "lowvig",
             "home_price": -160
           },
           "consensus_median": {
-            "away_price": 142.0,
+            "away_price": 141.0,
             "home_price": -165.0
           }
         },
@@ -226,9 +226,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -117,
-            "under_book": "betrivers",
-            "under_price": 107
+            "over_price": -116,
+            "under_book": "lowvig",
+            "under_price": 100
           },
           "line": 5.5
         }
@@ -238,14 +238,14 @@
         "commence_time": "2026-10-21T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": 125,
+            "away_book": "draftkings",
+            "away_price": 124,
             "home_book": "bovada",
-            "home_price": -135
+            "home_price": -130
           },
           "consensus_median": {
             "away_price": 120.0,
-            "home_price": -141.0
+            "home_price": -140.0
           }
         },
         "home_team": "St Louis Blues",
@@ -272,7 +272,7 @@
           },
           "consensus_median": {
             "away_price": 114.0,
-            "home_price": -134.0
+            "home_price": -133.0
           }
         },
         "home_team": "Edmonton Oilers",
@@ -293,9 +293,9 @@
         "h2h": {
           "best": {
             "away_book": "betrivers",
-            "away_price": -107,
+            "away_price": -106,
             "home_book": "lowvig",
-            "home_price": 100
+            "home_price": 101
           },
           "consensus_median": {
             "away_price": -115.0,
@@ -321,8 +321,8 @@
           "best": {
             "away_book": "draftkings",
             "away_price": -298,
-            "home_book": "lowvig",
-            "home_price": 255
+            "home_book": "bovada",
+            "home_price": 260
           },
           "consensus_median": {
             "away_price": -300.0,
@@ -360,12 +360,12 @@
         "id": "TBL_vs_VGK_2026-10-21",
         "totals": {
           "best": {
-            "over_book": "fanduel",
-            "over_price": 106,
-            "under_book": "betmgm",
-            "under_price": -120
+            "over_book": "lowvig",
+            "over_price": -122,
+            "under_book": "lowvig",
+            "under_price": 106
           },
-          "line": 6.5
+          "line": 6.0
         }
       }
     ],
