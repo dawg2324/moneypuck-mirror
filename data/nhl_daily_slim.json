@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-21",
-  "generated_at_utc": "2026-10-21T18:31:45Z",
+  "generated_at_utc": "2026-10-21T19:14:44Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -31,14 +31,14 @@
         "commence_time": "2026-10-21T23:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": 163,
-            "home_book": "betus",
-            "home_price": -180
+            "away_book": "betonlineag",
+            "away_price": 168,
+            "home_book": "betrivers",
+            "home_price": -190
           },
           "consensus_median": {
-            "away_price": 158.0,
-            "home_price": -190.0
+            "away_price": 165.0,
+            "home_price": -192.0
           }
         },
         "home_team": "Buffalo Sabres",
@@ -59,8 +59,8 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": -108,
-            "home_book": "lowvig",
+            "away_price": -107,
+            "home_book": "betrivers",
             "home_price": -106
           },
           "consensus_median": {
@@ -73,9 +73,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -117,
-            "under_book": "lowvig",
-            "under_price": 101
+            "over_price": -108,
+            "under_book": "betrivers",
+            "under_price": 100
           },
           "line": 5.5
         }
