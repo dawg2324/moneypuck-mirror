@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-24",
-  "generated_at_utc": "2026-10-24T17:19:54Z",
+  "generated_at_utc": "2026-10-24T18:03:47Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -121,26 +121,26 @@
         "commence_time": "2026-10-24T17:08:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 110,
-            "home_book": "betmgm",
-            "home_price": -110
+            "away_book": "draftkings",
+            "away_price": 400,
+            "home_book": "fanduel",
+            "home_price": -590
           },
           "consensus_median": {
-            "away_price": -103.5,
-            "home_price": -125.0
+            "away_price": 400.0,
+            "home_price": -620.0
           }
         },
         "home_team": "Philadelphia Flyers",
         "id": "ANA_vs_PHI_2026-10-24",
         "totals": {
           "best": {
-            "over_book": "draftkings",
-            "over_price": 130,
-            "under_book": "betonlineag",
-            "under_price": 105
+            "over_book": "bovada",
+            "over_price": 115,
+            "under_book": "fanduel",
+            "under_price": -135
           },
-          "line": 5.5
+          "line": 6.5
         }
       },
       {
@@ -150,11 +150,11 @@
           "best": {
             "away_book": "betonlineag",
             "away_price": 170,
-            "home_book": "bovada",
+            "home_book": "betrivers",
             "home_price": -190
           },
           "consensus_median": {
-            "away_price": 163.0,
+            "away_price": 165.0,
             "home_price": -194.0
           }
         },
@@ -202,8 +202,8 @@
         "commence_time": "2026-10-24T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "draftkings",
-            "away_price": 160,
+            "away_book": "bovada",
+            "away_price": 163,
             "home_book": "lowvig",
             "home_price": -180
           },
@@ -219,7 +219,7 @@
             "over_book": "fanduel",
             "over_price": -106,
             "under_book": "lowvig",
-            "under_price": -108
+            "under_price": -107
           },
           "line": 6.5
         }
@@ -246,7 +246,7 @@
             "over_book": "betrivers",
             "over_price": -115,
             "under_book": "lowvig",
-            "under_price": 104
+            "under_price": 106
           },
           "line": 6.5
         }
@@ -283,8 +283,8 @@
         "commence_time": "2026-10-24T23:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "bovada",
-            "away_price": -130,
+            "away_book": "lowvig",
+            "away_price": -133,
             "home_book": "lowvig",
             "home_price": 117
           },
@@ -297,9 +297,9 @@
         "id": "VGK_vs_CBJ_2026-10-24",
         "totals": {
           "best": {
-            "over_book": "lowvig",
-            "over_price": -114,
-            "under_book": "betmgm",
+            "over_book": "bovada",
+            "over_price": -115,
+            "under_book": "lowvig",
             "under_price": 100
           },
           "line": 6.0
@@ -352,7 +352,7 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": 102,
+            "over_price": 100,
             "under_book": "betrivers",
             "under_price": -109
           },
@@ -364,7 +364,7 @@
         "commence_time": "2026-10-25T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
+            "away_book": "bovada",
             "away_price": 125,
             "home_book": "betrivers",
             "home_price": -139
@@ -379,7 +379,7 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -108,
+            "over_price": -109,
             "under_book": "fanduel",
             "under_price": -102
           },
@@ -418,13 +418,13 @@
         "commence_time": "2026-10-25T02:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -153,
+            "away_book": "mybookieag",
+            "away_price": -156,
             "home_book": "lowvig",
-            "home_price": 135
+            "home_price": 139
           },
           "consensus_median": {
-            "away_price": -155.0,
+            "away_price": -160.0,
             "home_price": 135.0
           }
         },
