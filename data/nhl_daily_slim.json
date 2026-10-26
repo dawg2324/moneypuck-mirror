@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-26",
-  "generated_at_utc": "2026-10-26T19:50:05Z",
+  "generated_at_utc": "2026-10-26T20:25:46Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -101,7 +101,7 @@
           },
           "consensus_median": {
             "away_price": 148.0,
-            "home_price": -171.0
+            "home_price": -172.0
           }
         },
         "home_team": "Edmonton Oilers",
