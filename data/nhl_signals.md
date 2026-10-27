@@ -1,12 +1,12 @@
 data_date_et: 2026-10-27
-generated_at_utc: 2026-10-27T19:20:05Z
+generated_at_utc: 2026-10-27T20:00:58Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=10, game_rest_count=10, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 10:10 PM ET OTT @ VGK | OTT ML 136 (draftkings) | model 59.2% | implied 42.4% | edge +16.8pp | fair -145 | rest_adv_home 0 (rest not applied to ML)
+1) 10:10 PM ET OTT @ VGK | OTT ML 142 (bovada) | model 59.2% | implied 41.3% | edge +17.9pp | fair -145 | rest_adv_home 0 (rest not applied to ML)
 2) 10:10 PM ET VAN @ ANA | VAN ML 181 (betonlineag) | model 51.9% | implied 35.6% | edge +16.3pp | fair -108 | rest_adv_home 0 (rest not applied to ML)
 3) 8:11 PM ET LAK @ CHI | LAK ML -103 (betonlineag) | model 64.6% | implied 50.7% | edge +13.8pp | fair -182 | rest_adv_home 0 (rest not applied to ML)
 4) 9:10 PM ET MIN @ UTA | MIN ML 108 (betrivers) | model 59.4% | implied 48.1% | edge +11.3pp | fair -146 | rest_adv_home 0 (rest not applied to ML)
