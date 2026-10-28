@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-28",
-  "generated_at_utc": "2026-10-28T19:26:04Z",
+  "generated_at_utc": "2026-10-28T20:12:31Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -50,13 +50,13 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": 210,
+            "away_price": 206,
             "home_book": "betus",
             "home_price": -225
           },
           "consensus_median": {
             "away_price": 195.0,
-            "home_price": -240.0
+            "home_price": -238.0
           }
         },
         "home_team": "Washington Capitals",
@@ -76,8 +76,8 @@
         "commence_time": "2026-10-29T00:40:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": 163,
+            "away_book": "draftkings",
+            "away_price": 160,
             "home_book": "betus",
             "home_price": -175
           },
@@ -133,7 +133,7 @@
             "away_book": "draftkings",
             "away_price": -135,
             "home_book": "betrivers",
-            "home_price": 123
+            "home_price": 120
           },
           "consensus_median": {
             "away_price": -135.0,

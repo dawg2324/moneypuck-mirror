@@ -1,13 +1,13 @@
 data_date_et: 2026-10-28
-generated_at_utc: 2026-10-28T19:26:04Z
+generated_at_utc: 2026-10-28T20:12:31Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=4, game_rest_count=4, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:40 PM ET PHI @ WSH | PHI ML 210 (lowvig) | model 58.2% | implied 32.3% | edge +26.0pp | fair -139 | rest_adv_home 0 (rest not applied to ML)
-2) 8:40 PM ET CGY @ EDM | CGY ML 163 (betrivers) | model 52.6% | implied 38.0% | edge +14.6pp | fair -111 | rest_adv_home 0 (rest not applied to ML)
+1) 7:40 PM ET PHI @ WSH | PHI ML 206 (lowvig) | model 58.2% | implied 32.7% | edge +25.6pp | fair -139 | rest_adv_home 0 (rest not applied to ML)
+2) 8:40 PM ET CGY @ EDM | CGY ML 160 (draftkings) | model 52.6% | implied 38.5% | edge +14.1pp | fair -111 | rest_adv_home 0 (rest not applied to ML)
 3) 9:10 PM ET NJD @ COL | NJD ML 128 (betrivers) | model 52.3% | implied 43.9% | edge +8.4pp | fair -110 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
