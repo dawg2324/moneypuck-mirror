@@ -1,5 +1,5 @@
 data_date_et: 2026-10-29
-generated_at_utc: 2026-10-29T19:30:08Z
+generated_at_utc: 2026-10-29T20:12:29Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=10, game_rest_count=10, teams_count=32, starters_count=0
@@ -10,9 +10,9 @@ MONEYLINE SIGNALS
 2) 7:10 PM ET WPG @ TBL | WPG ML 195 (betrivers) | model 52.2% | implied 33.9% | edge +18.3pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
 3) 8:10 PM ET NYI @ MIN | NYI ML 168 (bovada) | model 53.8% | implied 37.3% | edge +16.5pp | fair -116 | rest_adv_home 0 (rest not applied to ML)
 4) 10:10 PM ET VAN @ SJS | VAN ML 148 (lowvig) | model 55.2% | implied 40.3% | edge +14.8pp | fair -123 | rest_adv_home 0 (rest not applied to ML)
-5) 7:40 PM ET CHI @ DET | CHI ML 136 (draftkings) | model 51.9% | implied 42.4% | edge +9.6pp | fair -108 | rest_adv_home 0 (rest not applied to ML)
-6) 10:10 PM ET OTT @ LAK | OTT ML -115 (betus) | model 62.0% | implied 53.5% | edge +8.5pp | fair -163 | rest_adv_home 0 (rest not applied to ML)
-7) 8:10 PM ET WSH @ NSH | WSH ML -110 (fanduel) | model 60.2% | implied 52.4% | edge +7.8pp | fair -151 | rest_adv_home 0 (rest not applied to ML)
+5) 7:40 PM ET CHI @ DET | CHI ML 137 (bovada) | model 51.9% | implied 42.2% | edge +9.7pp | fair -108 | rest_adv_home 0 (rest not applied to ML)
+6) 8:10 PM ET WSH @ NSH | WSH ML -108 (bovada) | model 60.2% | implied 51.9% | edge +8.3pp | fair -151 | rest_adv_home 0 (rest not applied to ML)
+7) 10:10 PM ET OTT @ LAK | OTT ML -118 (betrivers) | model 62.0% | implied 54.1% | edge +7.9pp | fair -163 | rest_adv_home 0 (rest not applied to ML)
 8) 8:10 PM ET BOS @ STL | BOS ML -104 (betonlineag) | model 57.5% | implied 51.0% | edge +6.6pp | fair -136 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
