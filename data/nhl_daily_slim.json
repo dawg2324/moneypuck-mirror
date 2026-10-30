@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-10-30",
-  "generated_at_utc": "2026-10-30T19:07:31Z",
+  "generated_at_utc": "2026-10-30T19:54:27Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -40,8 +40,8 @@
         "commence_time": "2026-10-30T22:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "lowvig",
-            "away_price": -104,
+            "away_book": "bovada",
+            "away_price": -103,
             "home_book": "lowvig",
             "home_price": -110
           },
@@ -69,11 +69,11 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 200,
-            "home_book": "betonlineag",
-            "home_price": -218
+            "home_book": "betus",
+            "home_price": -215
           },
           "consensus_median": {
-            "away_price": 190.0,
+            "away_price": 189.0,
             "home_price": -225.0
           }
         },
@@ -96,12 +96,12 @@
           "best": {
             "away_book": "betonlineag",
             "away_price": -112,
-            "home_book": "fanduel",
-            "home_price": 100
+            "home_book": "betonlineag",
+            "home_price": -102
           },
           "consensus_median": {
             "away_price": -115.0,
-            "home_price": -103.0
+            "home_price": -105.0
           }
         },
         "home_team": "Calgary Flames",
@@ -111,7 +111,7 @@
             "over_book": "betrivers",
             "over_price": 100,
             "under_book": "betonlineag",
-            "under_price": -114
+            "under_price": -113
           },
           "line": 6.5
         }
