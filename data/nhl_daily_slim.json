@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-01",
-  "generated_at_utc": "2026-11-01T18:51:10Z",
+  "generated_at_utc": "2026-11-01T19:32:42Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -59,13 +59,13 @@
         "h2h": {
           "best": {
             "away_book": "betmgm",
-            "away_price": 375,
-            "home_book": "fanduel",
-            "home_price": -500
+            "away_price": 3300,
+            "home_book": "betmgm",
+            "home_price": -10000
           },
           "consensus_median": {
-            "away_price": 340.0,
-            "home_price": -500.0
+            "away_price": 3300.0,
+            "home_price": -10000.0
           }
         },
         "home_team": "Carolina Hurricanes",
@@ -73,11 +73,11 @@
         "totals": {
           "best": {
             "over_book": "betmgm",
-            "over_price": 140,
-            "under_book": "draftkings",
-            "under_price": -145
+            "over_price": 120,
+            "under_book": "mybookieag",
+            "under_price": -111
           },
-          "line": 5.5
+          "line": 7.5
         }
       },
       {
@@ -101,8 +101,8 @@
           "best": {
             "over_book": "betus",
             "over_price": -115,
-            "under_book": "bovada",
-            "under_price": 102
+            "under_book": "betonlineag",
+            "under_price": 101
           },
           "line": 6.0
         }
@@ -112,14 +112,14 @@
         "commence_time": "2026-11-01T21:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betrivers",
-            "away_price": -177,
+            "away_book": "betus",
+            "away_price": -175,
             "home_book": "lowvig",
             "home_price": 158
           },
           "consensus_median": {
-            "away_price": -181.0,
-            "home_price": 154.0
+            "away_price": -180.0,
+            "home_price": 150.0
           }
         },
         "home_team": "Philadelphia Flyers",
@@ -145,8 +145,8 @@
             "home_price": -122
           },
           "consensus_median": {
-            "away_price": 107.0,
-            "home_price": -128.0
+            "away_price": 106.0,
+            "home_price": -125.0
           }
         },
         "home_team": "New York Rangers",
@@ -181,7 +181,7 @@
         "totals": {
           "best": {
             "over_book": "fanduel",
-            "over_price": -134,
+            "over_price": -132,
             "under_book": "lowvig",
             "under_price": 117
           },

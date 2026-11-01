@@ -1,5 +1,5 @@
 data_date_et: 2026-11-01
-generated_at_utc: 2026-11-01T18:51:10Z
+generated_at_utc: 2026-11-01T19:32:42Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=5, game_rest_count=5, teams_count=32, starters_count=0
@@ -12,7 +12,7 @@ MONEYLINE SIGNALS
 4) 4:10 PM ET UTA @ PHI | PHI ML 158 (lowvig) | model 42.1% | implied 38.8% | edge +3.4pp | fair 137 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
-1) 1:10 PM ET WPG @ CAR | Over 5.5 140 (betmgm) | model 61.4% | implied 41.7% | edge +19.7pp | fair -159 | mu_total 6.38 | line half(5.5) | rest_adv_home 0 (rest applied)
+1) 1:10 PM ET WPG @ CAR | Under 7.5 -111 (mybookieag) | model 69.0% | implied 52.6% | edge +16.4pp | fair -222 | mu_total 6.38 | line half(7.5) | rest_adv_home 0 (rest applied)
 2) 8:10 PM ET OTT @ ANA | Under 6.5 117 (lowvig) | model 53.8% | implied 46.1% | edge +7.8pp | fair -117 | mu_total 6.43 | line half(6.5) | rest_adv_home 0 (rest applied)
 3) 6:10 PM ET EDM @ NYR | Under 6.5 101 (lowvig) | model 55.4% | implied 49.8% | edge +5.7pp | fair -124 | mu_total 6.33 | line half(6.5) | rest_adv_home 0 (rest applied)
 
