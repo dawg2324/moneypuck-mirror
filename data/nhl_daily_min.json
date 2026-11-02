@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-02",
-  "generated_at_utc": "2026-11-02T22:41:24Z",
+  "generated_at_utc": "2026-11-02T23:04:01Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -56,7 +56,7 @@
           },
           "consensus_median": {
             "away_price": -115.0,
-            "home_price": -104.0
+            "home_price": -103.0
           }
         },
         "home_team": "Boston Bruins",
@@ -78,7 +78,7 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 160,
-            "home_book": "lowvig",
+            "home_book": "betus",
             "home_price": -180
           },
           "consensus_median": {
