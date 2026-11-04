@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-04",
-  "generated_at_utc": "2026-11-04T20:43:50Z",
+  "generated_at_utc": "2026-11-04T21:14:56Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -50,13 +50,13 @@
         "h2h": {
           "best": {
             "away_book": "lowvig",
-            "away_price": 111,
-            "home_book": "betus",
-            "home_price": -125
+            "away_price": 109,
+            "home_book": "lowvig",
+            "home_price": -123
           },
           "consensus_median": {
-            "away_price": 108.0,
-            "home_price": -127.0
+            "away_price": 105.0,
+            "home_price": -125.0
           }
         },
         "home_team": "Buffalo Sabres",
@@ -66,7 +66,7 @@
             "over_book": "fanduel",
             "over_price": -118,
             "under_book": "lowvig",
-            "under_price": 105
+            "under_price": 107
           },
           "line": 6.5
         }
@@ -117,10 +117,10 @@
         "id": "CGY_vs_SEA_2026-11-05",
         "totals": {
           "best": {
-            "over_book": "betus",
-            "over_price": -115,
+            "over_book": "mybookieag",
+            "over_price": -119,
             "under_book": "bovada",
-            "under_price": 102
+            "under_price": 105
           },
           "line": 6.0
         }
@@ -132,12 +132,12 @@
           "best": {
             "away_book": "draftkings",
             "away_price": 140,
-            "home_book": "betus",
-            "home_price": -155
+            "home_book": "betrivers",
+            "home_price": -157
           },
           "consensus_median": {
-            "away_price": 138.0,
-            "home_price": -164.0
+            "away_price": 137.0,
+            "home_price": -160.0
           }
         },
         "home_team": "Los Angeles Kings",
