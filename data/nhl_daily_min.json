@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-05",
-  "generated_at_utc": "2026-11-05T20:59:33Z",
+  "generated_at_utc": "2026-11-05T21:26:45Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -132,8 +132,8 @@
           "best": {
             "away_book": "betmgm",
             "away_price": -190,
-            "home_book": "betonlineag",
-            "home_price": 171
+            "home_book": "bovada",
+            "home_price": 173
           },
           "consensus_median": {
             "away_price": -195.0,
@@ -225,10 +225,10 @@
         "id": "VGK_vs_DET_2026-11-06",
         "totals": {
           "best": {
-            "over_book": "mybookieag",
-            "over_price": -109,
+            "over_book": "betus",
+            "over_price": -110,
             "under_book": "betonlineag",
-            "under_price": -105
+            "under_price": -104
           },
           "line": 6.0
         }
@@ -238,8 +238,8 @@
         "commence_time": "2026-11-06T00:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
-            "away_price": 191,
+            "away_book": "bovada",
+            "away_price": 195,
             "home_book": "betrivers",
             "home_price": -215
           },

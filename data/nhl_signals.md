@@ -1,12 +1,12 @@
 data_date_et: 2026-11-05
-generated_at_utc: 2026-11-05T20:59:33Z
+generated_at_utc: 2026-11-05T21:26:45Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=10, game_rest_count=10, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:10 PM ET STL @ NJD | STL ML 191 (betonlineag) | model 54.5% | implied 34.4% | edge +20.1pp | fair -120 | rest_adv_home 0 (rest not applied to ML)
+1) 7:10 PM ET STL @ NJD | STL ML 195 (bovada) | model 54.5% | implied 33.9% | edge +20.6pp | fair -120 | rest_adv_home 0 (rest not applied to ML)
 2) 7:10 PM ET VAN @ WPG | VAN ML 185 (betrivers) | model 54.5% | implied 35.1% | edge +19.4pp | fair -120 | rest_adv_home 0 (rest not applied to ML)
 3) 8:10 PM ET ANA @ EDM | ANA ML 164 (betonlineag) | model 57.0% | implied 37.9% | edge +19.2pp | fair -133 | rest_adv_home 0 (rest not applied to ML)
 4) 7:10 PM ET PHI @ NYR | PHI ML 130 (betrivers) | model 62.0% | implied 43.5% | edge +18.5pp | fair -163 | rest_adv_home 0 (rest not applied to ML)
