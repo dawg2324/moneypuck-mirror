@@ -1,17 +1,25 @@
-data_date_et: 2026-11-06
-generated_at_utc: 2026-11-06T20:49:40Z
+data_date_et: 2026-11-07
+generated_at_utc: 2026-11-07T18:38:12Z
 schema_version: 1.0.14
 
-counts: odds_games_slim_count=3, game_rest_count=3, teams_count=32, starters_count=0
+counts: odds_games_slim_count=11, game_rest_count=11, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 8:10 PM ET SJS @ MIN | SJS ML 232 (betonlineag) | model 53.6% | implied 30.1% | edge +23.4pp | fair -115 | rest_adv_home 0 (rest not applied to ML)
-2) 7:10 PM ET CBJ @ BUF | CBJ ML 149 (betonlineag) | model 58.5% | implied 40.2% | edge +18.3pp | fair -141 | rest_adv_home 0 (rest not applied to ML)
-3) 8:10 PM ET ANA @ CGY | ANA ML 127 (lowvig) | model 62.3% | implied 44.1% | edge +18.2pp | fair -165 | rest_adv_home 0 (rest not applied to ML)
+1) 9:10 PM ET DET @ COL | DET ML 195 (betrivers) | model 51.6% | implied 33.9% | edge +17.7pp | fair -106 | rest_adv_home 0 (rest not applied to ML)
+2) 9:10 PM ET PIT @ LAK | PIT ML 106 (betonlineag) | model 58.2% | implied 48.5% | edge +9.7pp | fair -140 | rest_adv_home 0 (rest not applied to ML)
+3) 1:08 PM ET STL @ NSH | NSH ML 190 (betmgm) | model 42.5% | implied 34.5% | edge +8.0pp | fair 135 | rest_adv_home 0 (rest not applied to ML)
+4) 12:38 PM ET FLA @ WSH | WSH ML 175 (betmgm) | model 42.9% | implied 36.4% | edge +6.5pp | fair 133 | rest_adv_home 0 (rest not applied to ML)
+5) 8:10 PM ET TBL @ MIN | TBL ML -134 (fanduel) | model 59.8% | implied 57.3% | edge +2.5pp | fair -149 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
-No qualified signals under current thresholds.
+1) 7:10 PM ET UTA @ OTT | Under 6.5 101 (betonlineag) | model 58.2% | implied 49.8% | edge +8.5pp | fair -139 | mu_total 6.15 | line half(6.5) | rest_adv_home 0 (rest applied)
+2) 12:38 PM ET FLA @ WSH | Under 7.5 -150 (betmgm) | model 67.5% | implied 60.0% | edge +7.5pp | fair -208 | mu_total 6.48 | line half(7.5) | rest_adv_home 0 (rest applied)
+3) 5:10 PM ET NYR @ SEA | Under 6.5 -115 (betonlineag) | model 60.3% | implied 53.5% | edge +6.8pp | fair -152 | mu_total 6.02 | line half(6.5) | rest_adv_home 0 (rest applied)
+4) 8:10 PM ET TBL @ MIN | Under 6.5 -101 (lowvig) | model 55.7% | implied 50.2% | edge +5.4pp | fair -126 | mu_total 6.31 | line half(6.5) | rest_adv_home 0 (rest applied)
+5) 9:10 PM ET PIT @ LAK | Under 6.5 -110 (betrivers) | model 57.2% | implied 52.4% | edge +4.8pp | fair -133 | mu_total 6.22 | line half(6.5) | rest_adv_home 0 (rest applied)
+6) 1:08 PM ET STL @ NSH | Over 5.5 -105 (betmgm) | model 56.0% | implied 51.2% | edge +4.8pp | fair -127 | mu_total 6.03 | line half(5.5) | rest_adv_home 0 (rest applied)
+7) 9:10 PM ET DET @ COL | Under 6.5 -112 (bovada) | model 55.0% | implied 52.8% | edge +2.2pp | fair -122 | mu_total 6.35 | line half(6.5) | rest_adv_home 0 (rest applied)
 
 SKIPPED GAMES (short reasons)
 None
