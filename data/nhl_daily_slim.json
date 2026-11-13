@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-13",
-  "generated_at_utc": "2026-11-13T20:49:56Z",
+  "generated_at_utc": "2026-11-13T21:23:10Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -61,10 +61,10 @@
             "away_book": "betrivers",
             "away_price": 138,
             "home_book": "lowvig",
-            "home_price": -151
+            "home_price": -152
           },
           "consensus_median": {
-            "away_price": 134.0,
+            "away_price": 135.0,
             "home_price": -160.0
           }
         },
