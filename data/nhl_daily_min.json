@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-16",
-  "generated_at_utc": "2026-11-16T23:17:45Z",
+  "generated_at_utc": "2026-11-16T23:42:49Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -24,8 +24,8 @@
           "best": {
             "away_book": "betrivers",
             "away_price": 290,
-            "home_book": "betmgm",
-            "home_price": -325
+            "home_book": "fanduel",
+            "home_price": -320
           },
           "consensus_median": {
             "away_price": 270.0,
@@ -36,9 +36,9 @@
         "id": "VAN_vs_UTA_2026-11-17",
         "totals": {
           "best": {
-            "over_book": "betrivers",
-            "over_price": -110,
-            "under_book": "draftkings",
+            "over_book": "betonlineag",
+            "over_price": -113,
+            "under_book": "fanduel",
             "under_price": -102
           },
           "line": 6.5
