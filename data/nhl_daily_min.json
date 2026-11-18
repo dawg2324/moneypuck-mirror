@@ -1,6 +1,6 @@
 {
   "data_date_et": "2026-11-18",
-  "generated_at_utc": "2026-11-18T21:47:29Z",
+  "generated_at_utc": "2026-11-18T22:32:37Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [
@@ -46,9 +46,9 @@
         "totals": {
           "best": {
             "over_book": "lowvig",
-            "over_price": -108,
+            "over_price": -106,
             "under_book": "lowvig",
-            "under_price": -108
+            "under_price": -110
           },
           "line": 6.0
         }
@@ -58,10 +58,10 @@
         "commence_time": "2026-11-19T03:10:00Z",
         "h2h": {
           "best": {
-            "away_book": "betonlineag",
+            "away_book": "betrivers",
             "away_price": -107,
-            "home_book": "bovada",
-            "home_price": -105
+            "home_book": "betonlineag",
+            "home_price": -103
           },
           "consensus_median": {
             "away_price": -110.0,
@@ -73,9 +73,9 @@
         "totals": {
           "best": {
             "over_book": "betonlineag",
-            "over_price": 108,
-            "under_book": "bovada",
-            "under_price": -117
+            "over_price": 104,
+            "under_book": "draftkings",
+            "under_price": -118
           },
           "line": 6.5
         }
