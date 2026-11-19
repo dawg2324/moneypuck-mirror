@@ -1,5 +1,5 @@
 data_date_et: 2026-11-19
-generated_at_utc: 2026-11-19T22:03:29Z
+generated_at_utc: 2026-11-19T22:38:25Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=11, game_rest_count=11, teams_count=32, starters_count=0
@@ -7,13 +7,13 @@ starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
 1) 9:50 PM ET VAN @ SEA | VAN ML 145 (betrivers) | model 56.3% | implied 40.8% | edge +15.5pp | fair -129 | rest_adv_home 0 (rest not applied to ML)
-2) 7:10 PM ET LAK @ TOR | LAK ML 105 (betmgm) | model 63.4% | implied 48.8% | edge +14.6pp | fair -173 | rest_adv_home 0 (rest not applied to ML)
+2) 7:10 PM ET LAK @ TOR | LAK ML 105 (bovada) | model 63.4% | implied 48.8% | edge +14.6pp | fair -173 | rest_adv_home 0 (rest not applied to ML)
 3) 7:10 PM ET PHI @ OTT | PHI ML 140 (draftkings) | model 54.0% | implied 41.7% | edge +12.4pp | fair -118 | rest_adv_home 0 (rest not applied to ML)
 4) 7:10 PM ET BUF @ WSH | BUF ML 122 (bovada) | model 56.6% | implied 45.0% | edge +11.5pp | fair -130 | rest_adv_home 0 (rest not applied to ML)
-5) 7:40 PM ET EDM @ TBL | EDM ML 123 (betonlineag) | model 55.4% | implied 44.8% | edge +10.5pp | fair -124 | rest_adv_home 0 (rest not applied to ML)
-6) 7:10 PM ET NYI @ WPG | NYI ML 103 (betonlineag) | model 57.5% | implied 49.3% | edge +8.3pp | fair -135 | rest_adv_home 0 (rest not applied to ML)
-7) 10:10 PM ET DAL @ VGK | DAL ML 106 (betonlineag) | model 56.3% | implied 48.5% | edge +7.8pp | fair -129 | rest_adv_home 0 (rest not applied to ML)
-8) 9:10 PM ET ANA @ COL | ANA ML 110 (draftkings) | model 52.1% | implied 47.6% | edge +4.5pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
+5) 7:40 PM ET EDM @ TBL | EDM ML 122 (bovada) | model 55.4% | implied 45.0% | edge +10.3pp | fair -124 | rest_adv_home 0 (rest not applied to ML)
+6) 7:10 PM ET NYI @ WPG | NYI ML 104 (betonlineag) | model 57.5% | implied 49.0% | edge +8.5pp | fair -135 | rest_adv_home 0 (rest not applied to ML)
+7) 10:10 PM ET DAL @ VGK | DAL ML 107 (bovada) | model 56.3% | implied 48.3% | edge +8.0pp | fair -129 | rest_adv_home 0 (rest not applied to ML)
+8) 9:10 PM ET ANA @ COL | ANA ML 112 (fanduel) | model 52.1% | implied 47.2% | edge +5.0pp | fair -109 | rest_adv_home 0 (rest not applied to ML)
 9) 8:10 PM ET MIN @ CGY | CGY ML 206 (betonlineag) | model 36.3% | implied 32.7% | edge +3.6pp | fair 176 | rest_adv_home 0 (rest not applied to ML)
 10) 7:10 PM ET STL @ PIT | STL ML -107 (betrivers) | model 54.3% | implied 51.7% | edge +2.6pp | fair -119 | rest_adv_home 0 (rest not applied to ML)
 
