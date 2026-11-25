@@ -1,20 +1,20 @@
 data_date_et: 2026-11-25
-generated_at_utc: 2026-11-25T23:00:58Z
+generated_at_utc: 2026-11-25T23:34:03Z
 schema_version: 1.0.14
 
 counts: odds_games_slim_count=13, game_rest_count=13, teams_count=32, starters_count=0
 starters: No starters posted yet (signals ignore goalie adjustments).
 
 MONEYLINE SIGNALS
-1) 7:30 PM ET VAN @ DET | VAN ML 200 (bovada) | model 52.6% | implied 33.3% | edge +19.2pp | fair -111 | rest_adv_home 1 (rest not applied to ML)
-2) 7:00 PM ET WPG @ BOS | WPG ML 142 (draftkings) | model 59.2% | implied 41.3% | edge +17.9pp | fair -145 | rest_adv_home 2 (rest not applied to ML)
+1) 7:00 PM ET WPG @ BOS | WPG ML 147 (bovada) | model 59.2% | implied 40.5% | edge +18.7pp | fair -145 | rest_adv_home 2 (rest not applied to ML)
+2) 7:30 PM ET VAN @ DET | VAN ML 195 (lowvig) | model 52.6% | implied 33.9% | edge +18.7pp | fair -111 | rest_adv_home 1 (rest not applied to ML)
 3) 7:00 PM ET PHI @ WSH | PHI ML 138 (betrivers) | model 58.2% | implied 42.0% | edge +16.2pp | fair -139 | rest_adv_home 0 (rest not applied to ML)
-4) 7:00 PM ET OTT @ FLA | OTT ML 107 (betrivers) | model 62.7% | implied 48.3% | edge +14.4pp | fair -168 | rest_adv_home 2 (rest not applied to ML)
+4) 7:00 PM ET OTT @ FLA | OTT ML 107 (betonlineag) | model 62.7% | implied 48.3% | edge +14.4pp | fair -168 | rest_adv_home 2 (rest not applied to ML)
 5) 8:00 PM ET NSH @ DAL | NSH ML 149 (lowvig) | model 54.1% | implied 40.2% | edge +13.9pp | fair -118 | rest_adv_home -1 (rest not applied to ML)
 6) 7:00 PM ET CGY @ PIT | CGY ML 153 (bovada) | model 53.0% | implied 39.5% | edge +13.5pp | fair -113 | rest_adv_home 1 (rest not applied to ML)
 7) 9:50 PM ET CHI @ SEA | CHI ML 135 (bovada) | model 55.7% | implied 42.6% | edge +13.2pp | fair -126 | rest_adv_home 0 (rest not applied to ML)
-8) 8:10 PM ET UTA @ MIN | UTA ML 125 (lowvig) | model 56.4% | implied 44.4% | edge +12.0pp | fair -130 | rest_adv_home 0 (rest not applied to ML)
-9) 7:00 PM ET STL @ NYI | STL ML 115 (betonlineag) | model 57.5% | implied 46.5% | edge +11.0pp | fair -135 | rest_adv_home -1 (rest not applied to ML)
+8) 7:00 PM ET STL @ NYI | STL ML 123 (betrivers) | model 57.5% | implied 44.8% | edge +12.7pp | fair -135 | rest_adv_home -1 (rest not applied to ML)
+9) 8:10 PM ET UTA @ MIN | UTA ML 127 (bovada) | model 56.4% | implied 44.1% | edge +12.4pp | fair -130 | rest_adv_home 0 (rest not applied to ML)
 10) 7:00 PM ET NYR @ BUF | NYR ML 118 (betrivers) | model 55.5% | implied 45.9% | edge +9.7pp | fair -125 | rest_adv_home 0 (rest not applied to ML)
 
 TOTALS SIGNALS
