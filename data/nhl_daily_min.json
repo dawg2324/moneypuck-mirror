@@ -1,6 +1,6 @@
 {
-  "data_date_et": "2026-11-26",
-  "generated_at_utc": "2026-11-26T23:45:11Z",
+  "data_date_et": "2026-11-27",
+  "generated_at_utc": "2026-11-27T22:36:47Z",
   "schema_version": "1.0.14",
   "slim": {
     "game_rest": [],
@@ -183,8 +183,12 @@
       "ok": true
     },
     "starters": {
-      "error": "upstream starters not a list",
-      "ok": false
+      "games_found": 3,
+      "note": "no starters posted yet",
+      "ok": true,
+      "source": "fallback_scrape",
+      "upstream_keyerror": "'Utah Mammoth'",
+      "url": "https://www.dailyfaceoff.com/starting-goalies/2026-11-27"
     },
     "teams": {
       "ok": true
